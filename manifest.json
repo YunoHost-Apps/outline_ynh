@@ -1,6 +1,6 @@
 {
-    "name": "Example app",
-    "id": "example",
+    "name": "Outline wiki",
+    "id": "outline",
     "packaging_format": 1,
     "description": {
         "en": "An open, extensible, wiki for your team built using React and Node.js.",
