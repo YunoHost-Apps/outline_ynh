@@ -25,7 +25,7 @@
     },
     "multi_instance": false,
     "services": [
-        "nginx",
+        "nginx"
     ],
     "arguments": {
         "install" : [
