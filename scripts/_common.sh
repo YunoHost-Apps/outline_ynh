@@ -5,7 +5,7 @@
 #=================================================
 
 # dependencies used by the app
-pkg_dependencies="postgresql postgresql-client redis-server redis-tools webpack-cli"
+pkg_dependencies="postgresql postgresql-client redis-server redis-tools"
 
 NODEJS_VERSION=14
 #=================================================
