@@ -1,13 +1,17 @@
 [Unit]
-Description=Small description of the service
-After=network.target
+Description=Outline server
+After=network.target postgresql.service redis-server.service
 
 [Service]
 Type=simple
+Environment=NODE_ENV=production
+
+
 User=__APP__
 Group=__APP__
 WorkingDirectory=__FINALPATH__/
 ExecStart=__FINALPATH__/script
+### TODO : ADD SERVER START
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 

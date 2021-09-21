@@ -1,4 +1,4 @@
-SOURCE_URL=url of app's source
+SOURCE_URL=https://github.com/outline/outline/archive/refs/tags/v0.59.0.tar.gz
 SOURCE_SUM=sha256 checksum
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
