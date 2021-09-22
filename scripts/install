@@ -141,7 +141,7 @@ ynh_script_progression --message="Creating a PostgreSQL database..." --time --we
 ###		- Remove also the section "REMOVE THE MYSQL DATABASE" in the remove script
 ###		- As well as the section "RESTORE THE MYSQL DATABASE" in the restore script
 
-db_name=$app
+db_name="outline_${app}"
 db_user=$app
 db_pwd=$(ynh_string_random --length=30)
 ynh_app_setting_set --app=$app --key=db_name --value=$db_name
