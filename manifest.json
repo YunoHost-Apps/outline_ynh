@@ -54,6 +54,14 @@
                 },
                 "choices": ["fr", "en"],
                 "default": "fr"
+            },
+            {
+                "name": "slackkey",
+                "type": "string"
+            },
+            {
+                "name": "slacksecret",
+                "type": "string"
             }
         ]
     }
