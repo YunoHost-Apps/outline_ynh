@@ -4,13 +4,12 @@ After=network.target postgresql.service redis-server.service
 
 [Service]
 Type=simple
-Environment=NODE_ENV=production
-
 User=__APP__
 Group=__APP__
 WorkingDirectory=__FINALPATH__/
+Environment="NODE_ENV=production"
 ExecStart=__FINALPATH__/script
-### TODO : ADD SERVER START
+ExecStart=/usr/bin/yarn start
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 
