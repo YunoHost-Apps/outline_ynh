@@ -233,6 +233,8 @@ chown $app:$app "$final_path/.env"
 # RUN DB MIGRATION
 #=================================================
 ynh_script_progression --message="Running DB initial migration..."
+pushd "$final_path"
+	ynh_use_nodejs
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
 popd
 
