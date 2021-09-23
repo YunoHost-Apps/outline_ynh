@@ -6,7 +6,6 @@ After=network.target postgresql.service redis-server.service
 Type=simple
 Environment=NODE_ENV=production
 
-
 User=__APP__
 Group=__APP__
 WorkingDirectory=__FINALPATH__/
