@@ -195,7 +195,6 @@ pushd "$final_path"
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn build
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
 popd
 
 #=================================================
@@ -229,6 +228,13 @@ chown $app:$app "$final_path/.env"
 ###
 ### ynh_replace_string --match_string="match_string" --replace_string="replace_string" --target_file="$final_path/some_config_file"
 ### ynh_store_file_checksum --file="$final_path/some_config_file"
+
+#=================================================
+# RUN DB MIGRATION
+#=================================================
+ynh_script_progression --message="Running DB initial migration..."
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
+popd
 
 #=================================================
 # SETUP SYSTEMD
