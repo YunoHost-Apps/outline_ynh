@@ -9,7 +9,8 @@
 YunoHost is an operating system aiming to simplify as much as possible the administration of a server. This repository corresponds to the core code, written mostly in Python and Bash. You can visit yunohost.org or forum.yunohost.org for more information or help.
 
 ## The current version only works with Slack authentifiaction
-You will need to create a "Slack app" in order to use Outline. You should perform all below steps before starting the package installation on Yunohost.
+You will need to create a "Slack app" in order to use Outline.
+You should perform all below steps before starting the package installation on Yunohost :
 1. Visit https://api.slack.com/apps
 2. Sign in into a Slack workspace
 3. Create a new app from scratch
