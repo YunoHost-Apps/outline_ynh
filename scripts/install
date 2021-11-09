@@ -47,8 +47,8 @@ slacksecret=$YNH_APP_ARG_SLACKSECRET
 app=$YNH_APP_INSTANCE_NAME
 
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
-minio_id=$(ynh_app_setting_get --app="minio" --key=id)
-minio_key=$(ynh_app_setting_get --app="minio" --key=key)
+minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
+minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
