@@ -46,15 +46,22 @@
                     "fr": "Choisissez la langue de l'application"
                 },
                 "choices": ["fr", "en"],
-                "default": "fr"
+                "default": "en"
             },
             {
-                "name": "slackkey",
-                "type": "string"
+                "name": "slack_key",
+                "type": "string",
+                "ask": "Slack Client ID (from https://api.slack.com/apps)"
             },
             {
-                "name": "slacksecret",
-                "type": "string"
+                "name": "slack_secret",
+                "type": "string",
+                "ask": "Slack Client Secret (from https://api.slack.com/apps)"
+            },
+            {
+                "name": "minio_domain",
+                "type": "domain",
+                "ask": "Domain for MinIO app (if not yet installed, it will automatically be). Please note that this domain has to be free from any app"
             }
         ]
     }

@@ -27,21 +27,42 @@ ynh_abort_if_errors
 domain=$YNH_APP_ARG_DOMAIN
 path_url="/" #$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
-language=$YNH_APP_ARG_LANGUAGE
-slackkey=$YNH_APP_ARG_SLACKKEY
-slacksecret=$YNH_APP_ARG_SLACKSECRET
 
-### If it's a multi-instance app, meaning it can be installed several times independently
-### The id of the app as stated in the manifest is available as $YNH_APP_ID
-### The instance number is available as $YNH_APP_INSTANCE_NUMBER (equals "1", "2"...)
-### The app instance name is available as $YNH_APP_INSTANCE_NAME
-###    - the first time the app is installed, YNH_APP_INSTANCE_NAME = ynhexample
-###    - the second time the app is installed, YNH_APP_INSTANCE_NAME = ynhexample__2
-###    - ynhexample__{N} for the subsequent installations, with N=3,4...
-### The app instance name is probably what interests you most, since this is
-### guaranteed to be unique. This is a good unique identifier to define installation path,
-### db names...
+language=$YNH_APP_ARG_LANGUAGE
+
+if [ $language == "fr" ]; then
+	language_key="fr_FR"
+	echo "French"
+else
+	language_key="en_US"
+	echo "English"
+fi
+
+secret_key=`openssl rand -hex 32`
+utils_secret=`openssl rand -hex 32`
+
+slack_key=$YNH_APP_ARG_SLACK_KEY
+slack_secret=$YNH_APP_ARG_SLACK_SECRET
+
 app=$YNH_APP_INSTANCE_NAME
+
+#=================================================
+# CHECK IF MINIO IS INSTALLED, IF NOT INSTALL IT
+#=================================================
+ynh_script_progression --message="Installing MinIO if needed..." --time --weight=1
+
+if ! yunohost app list | grep -q "id: minio"; then
+	echo "MinIO is not installed. Installing... "
+	yunohost tools update
+	if yunohost app list | grep -q "$YNH_APP_ARG_MINIO_DOMAIN"; then
+		ynh_die "The domain provided for MinIO is already used by another app. Please chose another one !"
+	fi
+	yunohost app install https://github.com/limezy/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&language=en"
+fi
+
+minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
+minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
@@ -50,6 +71,8 @@ ynh_script_progression --message="Validating installation parameters..." --time 
 
 final_path=/opt/yunohost/$app
 test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
+
+mc_path=$final_path/mc
 
 # Register (book) web path
 ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
@@ -62,6 +85,8 @@ ynh_script_progression --message="Storing installation settings..." --time --wei
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=language --value=$language
+ynh_app_setting_set --app=$app --key=secret_key --value=$secret_key
+ynh_app_setting_set --app=$app --key=utils_secret --value=$utils_secret
 
 #=================================================
 # STANDARD MODIFICATIONS
@@ -78,6 +103,13 @@ ynh_app_setting_set --app=$app --key=port --value=$port
 # INSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Installing dependencies..." --time --weight=1
+
+### SHOULD HAVE A CHECK FOR MINIO + INSTALLATION HERE
+#if ! ynh_package_is_installed --package="minio"
+#then
+#	yunohost tools update
+#	yunohost app install minio --force
+#fi
 
 # Install nodejs
 ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
@@ -122,6 +154,32 @@ chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
 
 #=================================================
+# DOWNLOAD, CHECK AND UNPACK MINIO CLIENT
+#=================================================
+ynh_script_progression --message="Setting up MinIO client..." --time --weight=1
+
+ynh_setup_source --dest_dir="$mc_path" --source_id=mc
+
+# FIXME: this should be managed by the core in the future
+# Here, as a packager, you may have to tweak the ownerhsip/permissions
+# such that the appropriate users (e.g. maybe www-data) can access
+# files in some cases.
+# But FOR THE LOVE OF GOD, do not allow r/x for "others" on the entire folder -
+# this will be treated as a security issue.
+chmod -R 750 "$mc_path"
+chmod -R o-rwx "$mc_path"
+chown -R $app:www-data "$mc_path"
+
+#=================================================
+# SETUP MINIO BUCKET
+#=================================================
+ynh_script_progression --message="Setting up MinIO bucket for Outline..." --time --weight=1
+
+$mc_path/mc alias set minio "https://$minio_domain" $minio_id $minio_key
+$mc_path/mc mb minio/outlinestorage --region "fr-ynh-1"
+$mc_path/mc policy set public minio/outlinestorage
+
+#=================================================
 # NGINX CONFIGURATION
 #=================================================
 ynh_script_progression --message="Configuring NGINX web server..." --time --weight=1
@@ -129,16 +187,24 @@ ynh_script_progression --message="Configuring NGINX web server..." --time --weig
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
+
 #=================================================
 # BUILD YARN DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Building Yarn dependencies..."
+ynh_script_progression --message="Building Yarn dependencies... This can be very long, be patient !" --time --weight=10
 
 pushd "$final_path"
 	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile
+	ynh_script_progression --message="Fetching Yarn dev dependencies... This can be very long, be patient !" --time --weight=5
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --no-optional --frozen-lockfile
+	ynh_script_progression --message="Cleaning cache... " --time --weight=1
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean
+	ynh_script_progression --message="Building Yarn dev dependencies... This can be very long, be patient !" --time --weight=5
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn build
+	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --time --weight=5
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --production=true --frozen-lockfile
+	ynh_script_progression --message="Cleaning cache... " --time --weight=1
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean
 popd
 
 #=================================================
