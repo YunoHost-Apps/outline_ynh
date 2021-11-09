@@ -8,8 +8,13 @@
 
 YunoHost is an operating system aiming to simplify as much as possible the administration of a server. You can visit yunohost.org or forum.yunohost.org for more information or help.
 
-## The current version only works with Slack authentifiaction
-You will need to create a "Slack app" in order to use Outline.
+## What you will need for installation
+
+- [ ] A testing Yunohost server (please don't install this on a production server yet!)
+- [ ] Two domains free of any apps (one for Outline, one for MinIO, an object storage server required by Outline)
+- [ ] A correctly configured "Slack app" and the value of its "Client ID" and "Signing Secret" (see below for details)
+
+## How to create a "Slack app" and get your "Client ID" and "Signing Secret"
 
 You should perform all below steps before starting the package installation on Yunohost :
 1. Visit https://api.slack.com/apps
@@ -19,6 +24,15 @@ You should perform all below steps before starting the package installation on Y
 
 ![image](https://user-images.githubusercontent.com/24638389/134668089-3b1a73f2-dbca-47c4-8e57-1ee26d1c034a.png)
 
-6. In the basic information tab, you'll find a "Client ID" and a "Signing Secret" - you'll need them to run the package installation
+6. In the basic information tab, you'll find a "Client ID" and a "Signing Secret" - keep both as you'll need them to run the package installation
 7. Go to "Features" then "OAuth & Permissions"
-8. Add a new redirect URL. Use https://mydomain.fr/path/auth/slack.callback (with mydomain.fr/path being the domain on which you will install outline package)
+8. Add a new redirect URL. Use https://example.mydomain.fr/auth/slack.callback (assuming https://example.mydomain.fr is the domain on which you will install outline package)
+
+## How to launch installation
+
+That app is not yet on the official Yunohost-Apps repo, so you'll need to follow the below steps :
+1. Log in your webadmin
+2. Go to Applications > Install
+3. Scroll to the bottom and copy paste `https://github.com/Limezy/outline_ynh/tree/v0.3 into the "Install custom app" box4.
+4. Fill in all fields and validate
+5. Be patient as the installation can take up to 15 minutes ! (There is package building involved)
