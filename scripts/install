@@ -53,7 +53,7 @@ ynh_script_progression --message="Installing MinIO if needed..." --time --weight
 
 if ! ynh_package_is_installed --package="minio"; then
 	yunohost tools update
-	yunohost app install minio --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&language=en"
+	yunohost app install https://github.com/limezy/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&language=en"
 fi
 
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
