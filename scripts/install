@@ -40,8 +40,8 @@ fi
 secret_key=`openssl rand -hex 32`
 utils_secret=`openssl rand -hex 32`
 
-slackkey=$YNH_APP_ARG_SLACKKEY
-slacksecret=$YNH_APP_ARG_SLACKSECRET
+slack_key=$YNH_APP_ARG_SLACK_KEY
+slack_secret=$YNH_APP_ARG_SLACK_SECRET
 
 
 app=$YNH_APP_INSTANCE_NAME

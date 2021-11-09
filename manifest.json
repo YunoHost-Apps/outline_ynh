@@ -49,12 +49,14 @@
                 "default": "en"
             },
             {
-                "name": "slackkey",
-                "type": "string"
+                "name": "slack_key",
+                "type": "string",
+                "ask": "Slack Client ID (from https://api.slack.com/apps)"
             },
             {
-                "name": "slacksecret",
-                "type": "string"
+                "name": "slack_secret",
+                "type": "string",
+                "ask": "Slack Client Secret (from https://api.slack.com/apps)"
             }
         ]
     }
