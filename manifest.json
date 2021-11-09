@@ -31,7 +31,8 @@
         "install" : [
             {
                 "name": "domain",
-                "type": "domain"
+                "type": "domain",
+                "ask": "Domain used for Outline installation."
             },
             {
                 "name": "is_public",
@@ -57,6 +58,16 @@
                 "name": "slack_secret",
                 "type": "string",
                 "ask": "Slack Client Secret (from https://api.slack.com/apps)"
+            },
+            {
+                "name": "is_minio",
+                "type": "boolean",
+                "ask": "Is MinIO app already installed on your instance ?"
+            },
+            {
+                "name": "minio_domain",
+                "type": "domain",
+                "ask": "If MinIO app is already installed, you don't need to fill-in that field.\nIf it isn't please give a domain that can be used for MinIO installation (MinIO has to be installed at the root of a domain)"
             }
         ]
     }
