@@ -61,7 +61,7 @@
             {
                 "name": "minio_domain",
                 "type": "domain",
-                "ask": "Domain for MinIO app (if you don't have MinIO yet, it will automatically be added while installing Outline). Please note that this domain has to be free from any app"
+                "ask": "Domain for MinIO app (if not yet installed, it will automatically be). Please note that this domain has to be free from any app"
             }
         ]
     }
