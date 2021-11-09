@@ -61,7 +61,7 @@
             {
                 "name": "minio_domain",
                 "type": "domain",
-                "ask": "Domain for MinIO app.<br>If MinIO is not yet installed, outline will automatically install it for you.<br>Please note that MinIO has to be installed at the root of that domain : no other apps can be installed on that domain"
+                "ask": "Domain for MinIO app. If MinIO is not yet installed, outline will automatically install it for you. Please note that MinIO has to be installed at the root of that domain : no other apps can be installed on that domain"
             }
         ]
     }
