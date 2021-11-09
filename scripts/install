@@ -30,7 +30,7 @@ is_public=$YNH_APP_ARG_IS_PUBLIC
 
 language=$YNH_APP_ARG_LANGUAGE
 
-if [["$language" == "fr"]]
+if [["$language" = "fr"]]
 then
 	language_key="fr_FR"
 else
