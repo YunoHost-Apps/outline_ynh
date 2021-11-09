@@ -44,8 +44,16 @@ utils_secret=`openssl rand -hex 32`
 slack_key=$YNH_APP_ARG_SLACK_KEY
 slack_secret=$YNH_APP_ARG_SLACK_SECRET
 
-
 app=$YNH_APP_INSTANCE_NAME
+
+#=================================================
+# CHECK IF MINIO IS INSTALLED, IF NOT INSTALL IT
+#=================================================
+ynh_script_progression --message="Installing MinIO if needed..." --time --weight=1
+
+if ! ynh_package_is_installed --package="minio"; then
+	yunohost tools update
+	yunohost app install minio --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&language=en"
 
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
 minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
@@ -149,7 +157,7 @@ ynh_add_nginx_config
 #=================================================
 # BUILD YARN DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Building Yarn dependencies... This can be very long, be patient !"
+ynh_script_progression --message="Building Yarn dependencies... This can be very long, be patient !" --time --weight=10
 
 pushd "$final_path"
 	ynh_use_nodejs
