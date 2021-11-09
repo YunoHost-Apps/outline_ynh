@@ -54,6 +54,9 @@ ynh_script_progression --message="Installing MinIO if needed..." --time --weight
 if ! yunohost app list | grep -q "id: minio"; then
 	echo "MinIO is not installed. Installing... "
 	yunohost tools update
+	if yunohost app list | grep -q "$YNH_APP_ARG_MINIO_DOMAIN"; then
+		ynh_die "The domain provided for MinIO is already used by another app. Please chose another one !"
+	fi
 	yunohost app install https://github.com/limezy/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&language=en"
 fi
 
