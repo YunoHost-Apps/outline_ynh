@@ -30,9 +30,16 @@ app=$YNH_APP_INSTANCE_NAME
 
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 domain=$(ynh_app_setting_get --app=$app --key=domain)
+path_url=$(ynh_app_setting_get --app=$app --key=path_url)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
-datadir=$(ynh_app_setting_get --app=$app --key=datadir)
+language_key=$(ynh_app_setting_get --app=$app --key=language_key)
+slack_key=$(ynh_app_setting_get --app=$app --key=slack_key)
+slack_secret=$(ynh_app_setting_get --app=$app --key=slack_secret)
+
+minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
+minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
+mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
 #=================================================
 # DECLARE DATA AND CONF FILES TO BACKUP
@@ -51,22 +58,16 @@ ynh_print_info --message="Declaring files to be backed up..."
 ynh_backup --src_path="$final_path"
 
 #=================================================
-# BACKUP THE DATA DIR
+# BACKUP MINIO
 #=================================================
 
-ynh_backup --src_path="$datadir" --is_big
+sudo yunohost backup create --apps minio
 
 #=================================================
 # BACKUP THE NGINX CONFIGURATION
 #=================================================
 
 ynh_backup --src_path="/etc/nginx/conf.d/$domain.d/$app.conf"
-
-#=================================================
-# BACKUP THE PHP-FPM CONFIGURATION
-#=================================================
-
-ynh_backup --src_path="/etc/php/$phpversion/fpm/pool.d/$app.conf"
 
 #=================================================
 # BACKUP FAIL2BAN CONFIGURATION
@@ -90,15 +91,7 @@ ynh_backup --src_path="/etc/logrotate.d/$app"
 ynh_backup --src_path="/etc/systemd/system/$app.service"
 
 #=================================================
-# BACKUP VARIOUS FILES
-#=================================================
-
-ynh_backup --src_path="/etc/cron.d/$app"
-
-ynh_backup --src_path="/etc/$app/"
-
-#=================================================
-# BACKUP THE MYSQL DATABASE
+# BACKUP THE POSTGRE DATABASE
 #=================================================
 ynh_print_info --message="Backing up the MySQL database..."
 
