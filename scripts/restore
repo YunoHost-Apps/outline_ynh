@@ -28,11 +28,21 @@ ynh_script_progression --message="Loading installation settings..." --time --wei
 
 app=$YNH_APP_INSTANCE_NAME
 
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+domain=$(ynh_app_setting_get --app=$app --key=domain)
+path_url=$(ynh_app_setting_get --app=$app --key=path_url)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-db_user=$db_name
+language_key=$(ynh_app_setting_get --app=$app --key=language_key)
+slack_key=$(ynh_app_setting_get --app=$app --key=slack_key)
+slack_secret=$(ynh_app_setting_get --app=$app --key=slack_secret)
+secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
+utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
+
+
+minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
+minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
+mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
 #=================================================
 # CHECK IF THE APP CAN BE RESTORED
@@ -40,7 +50,7 @@ db_user=$db_name
 ynh_script_progression --message="Validating restoration parameters..." --time --weight=1
 
 test ! -d $final_path \
-	|| ynh_die --message="There is already a directory: $final_path "
+	|| ynh_die --message="There is already a directory: $final_path"
 
 #=================================================
 # STANDARD RESTORATION STEPS
@@ -86,7 +96,7 @@ ynh_install_app_dependencies $pkg_dependencies
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
-# RESTORE THE MYSQL DATABASE
+# RESTORE THE POSTGRESQL DATABASE
 #=================================================
 ynh_script_progression --message="Restoring the PostgreSQL database..." --weight=6
 
