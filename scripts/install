@@ -38,8 +38,11 @@ else
 	echo "English"
 fi
 
-secret_key=$(ynh_string_random --length=32)
-utils_secret=$(ynh_string_random --length=32)
+#secret_key=$(ynh_string_random --length=64)
+#utils_secret=$(ynh_string_random --length=64)
+
+secret_key=`openssl rand -hex 32`
+utils_secret=`openssl rand -hex 32`
 
 slack_key=$YNH_APP_ARG_SLACK_KEY
 slack_secret=$YNH_APP_ARG_SLACK_SECRET
