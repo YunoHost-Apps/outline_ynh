@@ -63,6 +63,7 @@ fi
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
 minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
 minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
+mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
@@ -71,8 +72,6 @@ ynh_script_progression --message="Validating installation parameters..." --time 
 
 final_path=/opt/yunohost/$app
 test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
-
-mc_path=$final_path/mc
 
 # Register (book) web path
 ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
@@ -154,30 +153,14 @@ chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
 
 #=================================================
-# DOWNLOAD, CHECK AND UNPACK MINIO CLIENT
-#=================================================
-ynh_script_progression --message="Setting up MinIO client..." --time --weight=1
-
-ynh_setup_source --dest_dir="$mc_path" --source_id=mc
-
-# FIXME: this should be managed by the core in the future
-# Here, as a packager, you may have to tweak the ownerhsip/permissions
-# such that the appropriate users (e.g. maybe www-data) can access
-# files in some cases.
-# But FOR THE LOVE OF GOD, do not allow r/x for "others" on the entire folder -
-# this will be treated as a security issue.
-chmod -R 750 "$mc_path"
-chmod -R o-rwx "$mc_path"
-chown -R $app:www-data "$mc_path"
-
-#=================================================
 # SETUP MINIO BUCKET
 #=================================================
 ynh_script_progression --message="Setting up MinIO bucket for Outline..." --time --weight=1
 
-$mc_path/mc alias set minio "https://$minio_domain" $minio_id $minio_key
-$mc_path/mc mb minio/outlinestorage --region "fr-ynh-1"
-$mc_path/mc policy set public minio/outlinestorage
+pushd "$mc_path"
+	ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
+	ynh_exec_warn_less sudo -u minio ./mc policy set public minio/outlinestorage
+popd
 
 #=================================================
 # NGINX CONFIGURATION
