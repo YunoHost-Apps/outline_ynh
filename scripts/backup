@@ -64,7 +64,7 @@ ynh_backup --src_path="$final_path"
 # BACKUP MINIO
 #=================================================
 
-sudo yunohost backup create --apps minio
+yunohost backup create --apps minio
 
 #=================================================
 # BACKUP THE NGINX CONFIGURATION
