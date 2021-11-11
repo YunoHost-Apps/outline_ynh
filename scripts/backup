@@ -35,6 +35,9 @@ db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 language_key=$(ynh_app_setting_get --app=$app --key=language_key)
 slack_key=$(ynh_app_setting_get --app=$app --key=slack_key)
 slack_secret=$(ynh_app_setting_get --app=$app --key=slack_secret)
+secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
+utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
+
 
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
 minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
@@ -91,14 +94,14 @@ ynh_backup --src_path="/etc/logrotate.d/$app"
 ynh_backup --src_path="/etc/systemd/system/$app.service"
 
 #=================================================
-# BACKUP THE POSTGRE DATABASE
+# BACKUP THE POSTGRESQL DATABASE
 #=================================================
-ynh_print_info --message="Backing up the MySQL database..."
+ynh_print_info --message="Backing up the PostgreSQL database..."
 
 ### (However, things like MySQL dumps *do* take some time to run, though the
 ### copy of the generated dump to the archive still happens later)
 
-ynh_mysql_dump_db --database="$db_name" > db.sql
+ynh_psql_dump_db --database="$db_name" > db.sql
 
 #=================================================
 # END OF SCRIPT
