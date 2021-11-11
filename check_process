@@ -1,12 +1,14 @@
 ;; Test complet
 	; Manifest
 		domain="domain.tld"
-		path="/path"
-		admin="john"
+		path="/"
 		language="fr"
 		is_public=1
 		password="1Strong-Password"
 		port="666"
+		slack_key="slack"
+		slack_secret="secret"
+		minio_domain="minio.tld"
 	; Checks
 		pkg_linter=1
 		setup_sub_dir=1
@@ -17,7 +19,7 @@
 		upgrade=1
 		#upgrade=1	from_commit=CommitHash
 		backup_restore=1
-		multi_instance=1
+		multi_instance=0
 		change_url=1
 ;;; Options
 Email=
