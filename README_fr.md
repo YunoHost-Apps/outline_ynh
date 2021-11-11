@@ -1,4 +1,6 @@
 # Example app pour YunoHost
+[![Integration level](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline)
+
 
 [![Niveau d'intégration](https://dash.yunohost.org/integration/example.svg)](https://dash.yunohost.org/appci/app/example) ![](https://ci-apps.yunohost.org/ci/badges/example.status.svg)  ![](https://ci-apps.yunohost.org/ci/badges/example.maintain.svg)
 [![Installer example avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=example)
