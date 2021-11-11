@@ -8,7 +8,7 @@
 		port="666"
 		slack_key="slack"
 		slack_secret="secret"
-		minio_domain="minio.tld"
+		minio_domain="sub.domain.tld"
 	; Checks
 		pkg_linter=1
 		setup_sub_dir=1
