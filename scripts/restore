@@ -101,18 +101,8 @@ ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ st
 ynh_script_progression --message="Restoring the PostgreSQL database..." --weight=6
 
 ynh_psql_test_if_first_run
-ynh_psql_setup_db --db_user=$db_name --db_name=$db_name
+ynh_psql_setup_db --db_user=$db_name --db_name=$db_name --db_pwd=$secret_key
 ynh_psql_execute_file_as_root --file="./db.sql" --database=$db_name
-
-#=================================================
-# RUN DB MIGRATION
-#=================================================
-ynh_script_progression --message="Running DB initial migration..."
-
-pushd "$final_path"
-	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
-popd
 
 #=================================================
 # RESTORE SYSTEMD
