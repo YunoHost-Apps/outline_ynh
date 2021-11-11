@@ -110,6 +110,13 @@ ynh_script_progression --message="Restoring the logrotate configuration..." --ti
 ynh_restore_file --origin_path="/etc/logrotate.d/$app"
 
 #=================================================
+# RESTORE THE LOGS
+#=================================================
+ynh_script_progression --message="Restoring the logs..." --time --weight=1
+
+ynh_restore_file --origin_path="/var/log/$app/$app.log"
+
+#=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --time --weight=1
