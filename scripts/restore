@@ -90,7 +90,7 @@ chown -R minio:www-data "$mc_path/outlinestorage"
 pushd "$mc_path"
 	ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
 	ynh_exec_warn_less sudo -u minio ./mc policy set public minio/outlinestorage
-	ynh_exec_warn_less sudo -u minio ./mc cp --recursive ./outlinestorage minio/outlinestorage
+	ynh_exec_warn_less sudo -u minio ./mc cp --recursive ./outlinestorage/* minio/outlinestorage
 popd
 
 #=================================================
