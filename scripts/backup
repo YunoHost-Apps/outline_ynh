@@ -56,16 +56,18 @@ ynh_print_info --message="Declaring files to be backed up..."
 ### script is called. Hence ynh_backups calls takes basically 0 seconds to run.
 
 #=================================================
+# BACKUP MINIO
+#=================================================
+
+pushd "$mc_path"
+	ynh_exec_warn_less sudo -u minio ./mc mirror --remove --a minio/outlinestorage "$final_path/outlinestorage"
+popd
+
+#=================================================
 # BACKUP THE APP MAIN DIR
 #=================================================
 
 ynh_backup --src_path="$final_path"
-
-#=================================================
-# BACKUP MINIO
-#=================================================
-
-yunohost backup create --apps minio
 
 #=================================================
 # BACKUP THE NGINX CONFIGURATION
