@@ -1,0 +1,16 @@
+diff --git a/app/scenes/Document/components/Document.js b/app/scenes/Document/components/Document.js
+index 2c5bf69b..599bd4f6 100644
+--- a/app/scenes/Document/components/Document.js
++++ b/app/scenes/Document/components/Document.js
+@@ -593,9 +593,6 @@ class DocumentScene extends React.Component<Props> {
+             </MaxWidth>
+           </Container>
+         </Background>
+-        {isShare && !isCustomDomain() && (
+-          <Branding href="//www.getoutline.com?ref=sharelink" />
+-        )}
+         {!isShare && (
+           <>
+             <KeyboardShortcutsButton />
+-- 
+2.18.0
