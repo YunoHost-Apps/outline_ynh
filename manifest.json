@@ -49,6 +49,15 @@
                 "default": "en"
             },
             {
+                "name": "admin",
+                "type": "user",
+                "ask":{
+                    "en": "An email alias outline@domain.tld will be created for admin user",
+                    "fr": "Un alias email outline@domain.tld seera créé pour l'admin"
+
+                }
+            },
+            {
                 "name": "slack_key",
                 "type": "string",
                 "ask": "Slack Client ID (from https://api.slack.com/apps)"
