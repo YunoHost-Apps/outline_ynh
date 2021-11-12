@@ -69,7 +69,6 @@ ynh_script_progression --message="Making sure dedicated system user exists..." -
 
 # Create a dedicated user (if not existing)
 ynh_system_user_create --username=$app --home_dir="$final_path"
-yunohost user update $admin --add-mailalias $app@$domain
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE

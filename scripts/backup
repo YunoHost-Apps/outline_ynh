@@ -60,8 +60,12 @@ ynh_print_info --message="Declaring files to be backed up..."
 #=================================================
 
 pushd "$mc_path"
-	ynh_exec_warn_less sudo -u minio ./mc mirror --remove --a minio/outlinestorage "$final_path/outlinestorage"
+        ynh_exec_warn_less sudo -u minio mkdir outlinestorage
+        ynh_exec_warn_less sudo -u minio ./mc mirror --remove --a minio/outlinestorage ./outlinestorage/
 popd
+
+mv "$mc_path/outlinestorage" "$final_path/outlinestorage"
+chown -R outline:www-data "$final_path/outlinestorage"
 
 #=================================================
 # BACKUP THE APP MAIN DIR
