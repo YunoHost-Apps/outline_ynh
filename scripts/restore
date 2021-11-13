@@ -93,6 +93,8 @@ chown -R $app:www-data "$final_path"
 #=================================================
 # UPDATING A CONFIGURATION
 #=================================================
+
+ynh_secure_remove --file="$final_path/.env"
 ynh_script_progression --message="Updating the configuration file..." --time --weight=1
 
 ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
