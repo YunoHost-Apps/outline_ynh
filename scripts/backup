@@ -22,6 +22,15 @@ ynh_clean_setup () {
 ynh_abort_if_errors
 
 #=================================================
+# CHECK IF MINIO IS INSTALLED, IF NOT WARN USER
+#=================================================
+ynh_script_progression --message="Checking if MinIO is installed..." --time --weight=1
+
+if ! yunohost app list | grep -q "id: minio"; then
+	echo "MinIO is not installed. Installing... "
+fi
+
+#=================================================
 # LOAD SETTINGS
 #=================================================
 ynh_print_info --message="Loading installation settings..."
