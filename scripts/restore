@@ -91,18 +91,6 @@ chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
 
 #=================================================
-# UPDATING A CONFIGURATION
-#=================================================
-
-ynh_secure_remove --file="$final_path/.env"
-ynh_script_progression --message="Updating the configuration file..." --time --weight=1
-
-ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
-
-chmod 400 "$final_path/.env"
-chown $app:$app "$final_path/.env"
-
-#=================================================
 # RESTORE MINIO
 #=================================================
 
@@ -138,6 +126,18 @@ ynh_script_progression --message="Restoring the PostgreSQL database..." --weight
 ynh_psql_test_if_first_run
 ynh_psql_setup_db --db_user=$db_name --db_name=$db_name --db_pwd=$secret_key
 ynh_psql_execute_file_as_root --file="./db.sql" --database=$db_name
+
+#=================================================
+# UPDATING A CONFIGURATION
+#=================================================
+
+ynh_secure_remove --file="$final_path/.env"
+ynh_script_progression --message="Updating the configuration file..." --time --weight=1
+
+ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
+
+chmod 400 "$final_path/.env"
+chown $app:$app "$final_path/.env"
 
 #=================================================
 # RESTORE SYSTEMD
