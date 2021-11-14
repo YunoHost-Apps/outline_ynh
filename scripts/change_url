@@ -28,7 +28,20 @@ ynh_script_progression --message="Loading installation settings..." --time --wei
 
 # Needed for helper "ynh_add_nginx_config"
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+domain=$(ynh_app_setting_get --app=$app --key=domain)
+path_url=$(ynh_app_setting_get --app=$app --key=path_url)
 port=$(ynh_app_setting_get --app=$app --key=port)
+admin=$(ynh_app_setting_get --app=$app --key=admin)
+db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+language_key=$(ynh_app_setting_get --app=$app --key=language_key)
+slack_key=$(ynh_app_setting_get --app=$app --key=slack_key)
+slack_secret=$(ynh_app_setting_get --app=$app --key=slack_secret)
+secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
+utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
+minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
+minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
+mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
 #=================================================
 # BACKUP BEFORE CHANGE URL THEN ACTIVE TRAP
@@ -102,10 +115,16 @@ then
 fi
 
 #=================================================
-# SPECIFIC MODIFICATIONS
+# UPDATING A CONFIGURATION
 #=================================================
-# ...
-#=================================================
+
+ynh_secure_remove --file="$final_path/.env"
+ynh_script_progression --message="Updating the configuration file..." --time --weight=1
+
+ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
+
+chmod 400 "$final_path/.env"
+chown $app:$app "$final_path/.env"
 
 #=================================================
 # GENERIC FINALISATION
