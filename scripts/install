@@ -49,7 +49,7 @@ app=$YNH_APP_INSTANCE_NAME
 #=================================================
 # CHECK IF MINIO IS INSTALLED, IF NOT INSTALL IT
 #=================================================
-ynh_script_progression --message="Installing MinIO if needed..." --time --weight=1
+ynh_script_progression --message="Installing MinIO if needed..." --time --weight=18
 
 if ! yunohost app list | grep -q "id: minio"; then
 	echo "MinIO is not installed. Installing... "
@@ -137,7 +137,7 @@ ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS pg_trgm;" --datab
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --time --weight=1
+ynh_script_progression --message="Setting up source files..." --weight=2
 
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
@@ -150,7 +150,7 @@ chown -R $app:www-data "$final_path"
 #=================================================
 # SETUP MINIO BUCKET
 #=================================================
-ynh_script_progression --message="Setting up MinIO bucket for Outline..." --time --weight=1
+ynh_script_progression --message="Setting up MinIO bucket for Outline..." --weight=1
 
 pushd "$mc_path"
 	ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
@@ -160,7 +160,7 @@ popd
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --time --weight=1
+ynh_script_progression --message="Configuring NGINX web server..." --weight=1
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
@@ -169,26 +169,25 @@ ynh_add_nginx_config
 #=================================================
 # BUILD YARN DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Building Yarn dependencies... This can be very long, be patient !" --time --weight=10
 
 pushd "$final_path"
 	ynh_use_nodejs
-	ynh_script_progression --message="Fetching Yarn dev dependencies... This can be very long, be patient !" --time --weight=5
+	ynh_script_progression --message="Fetching Yarn dev dependencies... This can be very long, be patient !" --weight=18
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --no-optional --frozen-lockfile
-	ynh_script_progression --message="Cleaning cache... " --time --weight=1
+	ynh_script_progression --message="Cleaning cache... " --weight=3
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean
-	ynh_script_progression --message="Building Yarn dev dependencies... This can be very long, be patient !" --time --weight=5
+	ynh_script_progression --message="Building Yarn dev dependencies... This can be very long, be patient !" --weight=18
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn build
-	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --time --weight=5
+	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --weight=18
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --production=true --frozen-lockfile
-	ynh_script_progression --message="Cleaning cache... " --time --weight=1
+	ynh_script_progression --message="Cleaning cache... " --weight=3
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean
 popd
 
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..." --time --weight=1
+ynh_script_progression --message="Adding a configuration file..." --weight=1
 
 ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
 
@@ -198,7 +197,7 @@ chown $app:$app "$final_path/.env"
 #=================================================
 # RUN DB MIGRATION
 #=================================================
-ynh_script_progression --message="Running DB initial migration..."
+ynh_script_progression --message="Running DB initial migration..." --weight=3
 
 pushd "$final_path"
 	ynh_use_nodejs
@@ -208,7 +207,7 @@ popd
 #=================================================
 # SETUP SYSTEMD
 #=================================================
-ynh_script_progression --message="Configuring a systemd service..." --time --weight=1
+ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
 ynh_replace_string --match_string="__ENV_PATH__" --replace_string="$PATH" --target_file="../conf/systemd.service"
 
@@ -220,7 +219,7 @@ ynh_add_systemd_config
 #=================================================
 # SETUP LOGROTATE
 #=================================================
-ynh_script_progression --message="Configuring log rotation..." --time --weight=1
+ynh_script_progression --message="Configuring log rotation..." --weight=1
 
 # Use logrotate to manage application logfile(s)
 ynh_use_logrotate
@@ -228,14 +227,14 @@ ynh_use_logrotate
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --time --weight=1
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
 yunohost service add $app --description="Outline server" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --time --weight=1
+ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 # Start a systemd service
 ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
@@ -243,7 +242,7 @@ ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$ap
 #=================================================
 # SETUP SSOWAT
 #=================================================
-ynh_script_progression --message="Configuring permissions..." --time --weight=1
+ynh_script_progression --message="Configuring permissions..." --weight=1
 
 # Make app public if necessary
 if [ $is_public -eq 1 ]
@@ -254,7 +253,7 @@ fi
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --time --weight=1
+ynh_script_progression --message="Reloading NGINX web server..." --weight=1
 
 ynh_systemd_action --service_name=nginx --action=reload
 
@@ -262,4 +261,4 @@ ynh_systemd_action --service_name=nginx --action=reload
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --time --last
+ynh_script_progression --message="Installation of $app completed" --last
