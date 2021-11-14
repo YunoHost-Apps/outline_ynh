@@ -44,8 +44,6 @@ utils_secret=$(ynh_hex_32_random)
 slack_key=$YNH_APP_ARG_SLACK_KEY
 slack_secret=$YNH_APP_ARG_SLACK_SECRET
 
-admin=$YNH_APP_ARG_ADMIN
-
 app=$YNH_APP_INSTANCE_NAME
 
 #=================================================
