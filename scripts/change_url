@@ -105,6 +105,8 @@ fi
 # UPDATING A CONFIGURATION
 #=================================================
 
+domain=$new_domain
+
 ynh_secure_remove --file="$final_path/.env"
 ynh_script_progression --message="Updating the configuration file..." --time --weight=1
 
