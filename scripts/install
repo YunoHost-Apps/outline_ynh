@@ -49,7 +49,7 @@ app=$YNH_APP_INSTANCE_NAME
 #=================================================
 # CHECK IF MINIO IS INSTALLED, IF NOT INSTALL IT
 #=================================================
-ynh_script_progression --message="Installing MinIO if needed..." --time --weight=18
+ynh_script_progression --message="Installing MinIO if needed..." --weight=18
 
 if ! yunohost app list | grep -q "id: minio"; then
 	echo "MinIO is not installed. Installing... "
