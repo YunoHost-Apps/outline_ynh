@@ -28,7 +28,19 @@ ynh_script_progression --message="Loading installation settings..." --time --wei
 
 # Needed for helper "ynh_add_nginx_config"
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+domain=$(ynh_app_setting_get --app=$app --key=domain)
+path_url=$(ynh_app_setting_get --app=$app --key=path_url)
 port=$(ynh_app_setting_get --app=$app --key=port)
+db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+language_key=$(ynh_app_setting_get --app=$app --key=language_key)
+slack_key=$(ynh_app_setting_get --app=$app --key=slack_key)
+slack_secret=$(ynh_app_setting_get --app=$app --key=slack_secret)
+secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
+utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
+minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
+minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
+mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
 #=================================================
 # BACKUP BEFORE CHANGE URL THEN ACTIVE TRAP
@@ -60,7 +72,7 @@ fi
 change_path=0
 if [ "$old_path" != "$new_path" ]
 then
-	change_path=1
+	ynh_die "Outline has to be installed on the root of a domain"
 fi
 
 #=================================================
@@ -79,18 +91,6 @@ ynh_script_progression --message="Updating NGINX web server configuration..." --
 
 nginx_conf_path=/etc/nginx/conf.d/$old_domain.d/$app.conf
 
-# Change the path in the NGINX config file
-if [ $change_path -eq 1 ]
-then
-	# Make a backup of the original NGINX config file if modified
-	ynh_backup_if_checksum_is_different --file="$nginx_conf_path"
-	# Set global variables for NGINX helper
-	domain="$old_domain"
-	path_url="$new_path"
-	# Create a dedicated NGINX config
-	ynh_add_nginx_config
-fi
-
 # Change the domain for NGINX
 if [ $change_domain -eq 1 ]
 then
@@ -102,10 +102,28 @@ then
 fi
 
 #=================================================
-# SPECIFIC MODIFICATIONS
+# UPDATING A CONFIGURATION
 #=================================================
-# ...
+
+domain=$new_domain
+
+ynh_secure_remove --file="$final_path/.env"
+ynh_script_progression --message="Updating the configuration file..." --time --weight=1
+
+ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
+
+chmod 400 "$final_path/.env"
+chown $app:$app "$final_path/.env"
+
 #=================================================
+# RUN DB MIGRATION
+#=================================================
+ynh_script_progression --message="Running DB initial migration..." --weight=3
+
+pushd "$final_path"
+	ynh_use_nodejs
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
+popd
 
 #=================================================
 # GENERIC FINALISATION
@@ -122,6 +140,12 @@ ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$ap
 ynh_script_progression --message="Reloading NGINX web server..." --time --weight=1
 
 ynh_systemd_action --service_name=nginx --action=reload
+
+#=================================================
+# SLACK WARNING
+#=================================================
+ynh_print_info --message="Don't forget to add a new redirction url in your Slack app settings !"
+
 
 #=================================================
 # END OF SCRIPT

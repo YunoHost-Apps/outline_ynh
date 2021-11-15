@@ -16,11 +16,21 @@ ynh_script_progression --message="Loading installation settings..." --time --wei
 
 app=$YNH_APP_INSTANCE_NAME
 
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-port=$(ynh_app_setting_get --app=$app --key=port)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-db_user=$db_name
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+domain=$(ynh_app_setting_get --app=$app --key=domain)
+path_url=$(ynh_app_setting_get --app=$app --key=path_url)
+db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+language_key=$(ynh_app_setting_get --app=$app --key=language_key)
+slack_key=$(ynh_app_setting_get --app=$app --key=slack_key)
+slack_secret=$(ynh_app_setting_get --app=$app --key=slack_secret)
+secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
+utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
+
+
+minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
+minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
+mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
 #=================================================
 # STANDARD REMOVE
@@ -57,7 +67,7 @@ ynh_remove_logrotate
 ynh_script_progression --message="Removing the PostgreSQL database..."
 
 # Remove a database if it exists, along with the associated user
-ynh_psql_remove_db --db_user=$db_user --db_name=$db_name
+ynh_psql_remove_db --db_user=$db_name --db_name=$db_name
 
 #=================================================
 # REMOVE DEPENDENCIES
@@ -75,6 +85,15 @@ ynh_script_progression --message="Removing app main directory..." --time --weigh
 
 # Remove the app directory securely
 ynh_secure_remove --file="$final_path"
+
+#=================================================
+# REMOVE MINIO BUCKET
+#=================================================
+ynh_script_progression --message="Removing Outline MinIO bucket..." --time --weight=1
+
+pushd "$mc_path"
+	ynh_exec_warn_less sudo -u minio ./mc rb minio/outlinestorage --force
+popd
 
 #=================================================
 # REMOVE NGINX CONFIGURATION

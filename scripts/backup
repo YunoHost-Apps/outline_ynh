@@ -30,9 +30,18 @@ app=$YNH_APP_INSTANCE_NAME
 
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 domain=$(ynh_app_setting_get --app=$app --key=domain)
+path_url=$(ynh_app_setting_get --app=$app --key=path_url)
+port=$(ynh_app_setting_get --app=$app --key=port)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
-datadir=$(ynh_app_setting_get --app=$app --key=datadir)
+language_key=$(ynh_app_setting_get --app=$app --key=language_key)
+slack_key=$(ynh_app_setting_get --app=$app --key=slack_key)
+slack_secret=$(ynh_app_setting_get --app=$app --key=slack_secret)
+secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
+utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
+minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
+minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
+mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
 #=================================================
 # DECLARE DATA AND CONF FILES TO BACKUP
@@ -45,28 +54,28 @@ ynh_print_info --message="Declaring files to be backed up..."
 ### script is called. Hence ynh_backups calls takes basically 0 seconds to run.
 
 #=================================================
+# BACKUP MINIO
+#=================================================
+
+pushd "$mc_path"
+        ynh_exec_warn_less sudo -u minio mkdir outlinestorage
+        ynh_exec_warn_less sudo -u minio ./mc mirror --a minio/outlinestorage ./outlinestorage/
+popd
+
+mv "$mc_path/outlinestorage" "$final_path/outlinestorage"
+chown -R outline:www-data "$final_path/outlinestorage"
+
+#=================================================
 # BACKUP THE APP MAIN DIR
 #=================================================
 
 ynh_backup --src_path="$final_path"
 
 #=================================================
-# BACKUP THE DATA DIR
-#=================================================
-
-ynh_backup --src_path="$datadir" --is_big
-
-#=================================================
 # BACKUP THE NGINX CONFIGURATION
 #=================================================
 
 ynh_backup --src_path="/etc/nginx/conf.d/$domain.d/$app.conf"
-
-#=================================================
-# BACKUP THE PHP-FPM CONFIGURATION
-#=================================================
-
-ynh_backup --src_path="/etc/php/$phpversion/fpm/pool.d/$app.conf"
 
 #=================================================
 # BACKUP FAIL2BAN CONFIGURATION
@@ -90,22 +99,14 @@ ynh_backup --src_path="/etc/logrotate.d/$app"
 ynh_backup --src_path="/etc/systemd/system/$app.service"
 
 #=================================================
-# BACKUP VARIOUS FILES
+# BACKUP THE POSTGRESQL DATABASE
 #=================================================
-
-ynh_backup --src_path="/etc/cron.d/$app"
-
-ynh_backup --src_path="/etc/$app/"
-
-#=================================================
-# BACKUP THE MYSQL DATABASE
-#=================================================
-ynh_print_info --message="Backing up the MySQL database..."
+ynh_print_info --message="Backing up the PostgreSQL database..."
 
 ### (However, things like MySQL dumps *do* take some time to run, though the
 ### copy of the generated dump to the archive still happens later)
 
-ynh_mysql_dump_db --database="$db_name" > db.sql
+ynh_psql_dump_db --database="$db_name" > db.sql
 
 #=================================================
 # END OF SCRIPT

@@ -22,17 +22,35 @@ ynh_clean_setup () {
 ynh_abort_if_errors
 
 #=================================================
+# CHECK IF MINIO IS INSTALLED, IF NOT WARN USER
+#=================================================
+ynh_script_progression --message="Checking if MinIO is installed..." --time --weight=1
+
+if ! yunohost app list | grep -q "id: minio"; then
+	ynh_die --message="We can't restore because MinIO is not installed ! Please install MinIO first"
+fi
+
+#=================================================
 # LOAD SETTINGS
 #=================================================
 ynh_script_progression --message="Loading installation settings..." --time --weight=1
 
 app=$YNH_APP_INSTANCE_NAME
 
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+domain=$(ynh_app_setting_get --app=$app --key=domain)
+path_url=$(ynh_app_setting_get --app=$app --key=path_url)
+port=$(ynh_app_setting_get --app=$app --key=port)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-db_user=$db_name
+language_key=$(ynh_app_setting_get --app=$app --key=language_key)
+slack_key=$(ynh_app_setting_get --app=$app --key=slack_key)
+slack_secret=$(ynh_app_setting_get --app=$app --key=slack_secret)
+secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
+utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
+minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
+minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
+mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
 #=================================================
 # CHECK IF THE APP CAN BE RESTORED
@@ -40,7 +58,7 @@ db_user=$db_name
 ynh_script_progression --message="Validating restoration parameters..." --time --weight=1
 
 test ! -d $final_path \
-	|| ynh_die --message="There is already a directory: $final_path "
+	|| ynh_die --message="There is already a directory: $final_path"
 
 #=================================================
 # STANDARD RESTORATION STEPS
@@ -71,6 +89,19 @@ chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
 
 #=================================================
+# RESTORE MINIO
+#=================================================
+
+mv "$final_path/outlinestorage" "$mc_path/outlinestorage"
+chown -R minio:www-data "$mc_path/outlinestorage"
+pushd "$mc_path"
+	ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
+	ynh_exec_warn_less sudo -u minio ./mc policy set public minio/outlinestorage
+	ynh_exec_warn_less sudo -u minio ./mc mirror --a ./outlinestorage/ minio/outlinestorage
+popd
+ynh_secure_remove --file="$mc_path/outlinestorage"
+
+#=================================================
 # SPECIFIC RESTORATION
 #=================================================
 # REINSTALL DEPENDENCIES
@@ -86,13 +117,25 @@ ynh_install_app_dependencies $pkg_dependencies
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
-# RESTORE THE MYSQL DATABASE
+# RESTORE THE POSTGRESQL DATABASE
 #=================================================
 ynh_script_progression --message="Restoring the PostgreSQL database..." --weight=6
 
 ynh_psql_test_if_first_run
-ynh_psql_setup_db --db_user=$db_user --db_name=$db_name --db_pwd=$db_pwd
+ynh_psql_setup_db --db_user=$db_name --db_name=$db_name --db_pwd=$secret_key
 ynh_psql_execute_file_as_root --file="./db.sql" --database=$db_name
+
+#=================================================
+# UPDATING A CONFIGURATION
+#=================================================
+
+ynh_secure_remove --file="$final_path/.env"
+ynh_script_progression --message="Updating the configuration file..." --time --weight=1
+
+ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
+
+chmod 400 "$final_path/.env"
+chown $app:$app "$final_path/.env"
 
 #=================================================
 # RESTORE SYSTEMD
@@ -114,7 +157,7 @@ ynh_restore_file --origin_path="/etc/logrotate.d/$app"
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --time --weight=1
 
-yunohost service add $app --description="A short description of the app" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="Outline server" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
