@@ -156,7 +156,7 @@ chown -R $app:www-data "$final_path"
 #=================================================
 ynh_script_progression --message="Setting up MinIO bucket for Outline..." --weight=1
 
-if $minio_domain != "sub.domain.tld"; then
+if $YNH_APP_ARG_MINIO_DOMAIN != "sub.domain.tld"; then
 	pushd "$mc_path"
 		ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
 		ynh_exec_warn_less sudo -u minio ./mc policy set public minio/outlinestorage
