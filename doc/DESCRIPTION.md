@@ -1,9 +1,7 @@
-Some long and extensive description of what the app is and does, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, and markdown compatible.
 
 ### Features
 
-- Ut enim ad minim veniam, quis nostrud exercitation ullamco ;
-- Laboris nisi ut aliquip ex ea commodo consequat ;
-- Duis aute irure dolor in reprehenderit in voluptate ;
-- Velit esse cillum dolore eu fugiat nulla pariatur ;
-- Excepteur sint occaecat cupidatat non proident, sunt in culpa."
+- Fully working installation of Outline wiki
+- Including a MinIO server for avatars and picture object storage
+- Setup using Yunohost's built-in SMTP server for notifications
