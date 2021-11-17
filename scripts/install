@@ -57,7 +57,9 @@ if ! yunohost app list | grep -q "id: minio"; then
 	if yunohost app list | grep -q "$YNH_APP_ARG_MINIO_DOMAIN"; then
 		ynh_die "The domain provided for MinIO is already used by another app. Please chose another one !"
 	fi
-	yunohost app install https://github.com/limezy/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&language=en"
+	if $YNH_APP_ARG_MINIO_DOMAIN != "sub.domain.tld"; then
+		yunohost app install https://github.com/limezy/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&language=en"
+	fi
 fi
 
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
@@ -154,10 +156,12 @@ chown -R $app:www-data "$final_path"
 #=================================================
 ynh_script_progression --message="Setting up MinIO bucket for Outline..." --weight=1
 
-pushd "$mc_path"
-	ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
-	ynh_exec_warn_less sudo -u minio ./mc policy set public minio/outlinestorage
-popd
+if $minio_domain != "sub.domain.tld"; then
+	pushd "$mc_path"
+		ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
+		ynh_exec_warn_less sudo -u minio ./mc policy set public minio/outlinestorage
+	popd
+fi
 
 #=================================================
 # NGINX CONFIGURATION
