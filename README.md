@@ -15,36 +15,47 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Overview
 
-Some long and extensive description of what the app is and does, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, and markdown compatible.
 
 ### Features
 
-- Ut enim ad minim veniam, quis nostrud exercitation ullamco ;
-- Laboris nisi ut aliquip ex ea commodo consequat ;
-- Duis aute irure dolor in reprehenderit in voluptate ;
-- Velit esse cillum dolore eu fugiat nulla pariatur ;
-- Excepteur sint occaecat cupidatat non proident, sunt in culpa."
+- Fully working installation of Outline wiki
+- Including a MinIO server for avatars and picture object storage
+- Setup using Yunohost's built-in SMTP server for notifications
 
 
 **Shipped version:** 0.60.1~ynh1
 
 **Demo:** https://app.getoutline.com/create
 
+## Screenshots
+
+![](./doc/screenshots/outline_screenshot.png)
+
 ## Disclaimers / important information
 
-* Any known limitations, constrains or stuff not working, such as (but not limited to):
-    * requiring a full dedicated domain ?
-    * architectures not supported ?
-    * not-working single-sign on or LDAP integration ?
-    * the app requires an important amount of RAM / disk / .. to install or to work properly
-    * etc...
+### Known limitations
 
-* Other infos that people should be aware of, such as:
-    * any specific step to perform after installing (such as manually finishing the install, specific admin credentials, ...)
-    * how to configure / administrate the application if it ain't obvious
-    * upgrade process / specificities / things to be aware of ?
-    * security considerations ?
+1. The app requires MinIO app to be installed (MinIO installation is automatic, though)
+2. The app is requiring two full dedicated domains (one for MinIO server, one for Outline)
+3. ARM architectures are not supported (and may never be as Outline was built for AMD64)
+4. Not yet working Yunohost SSO integration (for now it requires a Slack account and Slack app - see below)
+5. Because it's built from sources, the app requires an important amount of RAM & disk to install properly
 
+
+### How to create a "Slack app" and get your "Client ID" and "Signing Secret"
+
+You should perform all below steps before starting the package installation on Yunohost :
+1. Visit https://api.slack.com/apps
+2. Sign in into a Slack workspace
+3. Create a new app from scratch
+4. Give it a name and associate it to your workspace
+
+![image](https://user-images.githubusercontent.com/24638389/134668089-3b1a73f2-dbca-47c4-8e57-1ee26d1c034a.png)
+
+6. In the basic information tab, you'll find a "Client ID" and a "Signing Secret" - keep both as you'll need them to run the package installation
+7. Go to "Features" then "OAuth & Permissions"
+8. Add a new redirect URL. Use https://example.mydomain.fr/auth/slack.callback (assuming https://example.mydomain.fr is the domain on which you will install outline package)
 ## Documentation and resources
 
 * Official app website: www.getoutline.com
