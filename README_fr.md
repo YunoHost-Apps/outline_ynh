@@ -32,11 +32,12 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 
 ### Known limitations
 
-1. The app requires MinIO app to be installed (MinIO installation is automatic, though)
-2. The app is requiring two full dedicated domains (one for MinIO server, one for Outline)
-3. ARM architectures are not supported (and may never be as Outline was built for AMD64)
-4. Not yet working Yunohost SSO integration (for now it requires a Slack account and Slack app - see below)
-5. Because it's built from sources, the app requires an important amount of RAM & disk to install properly
+1. Because this app can't yet run in the CI server, its integration level is unkonwn at the moment and standard Yunohost packages testing couldn't run yet. **Please don't use it on a prod server**
+2. The app requires MinIO app to be installed (MinIO installation is automatic, though)
+3. The app is requiring two full dedicated domains (one for MinIO server, one for Outline)
+4. ARM architectures are not supported (and may never be as Outline was built for AMD64)
+5. Not yet working Yunohost SSO integration (for now it requires a Slack account and Slack app - see below)
+6. Because it's built from sources, the app requires an important amount of RAM, disk and time to install properly
 
 
 ### How to create a "Slack app" and get your "Client ID" and "Signing Secret"
