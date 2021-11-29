@@ -28,9 +28,12 @@ utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
 
 
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
-minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
-minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
-mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
+
+	if [ $minio_domain != "sub.domain.tld" ]; then
+		minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
+		minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
+		mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
+	fi
 
 #=================================================
 # STANDARD REMOVE
@@ -91,7 +94,7 @@ ynh_secure_remove --file="$final_path"
 #=================================================
 ynh_script_progression --message="Removing Outline MinIO bucket..." --time --weight=1
 
-if $minio_domain != "sub.domain.tld"; then
+if [ $minio_domain != "sub.domain.tld" ]; then
 	pushd "$mc_path"
 		ynh_exec_warn_less sudo -u minio ./mc rb minio/outlinestorage --force
 	popd
