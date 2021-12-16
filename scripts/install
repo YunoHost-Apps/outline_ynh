@@ -62,7 +62,10 @@ if ! yunohost app list | grep -q "id: minio"; then
 		minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
 		minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
 		minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
-		mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path); else
+		mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
+	else
+		minio_id="123"
+		minio_key="123"
 		minio_domain="sub.domain.tld"
 	fi
 fi
