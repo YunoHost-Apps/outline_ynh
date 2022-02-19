@@ -1,14 +1,14 @@
 diff --git a/app/scenes/Document/components/Document.tsx b/app/scenes/Document/components/Document.tsx
-index 690fb737..2573430b 100644
+index 038bd1df..76ea51a7 100644
 --- a/app/scenes/Document/components/Document.tsx
 +++ b/app/scenes/Document/components/Document.tsx
-@@ -635,9 +635,6 @@ class DocumentScene extends React.Component<Props> {
-                 </Flex>
-               </React.Suspense>
+@@ -600,9 +600,6 @@ class DocumentScene extends React.Component<Props> {
              </MaxWidth>
--            {isShare && !isCustomDomain() && (
--              <Branding href="//www.getoutline.com?ref=sharelink" />
--            )}
            </Container>
          </Background>
+-        {isShare && !isCustomDomain() && (
+-          <Branding href="//www.getoutline.com?ref=sharelink" />
+-        )}
          {!isShare && (
+           <>
+             <KeyboardShortcutsButton />
