@@ -57,11 +57,10 @@ if ! yunohost app list | grep -q "id: minio"; then
 	if yunohost app list | grep -q "$YNH_APP_ARG_MINIO_DOMAIN"; then
 		ynh_die "The domain provided for MinIO is already used by another app. Please chose another one !"
 	fi
-	yunohost app install https://github.com/limezy/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&language=en"
+	yunohost app install https://github.com/YunoHost-Apps/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&language=en"
 fi
 
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
-minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
 minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
 mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 

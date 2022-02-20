@@ -28,7 +28,6 @@ utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
 
 
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
-minio_id=$(ynh_app_setting_get --app="minio" --key=minio_id)
 minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
 mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
