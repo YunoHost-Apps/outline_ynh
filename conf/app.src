@@ -1,5 +1,5 @@
 SOURCE_URL=https://github.com/outline/outline/archive/refs/tags/v0.62.0.tar.gz
-SOURCE_SUM=0bec2a0c95be8562dbf30b9bd7d312149e9ae7a36e7f44d4ed3d600e945a767b
+SOURCE_SUM=13abbf5559af9cfee5da83e8832495d5b9195bad60745a82ae2419c19c2dad99
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
