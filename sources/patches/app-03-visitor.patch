@@ -1,3 +1,15 @@
+diff --git a/package.json b/package.json
+index 462c7c3b..44338454 100644
+--- a/package.json
++++ b/package.json
+@@ -127,6 +127,7 @@
+     "passport": "^0.4.1",
+     "passport-google-oauth2": "^0.2.0",
+     "passport-oauth2": "^1.6.1",
++    "passport-req": "^0.1.1",
+     "passport-slack-oauth2": "^1.1.0",
+     "pg": "^8.5.1",
+     "pg-hstore": "^2.3.4",
 diff --git a/server/routes/auth/providers/req.ts b/server/routes/auth/providers/req.ts
 index e69de29b..22beba6e 100644
 --- a/server/routes/auth/providers/req.ts
@@ -67,3 +79,22 @@ index e69de29b..22beba6e 100644
 +}
 +
 +export default router;
+diff --git a/yarn.lock b/yarn.lock
+index 20154c88..b9674954 100644
+--- a/yarn.lock
++++ b/yarn.lock
+@@ -11378,6 +11378,14 @@ passport-oauth@1.0.x:
+     passport-oauth1 "1.x.x"
+     passport-oauth2 "1.x.x"
+ 
++passport-req@^0.1.1:
++  version "0.1.1"
++  resolved "https://registry.yarnpkg.com/passport-req/-/passport-req-0.1.1.tgz#451bff1500b3d464a768d42f0762328a21236a18"
++  integrity sha1-RRv/FQCz1GSnaNQvB2IyiiEjahg=
++  dependencies:
++    passport "~0.1.1"
++    pkginfo "0.2.x"
++
+ passport-slack-oauth2@^1.1.0:
+   version "1.1.0"
+   resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.1.0.tgz#4a153b3d0d5a9e1a5041b61599d2b41a4b9486f1"
