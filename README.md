@@ -21,7 +21,8 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 
 - Fully working installation of Outline wiki
 - Including a MinIO server for avatars and picture object storage
-- Setup using Yunohost's built-in SMTP server for notifications
+- Including a Dex server to connect to Yunohost's LDAP userbase using an OIDC auth flow
+- Using Yunohost's built-in SMTP server for notifications
 
 
 **Shipped version:** 0.62.0~ynh1
