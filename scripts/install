@@ -72,7 +72,6 @@ oidc_secret=$(ynh_hex_32_random)
 oidc_name="Outline"
 oidc_callback="$domain/auth/oidc.callback"
 
-unset GOPATH
 yunohost app install https://github.com/YunoHost-Apps/dex_ynh --force --args "domain=$dex_domain&path=$dex_path&OIDC_name=$oidc_name&OIDC_secret=$oidc_secret&OIDC_callback=$oidc_callback"
 
 #=================================================
