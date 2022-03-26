@@ -76,7 +76,7 @@ if yunohost app list | grep -q "$YNH_APP_ARG_DEX_DOMAIN"; then
 	ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
 fi
 
-yunohost app install https://github.com/YunoHost-Apps/dex_ynh --force --args "domain=$dex_domain&path=$dex_path&OIDC_name=$oidc_name&OIDC_secret=$oidc_secret&OIDC_callback=$oidc_callback"
+yunohost app install https://github.com/Limezy/dex_ynh/tree/trick-nginx --force --args "domain=$dex_domain&path=$dex_path&OIDC_name=$oidc_name&OIDC_secret=$oidc_secret&OIDC_callback=$oidc_callback"
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
