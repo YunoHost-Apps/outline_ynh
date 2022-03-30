@@ -9,7 +9,7 @@
     "version": "0.62.0~ynh1",
     "url": "www.getoutline.com",
     "upstream": {
-        "license": "BSL 1.1",
+        "license": "BUSL-1.1",
         "website": "www.getoutline.com",
         "demo": "https://app.getoutline.com/create",
         "admindoc": "https://www.getoutline.com/developers",
