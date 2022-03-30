@@ -9,7 +9,7 @@
     "version": "0.62.0~ynh1",
     "url": "www.getoutline.com",
     "upstream": {
-        "license": "BSL 1.1",
+        "license": "BUSL-1.1",
         "website": "www.getoutline.com",
         "demo": "https://app.getoutline.com/create",
         "admindoc": "https://www.getoutline.com/developers",
@@ -66,7 +66,18 @@
                 "name": "minio_domain",
                 "type": "domain",
                 "example": "docs.domain.tld",
-                "ask": "Domain for Minio app, used for images and attachements storage. If not yet installed, it will automatically be. Minio has to be installed at the root"
+                "ask": "Domain for MinIO app, used for images and attachements storage. If not yet installed, it will automatically be. Minio has to be installed at the root"
+            },
+            {
+                "name": "minio_admin",
+                "type": "user",
+                "ask": "Admin for MinIO app, used for images and attachements storage. Please note that if MinIO is already installed, that setting won't be used"
+            },
+            {
+                "name": "minio_password",
+                "type": "password",
+                "example": "docs.domain.tld",
+                "ask": "Domain for MinIO app, used for images and attachements storage. Please note that if MinIO is already installed, that setting won't be used"
             }
         ]
     }
