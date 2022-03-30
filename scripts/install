@@ -54,15 +54,17 @@ if ! yunohost app list | grep -q "id: minio"; then
 	if yunohost app list | grep -q "$YNH_APP_ARG_MINIO_DOMAIN"; then
 		ynh_die "The domain provided for MinIO is already used by another app. Please chose another one !"
 	fi
-	yunohost app install https://github.com/YunoHost-Apps/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&language=en"
+	yunohost app install https://github.com/YunoHost-Apps/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&admin=$YNH_APP_ARG_MINIO_ADMIN&password=$YNH_APP_ARG_MINIO_PASSWORD"
 fi
 
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_admin=$(ynh_app_setting_get --app="minio" --key=admin)
+minio_password=$(ynh_app_setting_get --app="minio" --key=password)
 minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
 mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
 #=================================================
-# CHECK IF MINIO IS INSTALLED, IF NOT INSTALL IT
+# INSTALL DEX APP FOR OAUTH2 / OIDC
 #=================================================
 ynh_script_progression --message="Installing Dex..." --weight=18
 
@@ -78,9 +80,9 @@ fi
 
 yunohost app install https://github.com/Limezy/dex_ynh/tree/trick-nginx --force --args "domain=$dex_domain&path=$dex_path&OIDC_name=$oidc_name&OIDC_secret=$oidc_secret&OIDC_callback=$oidc_callback"
 
-#=================================================
+#===================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
-#=================================================
+#===================================================
 ynh_script_progression --message="Validating installation parameters..." --weight=1
 
 final_path=/opt/yunohost/$app
