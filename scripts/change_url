@@ -46,6 +46,9 @@ dex_path=$(ynh_app_setting_get --app=$app --key=dex_path)
 oidc_secret=$(ynh_app_setting_get --app=$app --key=oidc_secret)
 oidc_name=$(ynh_app_setting_get --app=$app --key=oidc_name)
 oidc_callback=$(ynh_app_setting_get --app=$app --key=oidc_callback)
+dex_auth_uri=$(ynh_app_setting_get --app=$app --key=dex_auth_uri)
+dex_token_uri=$(ynh_app_setting_get --app=$app --key=dex_token_uri)
+dex_user_uri=$(ynh_app_setting_get --app=$app --key=dex_user_uri)
 
 #=================================================
 # BACKUP BEFORE CHANGE URL THEN ACTIVE TRAP

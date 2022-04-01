@@ -82,6 +82,18 @@ yunohost app install https://github.com/YunoHost-Apps/dex_ynh --force --args "do
 dex_app=$(gawk 'match($0, /Installation of (.+) completed/, app) {print app[1]}' dexlog.txt)
 rm dexlog.txt
 
+# Create Dex URIs
+if [ $i$dex_path -eq "/" ]
+then
+	dex_auth_uri="https://$dex_domain/auth"
+	dex_token_uri="https://$dex_domain/token"
+	dex_user_uri="https://$dex_domain/userinfo"
+else
+	dex_auth_uri="https://$dex_domain$dex_path/auth"
+	dex_token_uri="https://$dex_domain$dex_path/token"
+	dex_user_uri="https://$dex_domain$dex_path/userinfo"	
+fi
+
 #===================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #===================================================
@@ -110,6 +122,9 @@ ynh_app_setting_set --app=$app --key=dex_path --value=$dex_path
 ynh_app_setting_set --app=$app --key=oidc_name --value=$oidc_name
 ynh_app_setting_set --app=$app --key=oidc_secret --value=$oidc_secret
 ynh_app_setting_set --app=$app --key=oidc_callback --value=$oidc_callback
+ynh_app_setting_set --app=$app --key=dex_auth_uri --value=$dex_auth_uri
+ynh_app_setting_set --app=$app --key=dex_token_uri --value=$dex_token_uri
+ynh_app_setting_set --app=$app --key=dex_user_uri --value=$dex_user_uri
 
 #=================================================
 # STANDARD MODIFICATIONS
