@@ -83,7 +83,7 @@ dex_app=$(gawk 'match($0, /Installation of (.+) completed/, app) {print app[1]}'
 rm dexlog.txt
 
 # Create Dex URIs
-if [ $dex_path -eq "/" ]
+if [ $dex_path = "/" ]
 then
 	dex_auth_uri="https://$dex_domain/auth"
 	dex_token_uri="https://$dex_domain/token"
