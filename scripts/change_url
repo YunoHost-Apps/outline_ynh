@@ -40,11 +40,12 @@ minio_admin=$(ynh_app_setting_get --app="minio" --key=admin)
 minio_password=$(ynh_app_setting_get --app="minio" --key=password)
 minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
 mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
-dex_domain=$(ynh_app_setting_get --app="minio" --key=dex_domain)
-dex_path=$(ynh_app_setting_get --app="minio" --key=dex_path)
-oidc_secret=$(ynh_app_setting_get --app="minio" --key=oidc_secret)
-oidc_name=$(ynh_app_setting_get --app="minio" --key=oidc_name)
-oidc_callback=$(ynh_app_setting_get --app="minio" --key=oidc_callback)
+dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
+dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
+dex_path=$(ynh_app_setting_get --app=$app --key=dex_path)
+oidc_secret=$(ynh_app_setting_get --app=$app --key=oidc_secret)
+oidc_name=$(ynh_app_setting_get --app=$app --key=oidc_name)
+oidc_callback=$(ynh_app_setting_get --app=$app --key=oidc_callback)
 
 #=================================================
 # BACKUP BEFORE CHANGE URL THEN ACTIVE TRAP

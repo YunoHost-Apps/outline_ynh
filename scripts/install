@@ -54,8 +54,7 @@ if ! yunohost app list | grep -q "id: minio"; then
 	if yunohost app list | grep -q "$YNH_APP_ARG_MINIO_DOMAIN"; then
 		ynh_die "The domain provided for MinIO is already used by another app. Please chose another one !"
 	fi
-	### FIXME AFTER CI VERIFICATION
-	yunohost app install https://github.com/Limezy/minio_ynh/tree/ci-compatible --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&admin=$YNH_APP_ARG_MINIO_ADMIN&password=$YNH_APP_ARG_MINIO_PASSWORD"
+	yunohost app install https://github.com/YunoHost-Apps/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_public=true&admin=$YNH_APP_ARG_MINIO_ADMIN&password=$YNH_APP_ARG_MINIO_PASSWORD"
 fi
 
 minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
@@ -79,7 +78,9 @@ if yunohost app list | grep -q "$YNH_APP_ARG_DEX_DOMAIN"; then
 	ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
 fi
 
-yunohost app install https://github.com/YunoHost-Apps/dex_ynh --force --args "domain=$dex_domain&path=$dex_path&OIDC_name=$oidc_name&OIDC_secret=$oidc_secret&OIDC_callback=$oidc_callback"
+yunohost app install https://github.com/YunoHost-Apps/dex_ynh --force --args "domain=$dex_domain&path=$dex_path&OIDC_name=$oidc_name&OIDC_secret=$oidc_secret&OIDC_callback=$oidc_callback" 2>&1 | tee dexlog.txt
+dex_app=$(gawk 'match($0, /Installation of (.+) completed/, app) {print app[1]}' dexlog.txt)
+rm dexlog.txt
 
 #===================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
@@ -103,6 +104,7 @@ ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=secret_key --value=$secret_key
 ynh_app_setting_set --app=$app --key=utils_secret --value=$utils_secret
 ynh_app_setting_set --app=$app --key=language_key --value=$language_key
+ynh_app_setting_set --app=$app --key=dex_app --value=$dex_app
 ynh_app_setting_set --app=$app --key=dex_domain --value=$dex_domain
 ynh_app_setting_set --app=$app --key=dex_path --value=$dex_path
 ynh_app_setting_set --app=$app --key=oidc_name --value=$oidc_name
