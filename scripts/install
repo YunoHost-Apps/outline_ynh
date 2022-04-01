@@ -38,8 +38,8 @@ else
 	echo "English"
 fi
 
-secret_key=$(ynh_string_random --length=32)
-utils_secret=$(ynh_string_random --length=32)
+secret_key=$(ynh_string_random --length=64)
+utils_secret=$(ynh_string_random --length=64)
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -71,7 +71,7 @@ ynh_script_progression --message="Installing Dex..." --weight=18
 
 dex_domain=$YNH_APP_ARG_DEX_DOMAIN
 dex_path=$YNH_APP_ARG_DEX_PATH
-oidc_secret=$(ynh_string_random --length=32)
+oidc_secret=$(ynh_string_random --length=64)
 oidc_name="Outline"
 oidc_callback="$domain/auth/oidc.callback"
 
