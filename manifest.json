@@ -32,8 +32,6 @@
             {
                 "name": "domain",
                 "type": "domain",
-                "example": "wiki.domain.tld",
-                "ask": "Domain for Outline app. This will be the main domain to access the wiki. Outline has to be installed at the root"
             },
             {
                 "name": "is_public",
@@ -53,19 +51,17 @@
             {
                 "name": "dex_domain",
                 "type": "domain",
-                "example": "auth.domain.tld",
                 "ask": "Domain for authentification. It can't be the same domain as above. Dex app will be installed and used for the authentification mechanism"
             },
             {
                 "name": "dex_path",
                 "type": "path",
-                "example": "/example",
-                "default": "/example"
+                "default": "/",
+                "ask": "Path for authentification url. Please don't use 'auth' as it will break Nginx configuration"
             },
             {
                 "name": "minio_domain",
                 "type": "domain",
-                "example": "docs.domain.tld",
                 "ask": "Domain for MinIO app, used for images and attachements storage. If not yet installed, it will automatically be. Minio has to be installed at the root"
             },
             {
@@ -76,7 +72,6 @@
             {
                 "name": "minio_password",
                 "type": "password",
-                "example": "docs.domain.tld",
                 "ask": "Domain for MinIO app, used for images and attachements storage. Please note that if MinIO is already installed, that setting won't be used"
             }
         ]
