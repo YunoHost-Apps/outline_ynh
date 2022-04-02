@@ -120,6 +120,7 @@ ynh_app_setting_set --app=$app --key=minio_domain --value=$minio_domain
 ynh_app_setting_set --app=$app --key=minio_admin --value=$minio_admin
 ynh_app_setting_set --app=$app --key=minio_password --value=$minio_password
 ynh_app_setting_set --app=$app --key=minio_key --value=$minio_key
+ynh_app_setting_set --app=$app --key=mc_path --value=$mc_path
 ynh_app_setting_set --app=$app --key=dex_app --value=$dex_app
 ynh_app_setting_set --app=$app --key=dex_domain --value=$dex_domain
 ynh_app_setting_set --app=$app --key=dex_path --value=$dex_path
