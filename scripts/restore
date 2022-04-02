@@ -36,10 +36,9 @@ db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 language_key=$(ynh_app_setting_get --app=$app --key=language_key)
 secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
 utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
-minio_domain=$(ynh_app_setting_get --app=$app --key=domain)
-minio_admin=$(ynh_app_setting_get --app=$app --key=admin)
-minio_password=$(ynh_app_setting_get --app=$app --key=password)
-minio_key=$(ynh_app_setting_get --app=$app --key=minio_key)
+minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
+minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
+minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
 mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
 dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
 dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
@@ -71,7 +70,6 @@ if ! yunohost app list | grep -q "id: $dex_app"; then
 		ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
 	fi
 	yunohost app install https://github.com/YunoHost-Apps/dex_ynh --force --args "domain=$dex_domain&path=$dex_path&OIDC_name=$oidc_name&OIDC_secret=$oidc_secret&OIDC_callback=$oidc_callback"
-
 fi
 
 #=================================================
