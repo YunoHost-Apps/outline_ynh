@@ -116,6 +116,10 @@ ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=secret_key --value=$secret_key
 ynh_app_setting_set --app=$app --key=utils_secret --value=$utils_secret
 ynh_app_setting_set --app=$app --key=language_key --value=$language_key
+ynh_app_setting_set --app=$app --key=minio_domain --value=$minio_domain
+ynh_app_setting_set --app=$app --key=minio_admin --value=$minio_admin
+ynh_app_setting_set --app=$app --key=minio_password --value=$minio_password
+ynh_app_setting_set --app=$app --key=minio_key --value=$minio_key
 ynh_app_setting_set --app=$app --key=dex_app --value=$dex_app
 ynh_app_setting_set --app=$app --key=dex_domain --value=$dex_domain
 ynh_app_setting_set --app=$app --key=dex_path --value=$dex_path
