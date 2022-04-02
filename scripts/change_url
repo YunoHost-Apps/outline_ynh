@@ -24,7 +24,7 @@ app=$YNH_APP_INSTANCE_NAME
 #=================================================
 # LOAD SETTINGS
 #=================================================
-ynh_script_progression --message="Loading installation settings..." --time --weight=1
+ynh_script_progression --message="Loading installation settings..." --weight=1
 
 # Needed for helper "ynh_add_nginx_config"
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
@@ -35,21 +35,24 @@ db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 language_key=$(ynh_app_setting_get --app=$app --key=language_key)
 secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
 utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
-minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
-minio_admin=$(ynh_app_setting_get --app="minio" --key=admin)
-minio_password=$(ynh_app_setting_get --app="minio" --key=password)
-minio_key=$(ynh_app_setting_get --app="minio" --key=minio_key)
-mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
-dex_domain=$(ynh_app_setting_get --app="minio" --key=dex_domain)
-dex_path=$(ynh_app_setting_get --app="minio" --key=dex_path)
-oidc_secret=$(ynh_app_setting_get --app="minio" --key=oidc_secret)
-oidc_name=$(ynh_app_setting_get --app="minio" --key=oidc_name)
-oidc_callback=$(ynh_app_setting_get --app="minio" --key=oidc_callback)
+minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
+minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
+minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
+mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
+dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
+dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
+dex_path=$(ynh_app_setting_get --app=$app --key=dex_path)
+oidc_secret=$(ynh_app_setting_get --app=$app --key=oidc_secret)
+oidc_name=$(ynh_app_setting_get --app=$app --key=oidc_name)
+oidc_callback=$(ynh_app_setting_get --app=$app --key=oidc_callback)
+dex_auth_uri=$(ynh_app_setting_get --app=$app --key=dex_auth_uri)
+dex_token_uri=$(ynh_app_setting_get --app=$app --key=dex_token_uri)
+dex_user_uri=$(ynh_app_setting_get --app=$app --key=dex_user_uri)
 
 #=================================================
 # BACKUP BEFORE CHANGE URL THEN ACTIVE TRAP
 #=================================================
-ynh_script_progression --message="Backing up the app before changing its URL (may take a while)..." --time --weight=1
+ynh_script_progression --message="Backing up the app before changing its URL (may take a while)..." --weight=1
 
 # Backup the current version of the app
 ynh_backup_before_upgrade
@@ -84,14 +87,14 @@ fi
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Stopping a systemd service..." --time --weight=1
+ynh_script_progression --message="Stopping a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # MODIFY URL IN NGINX CONF
 #=================================================
-ynh_script_progression --message="Updating NGINX web server configuration..." --time --weight=1
+ynh_script_progression --message="Updating NGINX web server configuration..." --weight=1
 
 nginx_conf_path=/etc/nginx/conf.d/$old_domain.d/$app.conf
 
@@ -112,7 +115,7 @@ fi
 domain=$new_domain
 
 ynh_secure_remove --file="$final_path/.env"
-ynh_script_progression --message="Updating the configuration file..." --time --weight=1
+ynh_script_progression --message="Updating the configuration file..." --weight=1
 
 ynh_add_config --template="../conf/.env" --destination="$final_path/.env"
 
@@ -134,14 +137,14 @@ popd
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --time --weight=1
+ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --time --weight=1
+ynh_script_progression --message="Reloading NGINX web server..." --weight=1
 
 ynh_systemd_action --service_name=nginx --action=reload
 
@@ -155,4 +158,4 @@ ynh_print_info --message="Don't forget to add a new redirction url in your Slack
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Change of URL completed for $app" --time --last
+ynh_script_progression --message="Change of URL completed for $app" --last
