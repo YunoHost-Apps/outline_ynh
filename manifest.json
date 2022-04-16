@@ -72,7 +72,7 @@
             {
                 "name": "minio_password",
                 "type": "password",
-                "ask": "Domain for MinIO app, used for images and attachements storage. Please note that if MinIO is already installed, that setting won't be used"
+                "ask": "Password for MinIO admin"
             }
         ]
     }
