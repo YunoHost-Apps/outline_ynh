@@ -12,7 +12,7 @@
 		minio_admin="package_checker"
 		minio_password="1Strong-Password"
 	; Checks
-		pkg_linter=0
+		pkg_linter=1
 		setup_sub_dir=1
 		setup_root=1
 		setup_nourl=0
