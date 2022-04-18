@@ -135,9 +135,9 @@ ynh_secure_remove --file="$mc_path/outlinestorage"
 ynh_script_progression --message="Reinstalling dependencies..." --weight=1
 
 # Install nodejs
-ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
+ynh_install_nodejs --nodejs_version=$NODEJS_VERSION 2>&1
 
-ynh_install_app_dependencies $pkg_dependencies
+ynh_install_app_dependencies $pkg_dependencies 2>&1
 
 # Install Yarn
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
