@@ -14,7 +14,7 @@ NODEJS_VERSION=14
 #=================================================
 
 ynh_hex_32_random() {
-	echo "$(openssl rand -hex 32)"
+	echo "$(tr -dc 'A-F0-9' < /dev/urandom | head -c64)"
 }
 
 #=================================================
