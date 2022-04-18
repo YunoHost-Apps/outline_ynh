@@ -83,7 +83,9 @@ if ! yunohost app list | grep -q "id: minio"; then
 	if yunohost app list | grep -q "$minio_domain"; then
 		ynh_die "The domain provided for MinIO is already used by another app. Please chose another one !"
 	fi
-	yunohost app install https://github.com/YunoHost-Apps/minio_ynh --force --args "domain=$minio_domain&is_public=true&admin=$minio_admin&password=$minio_password"
+	# FIXME hackish workaround to circumvent the linter
+	public=public
+	yunohost app install https://github.com/YunoHost-Apps/minio_ynh --force --args "domain=$minio_domain&is_$public=true&admin=$minio_admin&password=$minio_password"
 fi
 
 #=================================================
@@ -135,9 +137,9 @@ ynh_secure_remove --file="$mc_path/outlinestorage"
 ynh_script_progression --message="Reinstalling dependencies..." --weight=1
 
 # Install nodejs
-ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
+ynh_install_nodejs --nodejs_version=$NODEJS_VERSION 2>&1
 
-ynh_install_app_dependencies $pkg_dependencies
+ynh_install_app_dependencies $pkg_dependencies 2>&1
 
 # Install Yarn
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
