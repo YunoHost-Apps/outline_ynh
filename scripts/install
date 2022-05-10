@@ -289,7 +289,7 @@ if [ $is_public -eq 1 ]
 then
 	ynh_permission_update --permission="main" --add="visitors"
 fi
-	ynh_permission_update --permission="main" --auth_header=false
+	ynh_permission_url --permission="main" --auth_header=false
 
 #=================================================
 # RELOAD NGINX
