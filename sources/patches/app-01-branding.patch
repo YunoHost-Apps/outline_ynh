@@ -1,8 +1,8 @@
 diff --git a/app/scenes/Document/components/Document.tsx b/app/scenes/Document/components/Document.tsx
-index 955a1fd5..ce385aa2 100644
+index 6a9d1265..452511f1 100644
 --- a/app/scenes/Document/components/Document.tsx
 +++ b/app/scenes/Document/components/Document.tsx
-@@ -611,9 +611,6 @@ class DocumentScene extends React.Component<Props> {
+@@ -625,9 +625,6 @@ class DocumentScene extends React.Component<Props> {
                  </Flex>
                </React.Suspense>
              </MaxWidth>
