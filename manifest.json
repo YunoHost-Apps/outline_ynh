@@ -1,10 +1,10 @@
 {
-    "name": "Outline wiki",
+    "name": "Outline",
     "id": "outline",
     "packaging_format": 1,
     "description": {
-        "en": "An open, extensible, wiki for your team built using React and Node.js.",
-        "fr": "Un wiki open source et évolutif pour votre équipe, conçu avec React et Node.js"
+        "en": "Wiki and knowledge base for teams",
+        "fr": "Wiki et base de connaissances pour les équipes"
     },
     "version": "0.63.0~ynh3",
     "url": "www.getoutline.com",
@@ -21,7 +21,7 @@
         "name": "Raoul de Limezy"
     },
     "requirements": {
-        "yunohost": ">= 4.2.4"
+        "yunohost": ">= 4.3.0"
     },
     "multi_instance": false,
     "services": [
@@ -51,28 +51,43 @@
             {
                 "name": "dex_domain",
                 "type": "domain",
-                "ask": "Domain for authentification. It can't be the same domain as above. Dex app will be installed and used for the authentification mechanism"
+                "ask": {
+                    "en": "Domain for authentication. It can't be the same domain as above. Dex app will be installed and used for the authentication mechanism.",
+                    "fr": "Domaine pour l'authentification. Il ne peut pas s'agir du même domaine que ci-dessus. L'application Dex sera installée et utilisée pour le mécanisme d'authentification."
+                }
             },
             {
                 "name": "dex_path",
                 "type": "path",
                 "default": "/",
-                "ask": "Path for authentification url. Please don't use 'auth' as it will break Nginx configuration"
+                "ask": {
+                    "en": "Path for authentication URL. Please don't use 'auth' as it will break NGINX configuration.",
+                    "fr": "Chemin de l'URL d'authentification. Veuillez ne pas utiliser 'auth' car cela casserait la configuration NGINX."
+                }
             },
             {
                 "name": "minio_domain",
                 "type": "domain",
-                "ask": "Domain for MinIO app, used for images and attachements storage. If not yet installed, it will automatically be. Minio has to be installed at the root"
+                "ask": {
+                    "en": "Domain for MinIO app, used for images and attachments storage. If not yet installed, it will automatically be. MinIO has to be installed at the root.",
+                    "fr": "Domaine pour l'application MinIO, utilisé pour le stockage des images et des pièces jointes. S'il n'est pas encore installé, il le sera automatiquement. MinIO doit être installé à la racine."
+                }
             },
             {
                 "name": "minio_admin",
                 "type": "user",
-                "ask": "Admin for MinIO app, used for images and attachements storage. Please note that if MinIO is already installed, that setting won't be used"
+                "ask": {
+                    "en": "Administrator for MinIO app, used for images and attachments storage. Please note that if MinIO is already installed, that setting won't be used.",
+                    "fr": "Administrateur pour l'application MinIO, utilisée pour le stockage des images et des pièces jointes. Veuillez noter que si MinIO est déjà installé, ce paramètre ne sera pas utilisé."
+                }
             },
             {
                 "name": "minio_password",
                 "type": "password",
-                "ask": "Password for MinIO admin"
+                "ask": {
+                    "en": "Password for MinIO administrator",
+                    "fr": "Mot de passe pour l'administrateur MinIO"
+                }
             }
         ]
     }
