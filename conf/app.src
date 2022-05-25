@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/outline/outline/archive/refs/tags/v0.63.0.tar.gz
-SOURCE_SUM=ca2758a6461c7a159c073374a2480b77d2049625ff9ef87686f57557bd2f0bb4
+SOURCE_URL=https://github.com/outline/outline/archive/refs/tags/v0.64.3.tar.gz
+SOURCE_SUM=5fc5f9442114cdf1dfcc924e8e2d7cd6d756e634ca22bd17b366bffee4af4158
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
