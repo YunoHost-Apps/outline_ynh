@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # Outline pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Status du fonctionnement](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Status de maintenance](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)  
+[![Niveau d'intégration](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Status de maintenance](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)  
 [![Installer Outline avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=outline)
 
 *[Read this readme in english.](./README.md)*
