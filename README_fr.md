@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # Outline pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Status de maintenance](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)  
+[![Niveau d'intégration](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)  
 [![Installer Outline avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=outline)
 
 *[Read this readme in english.](./README.md)*
@@ -25,7 +25,7 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 - Using Yunohost's built-in SMTP server for notifications
 
 
-**Version incluse :** 0.64.3~ynh1
+**Version incluse :** 0.65.2~ynh1
 
 **Démo :** https://app.getoutline.com/create
 
@@ -38,7 +38,7 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 ### Not totally free licence
 Outline is a softwared licenced under [BUSL 1.1 licence](https://spdx.org/licenses/BUSL-1.1.html). 
 ⚠️ That licence **is not totally free**. Please read it very carefully if you have any commercial use in mind.
-The Outline version shipped with this package (v0.64.3) will be released under Apache-2.0 licence [after May 23rd 2026](https://github.com/outline/outline/blob/151c2c731a94eefdda4e62f311308e9bd4615838/LICENSE).
+The Outline version shipped with this package (v0.65.2) will be released under Apache-2.0 licence [after May 23rd 2026](https://github.com/outline/outline/blob/151c2c731a94eefdda4e62f311308e9bd4615838/LICENSE).
 
 ### Known limitations
 
