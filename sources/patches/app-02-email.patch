@@ -1,8 +1,8 @@
 diff --git a/server/emails/mailer.tsx b/server/emails/mailer.tsx
-index b13e29dd..bac5fc41 100644
+index f366391a9..2df962fbc 100644
 --- a/server/emails/mailer.tsx
 +++ b/server/emails/mailer.tsx
-@@ -107,6 +107,7 @@ export class Mailer {
+@@ -108,6 +108,7 @@ export class Mailer {
              ciphers: env.SMTP_TLS_CIPHERS,
            }
          : undefined,
