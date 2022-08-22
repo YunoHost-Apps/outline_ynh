@@ -16,7 +16,7 @@
         "userdoc": "https://www.getoutline.com/about",
         "code": "https://github.com/outline/outline"
     },
-    "license": "AGPL-3.0-only",
+    "license": "BUSL-1.1",
     "maintainer": {
         "name": "Raoul de Limezy"
     },
