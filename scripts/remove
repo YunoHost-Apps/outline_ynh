@@ -107,6 +107,7 @@ ynh_script_progression --message="Removing Outline MinIO bucket..." --weight=1
 pushd "$mc_path"
 	ynh_exec_warn_less sudo -u minio ./mc rb minio/outlinestorage --force
 popd
+ynh_secure_remove --file="$mc_path/outlinestorage"
 
 #=================================================
 # REMOVE NGINX CONFIGURATION
