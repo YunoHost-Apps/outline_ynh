@@ -51,6 +51,7 @@ ynh_script_progression --message="Backing up the app before upgrading (may take 
 
 # Ugly fix for an early mistake - to be removed with next upgrade
 ynh_secure_remove --file="$final_path/outlinestorage"
+ynh_secure_remove --file="$mc_path/outlinestorage"
 
 # Backup the current version of the app
 ynh_backup_before_upgrade
