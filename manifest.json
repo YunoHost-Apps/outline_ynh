@@ -6,7 +6,7 @@
         "en": "Wiki and knowledge base for teams",
         "fr": "Wiki et base de connaissances pour les équipes"
     },
-    "version": "0.65.2~ynh2",
+    "version": "0.66.0~ynh1",
     "url": "www.getoutline.com",
     "upstream": {
         "license": "BUSL-1.1",
@@ -21,7 +21,7 @@
         "name": "Raoul de Limezy"
     },
     "requirements": {
-        "yunohost": ">= 4.3.0"
+        "yunohost": ">= 11.0.9"
     },
     "multi_instance": false,
     "services": [
