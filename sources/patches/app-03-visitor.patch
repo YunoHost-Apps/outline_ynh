@@ -1,9 +1,9 @@
 diff --git a/server/routes/auth/providers/req.ts b/server/routes/auth/providers/req.ts
 new file mode 100644
-index 00000000..22beba6e
+index 00000000..04990bb3
 --- /dev/null
 +++ b/server/routes/auth/providers/req.ts
-@@ -0,0 +1,64 @@
+@@ -0,0 +1,62 @@
 +import passport from "@outlinewiki/koa-passport";
 +import Router from "koa-router";
 +import { capitalize } from "lodash";
@@ -11,12 +11,10 @@ index 00000000..22beba6e
 +import accountProvisioner from "@server/commands/accountProvisioner";
 +import env from "@server/env";
 +import passportMiddleware from "@server/middlewares/passport";
-+import { getAllowedDomains } from "@server/utils/authentication";
 +import { StateStore } from "@server/utils/passport";
 +
 +const router = new Router();
 +const providerName = "req";
-+const allowedDomains = getAllowedDomains();
 +
 +export const config = {
 +  name: "Visitor",
