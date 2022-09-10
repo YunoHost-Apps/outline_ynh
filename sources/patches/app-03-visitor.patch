@@ -69,17 +69,16 @@ index 00000000..22beba6e
 +
 +export default router;
 diff --git a/yarn.lock b/yarn.lock
-index 0bc83b9b..b642b8f7 100644
+index 0bc83b9b..06e1b385 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -11790,6 +11790,15 @@ passport-oauth@1.0.x:
+@@ -11790,6 +11790,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
 +passport-req@^0.1.1:
 +  version "0.1.1"
-+  resolved "https://registry.yarnpkg.com
-+  passport-req/-/passport-req-0.1.1.tgz#451bff1500b3d464a768d42f0762328a21236a18"
++  resolved "https://registry.yarnpkg.com/passport-req/-/passport-req-0.1.1.tgz#451bff1500b3d464a768d42f0762328a21236a18"
 +  integrity sha1-RRv/FQCz1GSnaNQvB2IyiiEjahg=
 +  dependencies:
 +    passport "~0.1.1"
