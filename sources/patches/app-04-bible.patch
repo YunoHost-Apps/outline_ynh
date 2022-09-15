@@ -117,7 +117,7 @@ index 3ff5c7cf..f3809fd1 100644
 +++ b/shared/styles/theme.ts
 @@ -87,6 +87,8 @@ export const base = {
    noticeTipText: colors.almostBlack,
-   noticeWarningBackground: "#d73a49",
+   noticeWarningBackground: "#996633",
    noticeWarningText: colors.almostBlack,
 +  noticeBibleBackground: "#e9f5f9",
 +  noticeBibleText: colors.almostBlack,
