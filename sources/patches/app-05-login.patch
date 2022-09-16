@@ -1,5 +1,5 @@
 diff --git a/app/scenes/Login/AuthenticationProvider.tsx b/app/scenes/Login/AuthenticationProvider.tsx
-index b5bb854a..18caede4 100644
+index b5bb854a..d29e958b 100644
 --- a/app/scenes/Login/AuthenticationProvider.tsx
 +++ b/app/scenes/Login/AuthenticationProvider.tsx
 @@ -67,7 +67,7 @@ function AuthenticationProvider(props: Props) {
@@ -22,7 +22,7 @@ index b5bb854a..18caede4 100644
            ) : (
              <ButtonLarge type="submit" icon={<EmailIcon />} fullwidth>
 -              {t("Continue with Email")}
-+              {t("Accès membre")}
++              {t("Accès membre (email)")}
              </ButtonLarge>
            )}
          </Form>
@@ -31,12 +31,12 @@ index b5bb854a..18caede4 100644
          fullwidth
        >
 -        {t("Continue with {{ authProviderName }}", {
-+        {t("Bienvenue sur {{ authProviderName }}", {
++        {t("Accès {{ authProviderName }}", {
            authProviderName: name,
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index e08e120c..05871715 100644
+index e08e120c..f9e03f21 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
 @@ -180,7 +180,7 @@ function Login({ children }: Props) {
@@ -53,7 +53,7 @@ index e08e120c..05871715 100644
                <>
                  <Note>
 -                  {t("You signed in with {{ authProviderName }} last time.", {
-+                  {t("Vous vous êtes authentifié comme {{ authProviderName }} la dernière fois.", {
++                  {t("Vous vous êtes authentifié avec l'accès {{ authProviderName }} la dernière fois.", {
                      authProviderName: defaultProvider.name,
                    })}
                  </Note>
