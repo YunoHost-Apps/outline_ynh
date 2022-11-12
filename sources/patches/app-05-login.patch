@@ -1,5 +1,5 @@
 diff --git a/app/scenes/Login/AuthenticationProvider.tsx b/app/scenes/Login/AuthenticationProvider.tsx
-index b5bb854a..d29e958b 100644
+index b5bb854ad..d29e958be 100644
 --- a/app/scenes/Login/AuthenticationProvider.tsx
 +++ b/app/scenes/Login/AuthenticationProvider.tsx
 @@ -67,7 +67,7 @@ function AuthenticationProvider(props: Props) {
@@ -36,19 +36,19 @@ index b5bb854a..d29e958b 100644
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index e08e120c..f9e03f21 100644
+index 81adf346e..1287336ae 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
-@@ -180,7 +180,7 @@ function Login({ children }: Props) {
+@@ -188,7 +188,7 @@ function Login({ children }: Props) {
          ) : (
            <>
-             <StyledHeading centered>
+             <StyledHeading as="h2" centered>
 -              {t("Login to {{ authProviderName }}", {
 +              {t("Bienvenue sur {{ authProviderName }}", {
                  authProviderName: config.name || "Outline",
                })}
              </StyledHeading>
-@@ -198,7 +198,7 @@ function Login({ children }: Props) {
+@@ -206,7 +206,7 @@ function Login({ children }: Props) {
              {hasMultipleProviders && (
                <>
                  <Note>

@@ -1,5 +1,5 @@
 diff --git a/app/components/OutlineLogo.tsx b/app/components/OutlineLogo.tsx
-index 81eb4855..1fee69cd 100644
+index 81eb48551..1fee69cd9 100644
 --- a/app/components/OutlineLogo.tsx
 +++ b/app/components/OutlineLogo.tsx
 @@ -16,7 +16,7 @@ function OutlineLogo({ size = 32, fill = "#333", className }: Props) {
