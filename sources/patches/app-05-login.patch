@@ -36,7 +36,7 @@ index b5bb854ad..d29e958be 100644
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index 81adf346e..1287336ae 100644
+index 81adf346e..e4bb23585 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
 @@ -188,7 +188,7 @@ function Login({ children }: Props) {
@@ -44,7 +44,7 @@ index 81adf346e..1287336ae 100644
            <>
              <StyledHeading as="h2" centered>
 -              {t("Login to {{ authProviderName }}", {
-+              {t("Bienvenue sur {{ authProviderName }}", {
++              {t("Bienvenue sur Anthropologie Biblique", {
                  authProviderName: config.name || "Outline",
                })}
              </StyledHeading>
