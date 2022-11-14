@@ -1,7 +1,7 @@
-SOURCE_URL=https://github.com/outline/outline/archive/refs/tags/v0.66.0.tar.gz
-SOURCE_SUM=956bb0dec2445b355b3d9e02af56049d934a90ea29826ef12e0773cb878b4758
+SOURCE_URL=https://github.com/outline/outline/archive/refs/tags/v0.67.0.zip
+SOURCE_SUM=2fc6f8af630f53ed3be6d562cd6dea517e4c572debd663305e1ed53945d76797
 SOURCE_SUM_PRG=sha256sum
-SOURCE_FORMAT=tar.gz
+SOURCE_FORMAT=zip
 SOURCE_IN_SUBDIR=true
 SOURCE_FILENAME=
 SOURCE_EXTRACT=true
