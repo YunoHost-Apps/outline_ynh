@@ -67,10 +67,10 @@ index 000000000..be344d2e2
 +
 +export default router;
 diff --git a/yarn.lock b/yarn.lock
-index ef3b53a5f..e5c12935e 100644
+index 67d407ca7..150665e94 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -11822,6 +11822,14 @@ passport-oauth@1.0.x:
+@@ -12100,6 +12100,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -85,7 +85,7 @@ index ef3b53a5f..e5c12935e 100644
  passport-slack-oauth2@^1.1.1:
    version "1.1.1"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.1.1.tgz#d831ffc3f1e968fcc3622e6ecf41643c8d8f9cbc"
-@@ -11844,6 +11852,14 @@ passport@^0.6.0:
+@@ -12122,6 +12130,14 @@ passport@^0.6.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -100,7 +100,7 @@ index ef3b53a5f..e5c12935e 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
-@@ -12067,6 +12083,11 @@ pkg-up@^3.1.0:
+@@ -12348,6 +12364,11 @@ pkg-up@^3.1.0:
    dependencies:
      find-up "^3.0.0"
  
@@ -113,7 +113,7 @@ index ef3b53a5f..e5c12935e 100644
    version "0.4.1"
    resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.4.1.tgz#b5418ef0439de5425fc4995042dced14fb2a84ff"
 diff --git a/package.json b/package.json
-index aa6796368..43617af55 100644
+index d64914567..ca674a5cd 100644
 --- a/package.json
 +++ b/package.json
 @@ -145,6 +145,7 @@
@@ -122,5 +122,5 @@ index aa6796368..43617af55 100644
      "passport-oauth2": "^1.6.1",
 +    "passport-req": "^0.1.1",
      "passport-slack-oauth2": "^1.1.1",
-     "pg": "^8.5.1",
+     "pg": "^8.8.0",
      "pg-hstore": "^2.3.4",

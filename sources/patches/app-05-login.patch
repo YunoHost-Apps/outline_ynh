@@ -1,8 +1,8 @@
 diff --git a/app/scenes/Login/AuthenticationProvider.tsx b/app/scenes/Login/AuthenticationProvider.tsx
-index b5bb854ad..d29e958be 100644
+index 7e124c124..0deb00a85 100644
 --- a/app/scenes/Login/AuthenticationProvider.tsx
 +++ b/app/scenes/Login/AuthenticationProvider.tsx
-@@ -67,7 +67,7 @@ function AuthenticationProvider(props: Props) {
+@@ -91,7 +91,7 @@ function AuthenticationProvider(props: Props) {
                <InputLarge
                  type="email"
                  name="email"
@@ -11,7 +11,7 @@ index b5bb854ad..d29e958be 100644
                  value={email}
                  onChange={handleChangeEmail}
                  disabled={isSubmitting}
-@@ -76,12 +76,12 @@ function AuthenticationProvider(props: Props) {
+@@ -100,12 +100,12 @@ function AuthenticationProvider(props: Props) {
                  short
                />
                <ButtonLarge type="submit" disabled={isSubmitting}>
@@ -26,7 +26,7 @@ index b5bb854ad..d29e958be 100644
              </ButtonLarge>
            )}
          </Form>
-@@ -106,7 +106,7 @@ function AuthenticationProvider(props: Props) {
+@@ -120,7 +120,7 @@ function AuthenticationProvider(props: Props) {
          icon={<AuthLogo providerName={id} />}
          fullwidth
        >
@@ -36,19 +36,19 @@ index b5bb854ad..d29e958be 100644
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index 81adf346e..e4bb23585 100644
+index 168165b08..9e1ec2f5d 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
-@@ -188,7 +188,7 @@ function Login({ children }: Props) {
+@@ -214,7 +214,7 @@ function Login({ children }: Props) {
          ) : (
            <>
              <StyledHeading as="h2" centered>
 -              {t("Login to {{ authProviderName }}", {
 +              {t("Bienvenue sur Anthropologie Biblique", {
-                 authProviderName: config.name || "Outline",
+                 authProviderName: config.name || env.APP_NAME,
                })}
              </StyledHeading>
-@@ -206,7 +206,7 @@ function Login({ children }: Props) {
+@@ -232,7 +232,7 @@ function Login({ children }: Props) {
              {hasMultipleProviders && (
                <>
                  <Note>
