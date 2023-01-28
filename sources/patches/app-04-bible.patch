@@ -1,29 +1,31 @@
-diff --git a/app/editor/menus/block.tsx b/app/editor/menus/block.tsx
-index 42269b5e4..f5e5041e3 100644
+diff --cc app/editor/menus/block.tsx
+index 42269b5e4,cd6830b12..000000000
 --- a/app/editor/menus/block.tsx
 +++ b/app/editor/menus/block.tsx
-@@ -19,6 +19,7 @@ import {
-   ClockIcon,
-   CalendarIcon,
-   MathIcon,
-+  BookmarkedIcon,
- } from "outline-icons";
- import * as React from "react";
- import styled from "styled-components";
-@@ -187,6 +188,13 @@ export default function blockMenuItems(dictionary: Dictionary): MenuItem[] {
-       keywords: "notice card suggestion",
-       attrs: { style: "tip" },
-     },
-+    {
-+      name: "container_notice",
-+      title: dictionary.bibleNotice,
-+      icon: BookmarkedIcon,
-+      keywords: "notice card suggestion",
-+      attrs: { style: "bible" },
-+    },
-     {
-       name: "separator",
-     },
+@@@ -18,7 -18,7 +18,8 @@@ import 
+    AttachmentIcon,
+    ClockIcon,
+    CalendarIcon,
+ +  MathIcon,
++   BookmarkedIcon,
+  } from "outline-icons";
+  import * as React from "react";
+  import styled from "styled-components";
+@@@ -187,6 -181,13 +188,13 @@@ export default function blockMenuItems(
+        keywords: "notice card suggestion",
+        attrs: { style: "tip" },
+      },
++     {
++       name: "container_notice",
++       title: dictionary.bibleNotice,
+ -      icon: BookmarkedIcon,
+++      icon: <BookmarkedIcon />,
++       keywords: "notice card suggestion",
++       attrs: { style: "bible" },
++     },
+      {
+        name: "separator",
+      },
 diff --git a/app/hooks/useDictionary.ts b/app/hooks/useDictionary.ts
 index 5b9196de5..90caf27d7 100644
 --- a/app/hooks/useDictionary.ts
