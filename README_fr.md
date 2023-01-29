@@ -5,15 +5,15 @@ It shall NOT be edited by hand.
 
 # Outline pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)
 [![Installer Outline avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=outline)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Outline rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Outline rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, and markdown compatible.
 
@@ -25,13 +25,13 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 - Using Yunohost's built-in SMTP server for notifications
 
 
-**Version incluse :** 0.67.0~ynh1
+**Version incluse :** 0.67.2~ynh1
 
 **Démo :** https://app.getoutline.com/create
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de Outline](./doc/screenshots/outline_screenshot.png)
+![Capture d’écran de Outline](./doc/screenshots/outline_screenshot.png)
 
 ## Avertissements / informations importantes
 
@@ -57,10 +57,10 @@ You can then change the user rights by default and/or change the admin user afte
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <www.getoutline.com>
+* Site officiel de l’app : <www.getoutline.com>
 * Documentation officielle utilisateur : <https://www.getoutline.com/about>
-* Documentation officielle de l'admin : <https://www.getoutline.com/developers>
-* Dépôt de code officiel de l'app : <https://github.com/outline/outline>
+* Documentation officielle de l’admin : <https://www.getoutline.com/developers>
+* Dépôt de code officiel de l’app : <https://github.com/outline/outline>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_outline>
 * Signaler un bug : <https://github.com/YunoHost-Apps/outline_ynh/issues>
 
@@ -76,4 +76,4 @@ ou
 sudo yunohost app upgrade outline -u https://github.com/YunoHost-Apps/outline_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
