@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # Outline for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Working status](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Working status](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)
 [![Install Outline with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=outline)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -25,8 +25,7 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 - Using Yunohost's built-in SMTP server for notifications
 
 
-**Shipped version:** 0.66.0~ynh1
-
+**Shipped version:** 0.67.2~ynh1
 
 **Demo:** https://app.getoutline.com/create
 
