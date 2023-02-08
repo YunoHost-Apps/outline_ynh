@@ -57,7 +57,7 @@ You can then change the user rights by default and/or change the admin user afte
 
 ## Documentations et ressources
 
-* Site officiel de l’app : <www.getoutline.com>
+* Site officiel de l’app : <https://www.getoutline.com>
 * Documentation officielle utilisateur : <https://www.getoutline.com/about>
 * Documentation officielle de l’admin : <https://www.getoutline.com/developers>
 * Dépôt de code officiel de l’app : <https://github.com/outline/outline>
