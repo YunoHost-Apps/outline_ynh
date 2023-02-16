@@ -96,6 +96,18 @@ chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
 
 #=================================================
+# UPDATE MINIO BUCKET
+#=================================================
+ynh_script_progression --message="Updating outlinestorage MinIO bucket access policy..." --weight=1
+
+ynh_add_config --template="../conf/policy.json" --destination="$mc_path/policy.json"
+
+pushd "$mc_path"
+	ynh_exec_warn_less sudo -u minio ./mc admin policy add minio outline ./policy.json
+	ynh_exec_warn_less sudo -u minio ./mc admin policy set outline minio/outlinestorage
+popd
+
+#=================================================
 # NGINX CONFIGURATION
 #=================================================
 ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
