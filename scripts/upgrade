@@ -105,7 +105,7 @@ chown minio:www-data "$mc_path/policy.json"
 
 pushd "$mc_path"
 	ynh_exec_warn_less sudo -u minio ./mc admin policy add minio outline ./policy.json
-	ynh_exec_warn_less sudo -u minio ./mc admin policy set minio/outlinestorage outline
+	ynh_exec_warn_less sudo -u minio ./mc admin policy set minio outline
 popd
 
 #=================================================
