@@ -1,5 +1,5 @@
 diff --git a/app/editor/menus/block.tsx b/app/editor/menus/block.tsx
-index 42269b5e4..c40350908 100644
+index 42269b5e4..174c84c02 100644
 --- a/app/editor/menus/block.tsx
 +++ b/app/editor/menus/block.tsx
 @@ -19,6 +19,7 @@ import {
@@ -18,7 +18,7 @@ index 42269b5e4..c40350908 100644
 +      name: "container_notice",
 +      title: dictionary.bibleNotice,
 +      icon: <BookmarkedIcon />,
-+      keywords: "notice card suggestion",
++      keywords: "notice card bible",
 +      attrs: { style: "bible" },
 +    },
      {
