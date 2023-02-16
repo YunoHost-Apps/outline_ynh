@@ -129,7 +129,7 @@ chown minio:www-data "$mc_path/policy.json"
 pushd "$mc_path"
 	ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
 	ynh_exec_warn_less sudo -u minio ./mc admin policy add minio outline ./policy.json
-	ynh_exec_warn_less sudo -u minio ./mc admin policy set minio outline
+	ynh_exec_warn_less sudo -u minio ./mc admin policy set minio outline user="$minio_admin"
 popd
 
 ynh_secure_remove --file="$mc_path/outlinestorage"
