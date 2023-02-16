@@ -195,6 +195,7 @@ chown -R $app:www-data "$final_path"
 ynh_script_progression --message="Setting up MinIO bucket for Outline..." --weight=1
 
 ynh_add_config --template="../conf/policy.json" --destination="$mc_path/policy.json"
+chown minio:www-data "$mc_path/policy.json"
 
 pushd "$mc_path"
 	ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
