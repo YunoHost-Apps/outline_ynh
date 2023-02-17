@@ -217,17 +217,12 @@ ynh_add_nginx_config
 
 pushd "$final_path"
 	ynh_use_nodejs
-	export NODE_OPTIONS=--max_old_space_size=1536
-	ynh_script_progression --message="Fetching Yarn dev dependencies... This can be very long, be patient !" --weight=18
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --no-optional --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_script_progression --message="Cleaning cache... " --weight=3
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
-	ynh_script_progression --message="Building Yarn dev dependencies... This can be very long, be patient !" --weight=18
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn build 2>&1
 	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --weight=18
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --production=true --frozen-lockfile --network-timeout 1000000000 2>&1
 	ynh_script_progression --message="Cleaning cache... " --weight=3
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
+	ynh_script_progression --message="Building... This can be very long, be patient !" --weight=18
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn build 2>&1
 popd
 
 #=================================================
