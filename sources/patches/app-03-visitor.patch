@@ -113,9 +113,18 @@ index 352d1993a..5e3c24636 100644
    version "0.4.1"
    resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.4.1.tgz#b5418ef0439de5425fc4995042dced14fb2a84ff"
 diff --git a/package.json b/package.json
-index 787991dc1..7d610c010 100644
+index 787991dc1..2191c20c2 100644
 --- a/package.json
 +++ b/package.json
+@@ -8,7 +8,7 @@
+     "copy:i18n": "mkdir -p ./build/shared/i18n && cp -R ./shared/i18n/locales ./build/shared/i18n",
+     "build:i18n": "i18next --silent '{shared,app,server,plugins}/**/*.{ts,tsx}' && yarn copy:i18n",
+     "build:server": "./build.sh",
+-    "build": "yarn clean && yarn vite:build && yarn build:i18n && yarn build:server",
++    "build": "yarn clean && NODE_OPTIONS='--max-old-space-size=1536' yarn vite:build && yarn build:i18n && NODE_OPTIONS='--max-old-space-size=1536' yarn build:server",
+     "start": "node ./build/server/index.js",
+     "dev": "NODE_ENV=development yarn concurrently -n api,collaboration  -c \"blue,magenta\" \"node --inspect=0.0.0.0 build/server/index.js --services=collaboration,websockets,admin,web,worker\"",
+     "dev:backend": "nodemon --exec \"yarn build:server && yarn dev\" -e js,ts,tsx --ignore build/ --ignore app/ --ignore shared/editor",
 @@ -150,6 +150,7 @@
      "passport": "^0.6.0",
      "passport-google-oauth2": "^0.2.0",
