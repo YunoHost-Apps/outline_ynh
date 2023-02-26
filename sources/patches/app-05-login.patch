@@ -1,5 +1,5 @@
 diff --git a/app/scenes/Login/AuthenticationProvider.tsx b/app/scenes/Login/AuthenticationProvider.tsx
-index 7e124c124..0deb00a85 100644
+index af218c06c..b2d93d994 100644
 --- a/app/scenes/Login/AuthenticationProvider.tsx
 +++ b/app/scenes/Login/AuthenticationProvider.tsx
 @@ -91,7 +91,7 @@ function AuthenticationProvider(props: Props) {
@@ -27,7 +27,7 @@ index 7e124c124..0deb00a85 100644
            )}
          </Form>
 @@ -120,7 +120,7 @@ function AuthenticationProvider(props: Props) {
-         icon={<AuthLogo providerName={id} />}
+         icon={<PluginIcon id={id} />}
          fullwidth
        >
 -        {t("Continue with {{ authProviderName }}", {
