@@ -1,0 +1,22 @@
+diff --git a/app/scenes/Settings/Features.tsx b/app/scenes/Settings/Features.tsx
+index 4fe94b044..59ac35485 100644
+--- a/app/scenes/Settings/Features.tsx
++++ b/app/scenes/Settings/Features.tsx
+@@ -57,7 +57,7 @@ function Features() {
+           />
+         </SettingRow>
+       )}
+-      {/* <SettingRow
++      {<SettingRow
+         name={TeamPreference.Commenting}
+         label={
+           <Flex align="center">
+@@ -75,7 +75,7 @@ function Features() {
+           disabled={!team.collaborativeEditing}
+           onChange={handlePreferenceChange}
+         />
+-      </SettingRow> */}
++      </SettingRow>}
+       {team.avatarUrl && (
+         <SettingRow
+           name={TeamPreference.PublicBranding}
