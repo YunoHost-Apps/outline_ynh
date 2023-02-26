@@ -1,8 +1,16 @@
 diff --git a/app/scenes/Settings/Features.tsx b/app/scenes/Settings/Features.tsx
-index 4fe94b044..59ac35485 100644
+index 4fe94b044..0218d19a6 100644
 --- a/app/scenes/Settings/Features.tsx
 +++ b/app/scenes/Settings/Features.tsx
-@@ -57,7 +57,7 @@ function Features() {
+@@ -11,6 +11,7 @@ import useCurrentTeam from "~/hooks/useCurrentTeam";
+ import useStores from "~/hooks/useStores";
+ import useToasts from "~/hooks/useToasts";
+ import SettingRow from "./components/SettingRow";
++import Flex from "~/components/Flex";
+ 
+ function Features() {
+   const { auth } = useStores();
+@@ -57,7 +58,7 @@ function Features() {
            />
          </SettingRow>
        )}
@@ -11,7 +19,7 @@ index 4fe94b044..59ac35485 100644
          name={TeamPreference.Commenting}
          label={
            <Flex align="center">
-@@ -75,7 +75,7 @@ function Features() {
+@@ -75,7 +76,7 @@ function Features() {
            disabled={!team.collaborativeEditing}
            onChange={handlePreferenceChange}
          />

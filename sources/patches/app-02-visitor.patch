@@ -12,12 +12,12 @@ index 5cf338265..0c05d9dab 100644
      "pg": "^8.8.0",
 diff --git a/plugins/req/plugin.json b/plugins/req/plugin.json
 new file mode 100644
-index 000000000..2f50562e5
+index 000000000..ae7c40333
 --- /dev/null
 +++ b/plugins/req/plugin.json
 @@ -0,0 +1,4 @@
 +{
-+  "name": "Req",
++  "name": "visiteur",
 +  "description": "Adds an req compatible authentication provider."
 +}
 diff --git a/plugins/req/server/.babelrc b/plugins/req/server/.babelrc
