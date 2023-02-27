@@ -129,7 +129,7 @@ index 158a0dfb9..f297c3433 100644
              component = <InfoIcon color="currentColor" />;
            }
 diff --git a/shared/styles/theme.ts b/shared/styles/theme.ts
-index c6da8afcf..6bf6a8479 100644
+index fe2441c3c..11b972f03 100644
 --- a/shared/styles/theme.ts
 +++ b/shared/styles/theme.ts
 @@ -92,6 +92,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
