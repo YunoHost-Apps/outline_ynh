@@ -173,7 +173,7 @@ index c9a41b710..812dc1612 100644
  
    interface Colors {
 diff --git a/package.json b/package.json
-index 5cf338265..0c05d9dab 100644
+index aad57975c..da175737d 100644
 --- a/package.json
 +++ b/package.json
 @@ -143,6 +143,7 @@
@@ -293,10 +293,10 @@ index 5df80a051..4e32de826 100644
    }
  
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index 71f28bed3..1dce0bf0a 100644
+index 6fe93455a..0b257801b 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -646,6 +646,20 @@ h6 {
+@@ -642,6 +642,20 @@ h6 {
    }
  }
  
@@ -376,7 +376,7 @@ index fe2441c3c..11b972f03 100644
      scrollbarBackground: colors.black,
      scrollbarThumb: colors.lightBlack,
 diff --git a/yarn.lock b/yarn.lock
-index 524d96791..a0c1cc51f 100644
+index f36f6d2d6..47a6cea8d 100644
 --- a/yarn.lock
 +++ b/yarn.lock
 @@ -10179,6 +10179,14 @@ passport-oauth@1.0.x:
