@@ -6,6 +6,7 @@ It shall NOT be edited by hand.
 # Outline pour YunoHost
 
 [![Niveau d’intégration](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)
+
 [![Installer Outline avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=outline)
 
 *[Read this readme in english.](./README.md)*
@@ -54,6 +55,10 @@ The Outline version shipped with this package (v0.65.2) will be released under A
 
 The first user to login will automatically be granted admin rights
 You can then change the user rights by default and/or change the admin user afterwards from the Outline settings page
+
+## :red_circle: Fonctions indésirables
+
+- **Not totally free upstream**: The packaged app is under an overall free licence, but with clauses that restrict its use.
 
 ## Documentations et ressources
 
