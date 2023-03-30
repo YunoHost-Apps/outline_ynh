@@ -38,10 +38,10 @@ index 088d40e71..42cdcdb33 100644
        insertTime: t("Current time"),
        insertDateTime: t("Current date and time"),
 diff --git a/app/scenes/Document/components/Document.tsx b/app/scenes/Document/components/Document.tsx
-index 3d55a359e..50510b816 100644
+index 7f39fd903..ede1728d1 100644
 --- a/app/scenes/Document/components/Document.tsx
 +++ b/app/scenes/Document/components/Document.tsx
-@@ -632,11 +632,6 @@ class DocumentScene extends React.Component<Props> {
+@@ -546,11 +546,6 @@ class DocumentScene extends React.Component<Props> {
                  </Flex>
                </React.Suspense>
              </MaxWidth>
@@ -67,10 +67,10 @@ index 5981671d8..b3791b363 100644
  
    interface Colors {
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index 03c10edc8..73f40c1f9 100644
+index 9f91264db..fc2f51734 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -653,6 +653,20 @@ h6 {
+@@ -648,6 +648,20 @@ h6 {
    }
  }
  

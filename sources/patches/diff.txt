@@ -54,10 +54,10 @@ index 088d40e71..42cdcdb33 100644
        insertTime: t("Current time"),
        insertDateTime: t("Current date and time"),
 diff --git a/app/scenes/Document/components/Document.tsx b/app/scenes/Document/components/Document.tsx
-index 3d55a359e..50510b816 100644
+index 7f39fd903..ede1728d1 100644
 --- a/app/scenes/Document/components/Document.tsx
 +++ b/app/scenes/Document/components/Document.tsx
-@@ -632,11 +632,6 @@ class DocumentScene extends React.Component<Props> {
+@@ -546,11 +546,6 @@ class DocumentScene extends React.Component<Props> {
                  </Flex>
                </React.Suspense>
              </MaxWidth>
@@ -142,7 +142,7 @@ index 5981671d8..b3791b363 100644
  
    interface Colors {
 diff --git a/package.json b/package.json
-index 545dfad5c..6c020d972 100644
+index 1dd0adcac..c4d79f1f5 100644
 --- a/package.json
 +++ b/package.json
 @@ -144,6 +144,7 @@
@@ -262,10 +262,10 @@ index 3584f03b4..c72e6f3fb 100644
    }
  
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index 03c10edc8..73f40c1f9 100644
+index 9f91264db..fc2f51734 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -653,6 +653,20 @@ h6 {
+@@ -648,6 +648,20 @@ h6 {
    }
  }
  
@@ -324,7 +324,7 @@ index 158a0dfb9..f297c3433 100644
              component = <InfoIcon color="currentColor" />;
            }
 diff --git a/shared/styles/theme.ts b/shared/styles/theme.ts
-index 76f94cfc3..9351a57a6 100644
+index 9fc5687c3..93fa5e418 100644
 --- a/shared/styles/theme.ts
 +++ b/shared/styles/theme.ts
 @@ -93,6 +93,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
@@ -345,10 +345,10 @@ index 76f94cfc3..9351a57a6 100644
      scrollbarBackground: colors.black,
      scrollbarThumb: colors.lightBlack,
 diff --git a/yarn.lock b/yarn.lock
-index adb11de5d..466600db9 100644
+index 5271b5656..52b0c06a2 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -10495,6 +10495,14 @@ passport-oauth@1.0.x:
+@@ -10320,6 +10320,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -363,7 +363,7 @@ index adb11de5d..466600db9 100644
  passport-slack-oauth2@^1.1.1:
    version "1.1.1"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.1.1.tgz#d831ffc3f1e968fcc3622e6ecf41643c8d8f9cbc"
-@@ -10517,6 +10525,14 @@ passport@^0.6.0:
+@@ -10342,6 +10350,14 @@ passport@^0.6.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -378,7 +378,7 @@ index adb11de5d..466600db9 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
-@@ -10726,6 +10742,11 @@ pkg-up@^3.1.0:
+@@ -10551,6 +10567,11 @@ pkg-up@^3.1.0:
    dependencies:
      find-up "^3.0.0"
  
