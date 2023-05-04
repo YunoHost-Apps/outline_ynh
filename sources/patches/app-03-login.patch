@@ -36,10 +36,10 @@ index af218c06c..b2d93d994 100644
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index 168165b08..9e1ec2f5d 100644
+index 30d678bb1..7ce6a7a30 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
-@@ -214,7 +214,7 @@ function Login({ children }: Props) {
+@@ -218,7 +218,7 @@ function Login({ children }: Props) {
          ) : (
            <>
              <StyledHeading as="h2" centered>
@@ -48,7 +48,7 @@ index 168165b08..9e1ec2f5d 100644
                  authProviderName: config.name || env.APP_NAME,
                })}
              </StyledHeading>
-@@ -232,7 +232,7 @@ function Login({ children }: Props) {
+@@ -236,7 +236,7 @@ function Login({ children }: Props) {
              {hasMultipleProviders && (
                <>
                  <Note>

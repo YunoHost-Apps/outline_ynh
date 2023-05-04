@@ -15,18 +15,18 @@ index 05fa32927..33fc7ee21 100644
    );
  }
 diff --git a/app/editor/menus/block.tsx b/app/editor/menus/block.tsx
-index 3d954b274..d7a9b9539 100644
+index d9404e6ba..0c2b07b46 100644
 --- a/app/editor/menus/block.tsx
 +++ b/app/editor/menus/block.tsx
-@@ -19,6 +19,7 @@ import {
-   ClockIcon,
+@@ -20,6 +20,7 @@ import {
    CalendarIcon,
    MathIcon,
+   DoneIcon,
 +  BookmarkedIcon,
  } from "outline-icons";
  import * as React from "react";
  import styled from "styled-components";
-@@ -187,6 +188,13 @@ export default function blockMenuItems(dictionary: Dictionary): MenuItem[] {
+@@ -196,6 +197,13 @@ export default function blockMenuItems(dictionary: Dictionary): MenuItem[] {
        keywords: "notice card suggestion",
        attrs: { style: "tip" },
      },
@@ -41,23 +41,23 @@ index 3d954b274..d7a9b9539 100644
        name: "separator",
      },
 diff --git a/app/hooks/useDictionary.ts b/app/hooks/useDictionary.ts
-index 088d40e71..42cdcdb33 100644
+index 5d359bc0b..3d9cd5aff 100644
 --- a/app/hooks/useDictionary.ts
 +++ b/app/hooks/useDictionary.ts
-@@ -76,6 +76,8 @@ export default function useDictionary() {
-       showSource: t("Show source"),
-       warning: t("Warning"),
+@@ -78,6 +78,8 @@ export default function useDictionary() {
        warningNotice: t("Warning notice"),
+       success: t("Success"),
+       successNotice: t("Success notice"),
 +      bible: t("Bible"),
 +      bibleNotice: t("Bible quote"),
        insertDate: t("Current date"),
        insertTime: t("Current time"),
        insertDateTime: t("Current date and time"),
 diff --git a/app/scenes/Document/components/Document.tsx b/app/scenes/Document/components/Document.tsx
-index 7f39fd903..ede1728d1 100644
+index f76ad9aff..0d7948d6e 100644
 --- a/app/scenes/Document/components/Document.tsx
 +++ b/app/scenes/Document/components/Document.tsx
-@@ -546,11 +546,6 @@ class DocumentScene extends React.Component<Props> {
+@@ -548,11 +548,6 @@ class DocumentScene extends React.Component<Props> {
                  </Flex>
                </React.Suspense>
              </MaxWidth>
@@ -107,10 +107,10 @@ index af218c06c..b2d93d994 100644
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index 168165b08..9e1ec2f5d 100644
+index 30d678bb1..7ce6a7a30 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
-@@ -214,7 +214,7 @@ function Login({ children }: Props) {
+@@ -218,7 +218,7 @@ function Login({ children }: Props) {
          ) : (
            <>
              <StyledHeading as="h2" centered>
@@ -119,7 +119,7 @@ index 168165b08..9e1ec2f5d 100644
                  authProviderName: config.name || env.APP_NAME,
                })}
              </StyledHeading>
-@@ -232,7 +232,7 @@ function Login({ children }: Props) {
+@@ -236,7 +236,7 @@ function Login({ children }: Props) {
              {hasMultipleProviders && (
                <>
                  <Note>
@@ -129,23 +129,23 @@ index 168165b08..9e1ec2f5d 100644
                    })}
                  </Note>
 diff --git a/app/typings/styled-components.d.ts b/app/typings/styled-components.d.ts
-index 5981671d8..b3791b363 100644
+index e30b32de3..1beeccf75 100644
 --- a/app/typings/styled-components.d.ts
 +++ b/app/typings/styled-components.d.ts
-@@ -53,6 +53,8 @@ declare module "styled-components" {
-     noticeTipText: string;
-     noticeWarningBackground: string;
+@@ -55,6 +55,8 @@ declare module "styled-components" {
      noticeWarningText: string;
+     noticeSuccessBackground: string;
+     noticeSuccessText: string;
 +    noticeBibleBackground: string;
 +    noticeBibleText: string;
    }
  
    interface Colors {
 diff --git a/package.json b/package.json
-index 1dd0adcac..c4d79f1f5 100644
+index 54b0dc071..4dd547421 100644
 --- a/package.json
 +++ b/package.json
-@@ -144,6 +144,7 @@
+@@ -145,6 +145,7 @@
      "passport": "^0.6.0",
      "passport-google-oauth2": "^0.2.0",
      "passport-oauth2": "^1.6.1",
@@ -262,13 +262,14 @@ index 3584f03b4..c72e6f3fb 100644
    }
  
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index 9f91264db..fc2f51734 100644
+index 6283408e1..ea3674365 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -648,6 +648,20 @@ h6 {
-   }
- }
+@@ -661,6 +661,18 @@ h6 {
  
+   a {
+     color: ${props.theme.noticeSuccessText};
++
 +.notice-block.bible {
 +  background: ${transparentize(0.9, props.theme.noticeBibleBackground)};
 +  border-left: 4px solid ${props.theme.noticeBibleBackground};
@@ -280,75 +281,72 @@ index 9f91264db..fc2f51734 100644
 +
 +  a {
 +    color: ${props.theme.noticeBibleText};
-+  }
-+}
-+
- blockquote {
-   margin: 0;
-   padding-left: 1.5em;
+   }
+ }
+ 
 diff --git a/shared/editor/nodes/Notice.tsx b/shared/editor/nodes/Notice.tsx
-index 158a0dfb9..f297c3433 100644
+index 788ab5882..1c6c2a9bf 100644
 --- a/shared/editor/nodes/Notice.tsx
 +++ b/shared/editor/nodes/Notice.tsx
 @@ -1,5 +1,5 @@
  import Token from "markdown-it/lib/token";
--import { WarningIcon, InfoIcon, StarredIcon } from "outline-icons";
-+import { WarningIcon, InfoIcon, StarredIcon, BookmarkedIcon } from "outline-icons";
+-import { WarningIcon, InfoIcon, StarredIcon, DoneIcon } from "outline-icons";
++import { WarningIcon, InfoIcon, StarredIcon, BookmarkedIcon, DoneIcon } from "outline-icons";
  import { wrappingInputRule } from "prosemirror-inputrules";
  import { NodeSpec, Node as ProsemirrorNode, NodeType } from "prosemirror-model";
  import * as React from "react";
-@@ -15,6 +15,7 @@ export default class Notice extends Node {
-       info: this.options.dictionary.info,
+@@ -16,6 +16,7 @@ export default class Notice extends Node {
        warning: this.options.dictionary.warning,
+       success: this.options.dictionary.success,
        tip: this.options.dictionary.tip,
 +      bible: this.options.dictionary.bible,
      });
    }
  
-@@ -47,6 +48,8 @@ export default class Notice extends Node {
-               ? "tip"
-               : dom.className.includes("warning")
+@@ -50,6 +51,8 @@ export default class Notice extends Node {
                ? "warning"
+               : dom.className.includes("success")
+               ? "success"
 +              : dom.className.includes("bible")
 +              ? "bible"
                : undefined,
            }),
          },
-@@ -75,6 +78,8 @@ export default class Notice extends Node {
-             component = <StarredIcon color="currentColor" />;
-           } else if (node.attrs.style === "warning") {
-             component = <WarningIcon color="currentColor" />;
+@@ -100,6 +103,8 @@ export default class Notice extends Node {
+             component = <WarningIcon />;
+           } else if (node.attrs.style === "success") {
+             component = <DoneIcon />;
 +          } else if (node.attrs.style === "bible") {
 +            component = <BookmarkedIcon color="currentColor" />;
            } else {
-             component = <InfoIcon color="currentColor" />;
+             component = <InfoIcon />;
            }
 diff --git a/shared/styles/theme.ts b/shared/styles/theme.ts
-index 9fc5687c3..93fa5e418 100644
+index f3d83141e..c576a67c2 100644
 --- a/shared/styles/theme.ts
 +++ b/shared/styles/theme.ts
 @@ -93,6 +93,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
-     noticeTipText: colors.almostBlack,
-     noticeWarningBackground: "#d73a49",
-     noticeWarningText: colors.almostBlack,
+     noticeSuccessBackground: colors.brand.green,
+     noticeSuccessText: colors.almostBlack,
+     tableSelectedBackground: transparentize(0.8, colors.accent),
 +    noticeBibleBackground: "#996633",
 +    noticeBibleText: colors.almostBlack,
      breakpoints,
      ...colors,
      ...spacing,
-@@ -236,6 +238,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
-     noticeInfoText: colors.white,
+@@ -233,6 +235,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
      noticeTipText: colors.white,
      noticeWarningText: colors.white,
+     noticeSuccessText: colors.white,
 +    noticeBibleText: colors.white,
      progressBarBackground: colors.slate,
      scrollbarBackground: colors.black,
      scrollbarThumb: colors.lightBlack,
 diff --git a/yarn.lock b/yarn.lock
-index 5271b5656..52b0c06a2 100644
+index cd09eb0bc..59ac91c42 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -10320,6 +10320,14 @@ passport-oauth@1.0.x:
+@@ -10276,6 +10276,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -363,7 +361,7 @@ index 5271b5656..52b0c06a2 100644
  passport-slack-oauth2@^1.1.1:
    version "1.1.1"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.1.1.tgz#d831ffc3f1e968fcc3622e6ecf41643c8d8f9cbc"
-@@ -10342,6 +10350,14 @@ passport@^0.6.0:
+@@ -10298,6 +10306,14 @@ passport@^0.6.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -378,7 +376,7 @@ index 5271b5656..52b0c06a2 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
-@@ -10551,6 +10567,11 @@ pkg-up@^3.1.0:
+@@ -10507,6 +10523,11 @@ pkg-up@^3.1.0:
    dependencies:
      find-up "^3.0.0"
  

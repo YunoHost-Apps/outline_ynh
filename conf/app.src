@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/outline/outline/archive/ec3ebb91c08a7b03034e49e308dbce0a014ebc79.zip
-SOURCE_SUM=2af09277b22a1a7a977bc61f0354db7f600657688772470677d89785e3729b3d
+SOURCE_URL=https://github.com/outline/outline/archive/be5cddc14f824fdc55fc1b1e9d8b66bae9adad85.zip
+SOURCE_SUM=072e5a0f6af5a685ab1bf3a5a7926e1bc48a19dc012eb9fb00e5e884a15bc2d3
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=zip
 SOURCE_IN_SUBDIR=true
