@@ -67,7 +67,7 @@ index e30b32de3..1beeccf75 100644
  
    interface Colors {
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index 6283408e1..ea3674365 100644
+index 9c01e2447..6ea20aa0d 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
 @@ -661,6 +661,18 @@ h6 {
@@ -90,7 +90,7 @@ index 6283408e1..ea3674365 100644
  }
  
 diff --git a/shared/editor/nodes/Notice.tsx b/shared/editor/nodes/Notice.tsx
-index 788ab5882..1c6c2a9bf 100644
+index 9b8939fc3..e59591427 100644
 --- a/shared/editor/nodes/Notice.tsx
 +++ b/shared/editor/nodes/Notice.tsx
 @@ -1,5 +1,5 @@
@@ -117,7 +117,7 @@ index 788ab5882..1c6c2a9bf 100644
                : undefined,
            }),
          },
-@@ -100,6 +103,8 @@ export default class Notice extends Node {
+@@ -114,6 +117,8 @@ export default class Notice extends Node {
              component = <WarningIcon />;
            } else if (node.attrs.style === "success") {
              component = <DoneIcon />;
