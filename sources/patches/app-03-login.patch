@@ -36,7 +36,7 @@ index af218c06c..b2d93d994 100644
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index 7b6d9fea2..8d779c8e3 100644
+index eec0fa0ed..70edd7eea 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
 @@ -274,7 +274,7 @@ function Login({ children }: Props) {
