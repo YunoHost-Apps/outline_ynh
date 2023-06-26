@@ -138,7 +138,7 @@ pushd "$final_path"
 	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --weight=18
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
 	ynh_script_progression --message="Building... This can be very long, be patient !" --weight=18
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3900" yarn build 2>&1
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn build 2>&1
 	ynh_script_progression --message="Cleaning cache... " --weight=3
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
 popd
