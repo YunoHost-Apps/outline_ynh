@@ -26,7 +26,7 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 - Using Yunohost's built-in SMTP server for notifications
 
 
-**Version incluse :** 0.68.0.4~ynh1
+**Version incluse :** 0.69.2.2~ynh1
 
 **Démo :** https://app.getoutline.com/create
 
