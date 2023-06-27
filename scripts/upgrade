@@ -96,6 +96,18 @@ chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
 
 #=================================================
+# UPDATE MINIO BUCKET
+#=================================================
+ynh_script_progression --message="Updating outlinestorage MinIO bucket access policy..." --weight=1
+
+ynh_add_config --template="../conf/policy.json" --destination="$mc_path/policy.json"
+chown minio:www-data "$mc_path/policy.json"
+
+pushd "$mc_path"
+	ynh_exec_warn_less sudo -u minio ./mc anonymous set-json ./policy.json minio/outlinestorage
+popd
+
+#=================================================
 # NGINX CONFIGURATION
 #=================================================
 ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
@@ -123,15 +135,11 @@ ynh_script_progression --message="Building Yarn dependencies... This can be very
 
 pushd "$final_path"
 	ynh_use_nodejs
-	ynh_script_progression --message="Fetching Yarn dev dependencies... This can be very long, be patient !" --weight=5
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --no-optional --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_script_progression --message="Cleaning cache... " --weight=1
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
-	ynh_script_progression --message="Building Yarn dev dependencies... This can be very long, be patient !" --weight=5
+	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --weight=18
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
+	ynh_script_progression --message="Building... This can be very long, be patient !" --weight=18
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn build 2>&1
-	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --weight=5
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --production=true --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_script_progression --message="Cleaning cache... " --weight=1
+	ynh_script_progression --message="Cleaning cache... " --weight=3
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
 popd
 

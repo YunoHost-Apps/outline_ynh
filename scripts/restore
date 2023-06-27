@@ -122,11 +122,15 @@ chown -R $app:www-data "$final_path"
 
 mv "$final_path/outlinestorage" "$mc_path/outlinestorage"
 chown -R minio:www-data "$mc_path/outlinestorage"
+
+ynh_add_config --template="../conf/policy.json" --destination="$mc_path/policy.json"
+chown minio:www-data "$mc_path/policy.json"
+
 pushd "$mc_path"
 	ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
-	ynh_exec_warn_less sudo -u minio ./mc policy set public minio/outlinestorage
-	ynh_exec_warn_less sudo -u minio ./mc mirror --a ./outlinestorage/ minio/outlinestorage
+	ynh_exec_warn_less sudo -u minio ./mc anonymous set-json ./policy.json minio/outlinestorage
 popd
+
 ynh_secure_remove --file="$mc_path/outlinestorage"
 
 #=================================================

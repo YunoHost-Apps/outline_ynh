@@ -6,6 +6,7 @@ It shall NOT be edited by hand.
 # Outline for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Working status](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)
+
 [![Install Outline with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=outline)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -25,7 +26,7 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 - Using Yunohost's built-in SMTP server for notifications
 
 
-**Shipped version:** 0.67.2~ynh1
+**Shipped version:** 0.69.2.2~ynh1
 
 **Demo:** https://app.getoutline.com/create
 
@@ -38,7 +39,7 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 ### Not totally free licence
 Outline is a softwared licenced under [BUSL 1.1 licence](https://spdx.org/licenses/BUSL-1.1.html). 
 ⚠️ That licence **is not totally free**. Please read it very carefully if you have any commercial use in mind.
-The Outline version shipped with this package (v0.65.2) will be released under Apache-2.0 licence [after May 23rd 2026](https://github.com/outline/outline/blob/151c2c731a94eefdda4e62f311308e9bd4615838/LICENSE).
+The Outline version shipped with this package (v0.68.0) will be released under Apache-2.0 licence [after May 23rd 2026](https://github.com/outline/outline/blob/151c2c731a94eefdda4e62f311308e9bd4615838/LICENSE).
 
 ### Known limitations
 
@@ -54,6 +55,10 @@ The Outline version shipped with this package (v0.65.2) will be released under A
 
 The first user to login will automatically be granted admin rights
 You can then change the user rights by default and/or change the admin user afterwards from the Outline settings page
+
+## :red_circle: Antifeatures
+
+- **Not totally free upstream**: The packaged app is under an overall free licence, but with clauses that restrict its use.
 
 ## Documentation and resources
 
