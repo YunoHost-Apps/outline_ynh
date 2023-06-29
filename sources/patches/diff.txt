@@ -285,7 +285,7 @@ index c553d3d27..8d14b876f 100644
  }
  
 diff --git a/shared/editor/nodes/Notice.tsx b/shared/editor/nodes/Notice.tsx
-index 2193d0b02..258f67802 100644
+index 2193d0b02..7b31f5d86 100644
 --- a/shared/editor/nodes/Notice.tsx
 +++ b/shared/editor/nodes/Notice.tsx
 @@ -1,5 +1,5 @@
@@ -295,14 +295,14 @@ index 2193d0b02..258f67802 100644
  import { wrappingInputRule } from "prosemirror-inputrules";
  import { NodeSpec, Node as ProsemirrorNode, NodeType } from "prosemirror-model";
  import * as React from "react";
-@@ -16,6 +16,7 @@ export default class Notice extends Node {
+@@ -15,6 +15,7 @@ export default class Notice extends Node {
+       info: this.options.dictionary.info,
        warning: this.options.dictionary.warning,
        success: this.options.dictionary.success,
-       tip: this.options.dictionary.tip,
 +      bible: this.options.dictionary.bible,
+       tip: this.options.dictionary.tip,
      });
    }
- 
 @@ -51,6 +52,8 @@ export default class Notice extends Node {
                ? "warning"
                : dom.className.includes("success")
