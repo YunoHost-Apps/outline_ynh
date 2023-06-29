@@ -90,7 +90,7 @@ index c553d3d27..8d14b876f 100644
  }
  
 diff --git a/shared/editor/nodes/Notice.tsx b/shared/editor/nodes/Notice.tsx
-index 2193d0b02..3cbfe5326 100644
+index 2193d0b02..258f67802 100644
 --- a/shared/editor/nodes/Notice.tsx
 +++ b/shared/editor/nodes/Notice.tsx
 @@ -1,5 +1,5 @@
@@ -122,7 +122,7 @@ index 2193d0b02..3cbfe5326 100644
            } else if (node.attrs.style === "success") {
              component = <DoneIcon />;
 +          } else if (node.attrs.style === "bible") {
-+            component = <BookmarkedIcon color="currentColor" />;
++            component = <BookmarkedIcon />;
            } else {
              component = <InfoIcon />;
            }

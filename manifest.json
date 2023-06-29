@@ -6,7 +6,7 @@
         "en": "Wiki and knowledge base for teams",
         "fr": "Wiki et base de connaissances pour les équipes"
     },
-    "version": "0.69.2.1~ynh1",
+    "version": "0.69.2.4~ynh1",
     "url": "www.getoutline.com",
     "upstream": {
         "license": "BUSL-1.1",
