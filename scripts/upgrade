@@ -95,6 +95,7 @@ chown -R $app:www-data "$final_path"
 # MIGRATE MINIO BUCKET IF UPGRADING FROM AN OLD VERSION
 #=======================================================
 
+ynh_script_progression --message="Checking if a migration is needed"
 if ynh_compare_current_package_version --comparison le --version 0.69.2.2~ynh1
 then
 	ynh_script_progression --message="Migrating MinIO data to local directory"
