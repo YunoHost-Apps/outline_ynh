@@ -40,23 +40,23 @@ if ! yunohost app list | grep -q "id: minio"; then
 	yunohost app install https://github.com/YunoHost-Apps/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_$public=true&admin=$YNH_APP_ARG_MINIO_ADMIN&password=$YNH_APP_ARG_MINIO_PASSWORD"
 fi
 
-#REMOVEME? minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
-#REMOVEME? minio_admin=$(ynh_app_setting_get --app="minio" --key=admin)
-#REMOVEME? minio_password=$(ynh_app_setting_get --app="minio" --key=password)
-#REMOVEME? mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
+minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_admin=$(ynh_app_setting_get --app="minio" --key=admin)
+minio_password=$(ynh_app_setting_get --app="minio" --key=password)
+mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
 
 #=================================================
 # INSTALL DEX APP FOR OAUTH2 / OIDC
 #=================================================
 ynh_script_progression --message="Installing Dex..." --weight=18
 
-#REMOVEME? dex_domain=$YNH_APP_ARG_DEX_DOMAIN
-#REMOVEME? dex_path=$YNH_APP_ARG_DEX_PATH
+dex_domain=$YNH_APP_ARG_DEX_DOMAIN
+dex_path=$YNH_APP_ARG_DEX_PATH
 oidc_secret=$(ynh_hex_32_random)
 oidc_name="Outline"
 oidc_callback="$domain/auth/oidc.callback"
 
-#REMOVEME? if yunohost app list | grep -q "$YNH_APP_ARG_DEX_DOMAIN$YNH_APP_ARG_DEX_PATH"; then
+if yunohost app list | grep -q "$YNH_APP_ARG_DEX_DOMAIN$YNH_APP_ARG_DEX_PATH"; then
 	ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
 fi
 
@@ -79,21 +79,19 @@ fi
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
-#REMOVEME? ynh_script_progression --message="Storing installation settings..." --weight=1
+ynh_script_progression --message="Storing installation settings..." --weight=1
 
-#REMOVEME? ynh_app_setting_set --app=$app --key=domain --value=$domain
-#REMOVEME? ynh_app_setting_set --app=$app --key=path --value=$path
 ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=secret_key --value=$secret_key
 ynh_app_setting_set --app=$app --key=utils_secret --value=$utils_secret
 ynh_app_setting_set --app=$app --key=language_key --value=$language_key
-#REMOVEME? ynh_app_setting_set --app=$app --key=minio_domain --value=$minio_domain
-#REMOVEME? ynh_app_setting_set --app=$app --key=minio_admin --value=$minio_admin
-#REMOVEME? ynh_app_setting_set --app=$app --key=minio_password --value=$minio_password
-#REMOVEME? ynh_app_setting_set --app=$app --key=mc_path --value=$mc_path
+ynh_app_setting_set --app=$app --key=minio_domain --value=$minio_domain
+ynh_app_setting_set --app=$app --key=minio_admin --value=$minio_admin
+ynh_app_setting_set --app=$app --key=minio_password --value=$minio_password
+ynh_app_setting_set --app=$app --key=mc_path --value=$mc_path
 ynh_app_setting_set --app=$app --key=dex_app --value=$dex_app
-#REMOVEME? ynh_app_setting_set --app=$app --key=dex_domain --value=$dex_domain
-#REMOVEME? ynh_app_setting_set --app=$app --key=dex_path --value=$dex_path
+ynh_app_setting_set --app=$app --key=dex_domain --value=$dex_domain
+ynh_app_setting_set --app=$app --key=dex_path --value=$dex_path
 ynh_app_setting_set --app=$app --key=oidc_name --value=$oidc_name
 ynh_app_setting_set --app=$app --key=oidc_secret --value=$oidc_secret
 ynh_app_setting_set --app=$app --key=oidc_callback --value=$oidc_callback
@@ -175,7 +173,6 @@ ynh_script_progression --message="Fetching Yarn production dependencies... This 
 pushd "$install_dir"
 	ynh_use_nodejs
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_script_progression --message="Building... This can be very long, be patient !" --weight=18
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3000" yarn build 2>&1
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
@@ -187,7 +184,7 @@ popd
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
+ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
