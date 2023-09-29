@@ -107,9 +107,9 @@ then
 	minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
 	mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
 
-	mkdir "/var/lib/$app"
+	mkdir "/var/lib/$app/data"
 	chown -R minio:www-data "/var/lib/$app"
-	ynh_exec_warn_less sudo -u minio $mc_path/mc mirror --preserve "minio/outlinestorage" "/var/lib/$app"
+	ynh_exec_warn_less sudo -u minio $mc_path/mc mirror --preserve "minio/outlinestorage" "/var/lib/$app/data"
 
 	chown -R $app:www-data "/var/lib/$app"
 	ynh_script_progression --message="Data migration finished"
