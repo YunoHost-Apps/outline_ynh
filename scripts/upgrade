@@ -47,7 +47,6 @@ ynh_script_progression --message="Backing up the app before upgrading (may take 
 
 # Ugly fix for an early mistake - to be removed with next upgrade
 ynh_secure_remove --file="$final_path/outlinestorage"
-ynh_secure_remove --file="$mc_path/outlinestorage"
 
 # Backup the current version of the app
 ynh_backup_before_upgrade
@@ -84,6 +83,7 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
 	# Download, check integrity, uncompress and patch the source from app.src
+	ynh_secure_remove --file="$final_path"
 	ynh_setup_source --dest_dir="$final_path"
 fi
 
