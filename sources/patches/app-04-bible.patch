@@ -67,14 +67,13 @@ index f30b74449..406e1fcde 100644
  
    interface Colors {
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index 056826ddc..1ada51a1f 100644
+index 056826ddc..9a1c7bd69 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -851,6 +851,18 @@ h6 {
+@@ -854,6 +854,20 @@ h6 {
+   }
+ }
  
-   a {
-     color: ${props.theme.noticeSuccessText};
-+
 +.notice-block.bible {
 +  background: ${transparentize(0.9, props.theme.noticeBibleBackground)};
 +  border-left: 4px solid ${props.theme.noticeBibleBackground};
@@ -86,9 +85,12 @@ index 056826ddc..1ada51a1f 100644
 +
 +  a {
 +    color: ${props.theme.noticeBibleText};
-   }
- }
-
++  }
++}
++
+ blockquote {
+   margin: 0;
+   padding: 8px 10px 8px 1.5em;
 diff --git a/shared/editor/nodes/Notice.tsx b/shared/editor/nodes/Notice.tsx
 index bd976e69b..9ee40b8d5 100644
 --- a/shared/editor/nodes/Notice.tsx
@@ -119,10 +121,18 @@ index bd976e69b..9ee40b8d5 100644
              component = <InfoIcon />;
            }
 diff --git a/shared/styles/theme.ts b/shared/styles/theme.ts
-index f76e9c6a2..850aa1525 100644
+index f76e9c6a2..05d78850a 100644
 --- a/shared/styles/theme.ts
 +++ b/shared/styles/theme.ts
-@@ -96,6 +96,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
+@@ -32,6 +32,7 @@ const defaultColors: Colors = {
+   warning: "#f08a24",
+   success: "#2f3336",
+   info: "#a0d3e8",
++  bible: "#996633",
+   brand: {
+     red: "#FF5C80",
+     pink: "#FF4DFA",
+@@ -96,6 +97,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
      noticeSuccessBackground: colors.brand.green,
      noticeSuccessText: colors.almostBlack,
      tableSelectedBackground: transparentize(0.8, colors.accent),
@@ -131,7 +141,7 @@ index f76e9c6a2..850aa1525 100644
      breakpoints,
      ...colors,
      ...spacing,
-@@ -234,6 +236,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
+@@ -234,6 +237,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
      noticeTipText: colors.white,
      noticeWarningText: colors.white,
      noticeSuccessText: colors.white,

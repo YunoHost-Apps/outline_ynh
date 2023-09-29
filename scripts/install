@@ -203,6 +203,13 @@ pushd "$mc_path"
 popd
 
 #=================================================
+# SETUP LOCAL STORAGE
+#=================================================
+
+mkdir "/var/lib/$app"
+chown -R $app:www-data "/var/lib/$app"
+
+#=================================================
 # NGINX CONFIGURATION
 #=================================================
 ynh_script_progression --message="Configuring NGINX web server..." --weight=1
