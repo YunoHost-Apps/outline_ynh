@@ -1,0 +1,24 @@
+test_format = 1.0
+
+[default]
+
+    # ------------
+    # Tests to run
+    # ------------
+
+    exclude = ["install.multi"]
+
+    preinstall = """
+    sudo yunohost domain add dex.domain.tld
+    sudo yunohost domain add minio.domain.tld
+    """
+
+    # -------------------------------
+    # Default args to use for install
+    # -------------------------------
+    
+    args.dex_domain = "dex.domain.tld"
+    args.dex_path = "/example"
+    args.minio_domain = "minio.domain.tld"
+    args.minio_admin = "package_checker"
+    args.minio_password = "1Strong-Password"
