@@ -1,15 +1,15 @@
 diff --git a/package.json b/package.json
-index bd4069b81..9e14e1b8d 100644
+index 92b6ec86b..9215ec275 100644
 --- a/package.json
 +++ b/package.json
-@@ -144,6 +144,7 @@
-     "passport": "^0.6.0",
-     "passport-google-oauth2": "^0.2.0",
-     "passport-oauth2": "^1.6.1",
+@@ -157,6 +157,7 @@
+     "patch-package": "^7.0.2",
+     "pg": "^8.11.1",
+     "pg-tsquery": "^8.4.1",
 +    "passport-req": "^0.1.1",
-     "passport-slack-oauth2": "^1.1.1",
-     "patch-package": "^7.0.0",
-     "pg": "^8.8.0",
+     "polished": "^4.2.2",
+     "prosemirror-codemark": "^0.4.2",
+     "prosemirror-commands": "^1.5.2",
 diff --git a/plugins/req/plugin.json b/plugins/req/plugin.json
 new file mode 100644
 index 000000000..ae7c40333
@@ -106,10 +106,10 @@ index 000000000..bc03fc6d3
 +
 +export default router;
 diff --git a/yarn.lock b/yarn.lock
-index 42ced2fb5..7a4bf3f9c 100644
+index d9e8ec607..a1106ef17 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -10174,6 +10174,14 @@ passport-oauth@1.0.x:
+@@ -10340,6 +10340,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -121,10 +121,10 @@ index 42ced2fb5..7a4bf3f9c 100644
 +    passport "~0.1.1"
 +    pkginfo "0.2.x"
 +
- passport-slack-oauth2@^1.1.1:
-   version "1.1.1"
-   resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.1.1.tgz#d831ffc3f1e968fcc3622e6ecf41643c8d8f9cbc"
-@@ -10196,6 +10204,14 @@ passport@^0.6.0:
+ passport-slack-oauth2@^1.2.0:
+   version "1.2.0"
+   resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.2.0.tgz#d214a698b55a137393636a26827747f6c436dab4"
+@@ -10361,6 +10369,14 @@ passport@^0.6.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -139,15 +139,3 @@ index 42ced2fb5..7a4bf3f9c 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
-@@ -10400,6 +10416,11 @@ pkg-up@^3.1.0:
-   dependencies:
-     find-up "^3.0.0"
- 
-+pkginfo@0.2.x:
-+  version "0.2.3"
-+  resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.2.3.tgz#7239c42a5ef6c30b8f328439d9b9ff71042490f8"
-+  integrity sha512-7W7wTrE/NsY8xv/DTGjwNIyNah81EQH0MWcTzrHL6pOpMocOGZc0Mbdz9aXxSrp+U0mSmkU8jrNCDCfUs3sOBg==
-+
- pkginfo@^0.4.1:
-   version "0.4.1"
-   resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.4.1.tgz#b5418ef0439de5425fc4995042dced14fb2a84ff"

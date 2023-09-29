@@ -1,5 +1,5 @@
 diff --git a/app/components/Icons/OutlineIcon.tsx b/app/components/Icons/OutlineIcon.tsx
-index 05fa32927..33fc7ee21 100644
+index bb7f29ce7..70db50bcd 100644
 --- a/app/components/Icons/OutlineIcon.tsx
 +++ b/app/components/Icons/OutlineIcon.tsx
 @@ -22,7 +22,10 @@ export default function OutlineIcon({
@@ -15,18 +15,18 @@ index 05fa32927..33fc7ee21 100644
    );
  }
 diff --git a/app/editor/menus/block.tsx b/app/editor/menus/block.tsx
-index d9404e6ba..0c2b07b46 100644
+index f795fc56d..a4dc4e17a 100644
 --- a/app/editor/menus/block.tsx
 +++ b/app/editor/menus/block.tsx
-@@ -20,6 +20,7 @@ import {
-   CalendarIcon,
+@@ -21,6 +21,7 @@ import {
    MathIcon,
    DoneIcon,
+   EmbedIcon,
 +  BookmarkedIcon,
  } from "outline-icons";
  import * as React from "react";
  import styled from "styled-components";
-@@ -196,6 +197,13 @@ export default function blockMenuItems(dictionary: Dictionary): MenuItem[] {
+@@ -203,6 +204,13 @@ export default function blockMenuItems(dictionary: Dictionary): MenuItem[] {
        keywords: "notice card suggestion",
        attrs: { style: "tip" },
      },
@@ -41,7 +41,7 @@ index d9404e6ba..0c2b07b46 100644
        name: "separator",
      },
 diff --git a/app/hooks/useDictionary.ts b/app/hooks/useDictionary.ts
-index 5d359bc0b..3d9cd5aff 100644
+index 6472c88cc..8bedb092d 100644
 --- a/app/hooks/useDictionary.ts
 +++ b/app/hooks/useDictionary.ts
 @@ -78,6 +78,8 @@ export default function useDictionary() {
@@ -54,10 +54,10 @@ index 5d359bc0b..3d9cd5aff 100644
        insertTime: t("Current time"),
        insertDateTime: t("Current date and time"),
 diff --git a/app/scenes/Document/components/Document.tsx b/app/scenes/Document/components/Document.tsx
-index fac830c75..b4399e34b 100644
+index 8e3542d40..8a7c461af 100644
 --- a/app/scenes/Document/components/Document.tsx
 +++ b/app/scenes/Document/components/Document.tsx
-@@ -545,11 +545,6 @@ class DocumentScene extends React.Component<Props> {
+@@ -552,11 +552,6 @@ class DocumentScene extends React.Component<Props> {
                  </Flex>
                </React.Suspense>
              </MaxWidth>
@@ -69,10 +69,10 @@ index fac830c75..b4399e34b 100644
            </Container>
            {!isShare && (
              <Footer>
-diff --git a/app/scenes/Login/AuthenticationProvider.tsx b/app/scenes/Login/AuthenticationProvider.tsx
+diff --git a/app/scenes/Login/components/AuthenticationProvider.tsx b/app/scenes/Login/components/AuthenticationProvider.tsx
 index af218c06c..b2d93d994 100644
---- a/app/scenes/Login/AuthenticationProvider.tsx
-+++ b/app/scenes/Login/AuthenticationProvider.tsx
+--- a/app/scenes/Login/components/AuthenticationProvider.tsx
++++ b/app/scenes/Login/components/AuthenticationProvider.tsx
 @@ -91,7 +91,7 @@ function AuthenticationProvider(props: Props) {
                <InputLarge
                  type="email"
@@ -107,10 +107,10 @@ index af218c06c..b2d93d994 100644
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index eec0fa0ed..70edd7eea 100644
+index de4245890..c751e3299 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
-@@ -274,7 +274,7 @@ function Login({ children }: Props) {
+@@ -255,7 +255,7 @@ function Login({ children }: Props) {
          ) : (
            <>
              <StyledHeading as="h2" centered>
@@ -119,7 +119,7 @@ index eec0fa0ed..70edd7eea 100644
                  authProviderName: config.name || env.APP_NAME,
                })}
              </StyledHeading>
-@@ -292,7 +292,7 @@ function Login({ children }: Props) {
+@@ -273,7 +273,7 @@ function Login({ children }: Props) {
              {hasMultipleProviders && (
                <>
                  <Note>
@@ -129,10 +129,10 @@ index eec0fa0ed..70edd7eea 100644
                    })}
                  </Note>
 diff --git a/app/typings/styled-components.d.ts b/app/typings/styled-components.d.ts
-index e30b32de3..1beeccf75 100644
+index f30b74449..406e1fcde 100644
 --- a/app/typings/styled-components.d.ts
 +++ b/app/typings/styled-components.d.ts
-@@ -55,6 +55,8 @@ declare module "styled-components" {
+@@ -54,6 +54,8 @@ declare module "styled-components" {
      noticeWarningText: string;
      noticeSuccessBackground: string;
      noticeSuccessText: string;
@@ -142,17 +142,17 @@ index e30b32de3..1beeccf75 100644
  
    interface Colors {
 diff --git a/package.json b/package.json
-index bd4069b81..9e14e1b8d 100644
+index 92b6ec86b..9215ec275 100644
 --- a/package.json
 +++ b/package.json
-@@ -144,6 +144,7 @@
-     "passport": "^0.6.0",
-     "passport-google-oauth2": "^0.2.0",
-     "passport-oauth2": "^1.6.1",
+@@ -157,6 +157,7 @@
+     "patch-package": "^7.0.2",
+     "pg": "^8.11.1",
+     "pg-tsquery": "^8.4.1",
 +    "passport-req": "^0.1.1",
-     "passport-slack-oauth2": "^1.1.1",
-     "patch-package": "^7.0.0",
-     "pg": "^8.8.0",
+     "polished": "^4.2.2",
+     "prosemirror-codemark": "^0.4.2",
+     "prosemirror-commands": "^1.5.2",
 diff --git a/plugins/req/plugin.json b/plugins/req/plugin.json
 new file mode 100644
 index 000000000..ae7c40333
@@ -250,10 +250,10 @@ index 000000000..bc03fc6d3
 +export default router;
 \ No newline at end of file
 diff --git a/server/emails/mailer.tsx b/server/emails/mailer.tsx
-index 3584f03b4..c72e6f3fb 100644
+index 4d4f6f09c..f457025d5 100644
 --- a/server/emails/mailer.tsx
 +++ b/server/emails/mailer.tsx
-@@ -138,6 +138,7 @@ export class Mailer {
+@@ -208,6 +208,7 @@ export class Mailer {
          : {
              rejectUnauthorized: false,
            },
@@ -262,10 +262,10 @@ index 3584f03b4..c72e6f3fb 100644
    }
  
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index c553d3d27..8d14b876f 100644
+index 056826ddc..1ada51a1f 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -660,6 +660,18 @@ h6 {
+@@ -851,6 +851,18 @@ h6 {
  
    a {
      color: ${props.theme.noticeSuccessText};
@@ -285,7 +285,7 @@ index c553d3d27..8d14b876f 100644
  }
  
 diff --git a/shared/editor/nodes/Notice.tsx b/shared/editor/nodes/Notice.tsx
-index 2193d0b02..7b31f5d86 100644
+index bd976e69b..9ee40b8d5 100644
 --- a/shared/editor/nodes/Notice.tsx
 +++ b/shared/editor/nodes/Notice.tsx
 @@ -1,5 +1,5 @@
@@ -295,15 +295,7 @@ index 2193d0b02..7b31f5d86 100644
  import { wrappingInputRule } from "prosemirror-inputrules";
  import { NodeSpec, Node as ProsemirrorNode, NodeType } from "prosemirror-model";
  import * as React from "react";
-@@ -15,6 +15,7 @@ export default class Notice extends Node {
-       info: this.options.dictionary.info,
-       warning: this.options.dictionary.warning,
-       success: this.options.dictionary.success,
-+      bible: this.options.dictionary.bible,
-       tip: this.options.dictionary.tip,
-     });
-   }
-@@ -51,6 +52,8 @@ export default class Notice extends Node {
+@@ -44,6 +44,8 @@ export default class Notice extends Node {
                ? "warning"
                : dom.className.includes("success")
                ? "success"
@@ -312,7 +304,7 @@ index 2193d0b02..7b31f5d86 100644
                : undefined,
            }),
          },
-@@ -115,6 +118,8 @@ export default class Notice extends Node {
+@@ -93,6 +95,8 @@ export default class Notice extends Node {
              component = <WarningIcon />;
            } else if (node.attrs.style === "success") {
              component = <DoneIcon />;
@@ -322,10 +314,10 @@ index 2193d0b02..7b31f5d86 100644
              component = <InfoIcon />;
            }
 diff --git a/shared/styles/theme.ts b/shared/styles/theme.ts
-index f3d83141e..c576a67c2 100644
+index f76e9c6a2..850aa1525 100644
 --- a/shared/styles/theme.ts
 +++ b/shared/styles/theme.ts
-@@ -93,6 +93,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
+@@ -96,6 +96,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
      noticeSuccessBackground: colors.brand.green,
      noticeSuccessText: colors.almostBlack,
      tableSelectedBackground: transparentize(0.8, colors.accent),
@@ -334,7 +326,7 @@ index f3d83141e..c576a67c2 100644
      breakpoints,
      ...colors,
      ...spacing,
-@@ -233,6 +235,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
+@@ -234,6 +236,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
      noticeTipText: colors.white,
      noticeWarningText: colors.white,
      noticeSuccessText: colors.white,
@@ -343,10 +335,10 @@ index f3d83141e..c576a67c2 100644
      scrollbarBackground: colors.black,
      scrollbarThumb: colors.lightBlack,
 diff --git a/yarn.lock b/yarn.lock
-index 42ced2fb5..7a4bf3f9c 100644
+index d9e8ec607..a1106ef17 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -10174,6 +10174,14 @@ passport-oauth@1.0.x:
+@@ -10340,6 +10340,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -358,10 +350,10 @@ index 42ced2fb5..7a4bf3f9c 100644
 +    passport "~0.1.1"
 +    pkginfo "0.2.x"
 +
- passport-slack-oauth2@^1.1.1:
-   version "1.1.1"
-   resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.1.1.tgz#d831ffc3f1e968fcc3622e6ecf41643c8d8f9cbc"
-@@ -10196,6 +10204,14 @@ passport@^0.6.0:
+ passport-slack-oauth2@^1.2.0:
+   version "1.2.0"
+   resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.2.0.tgz#d214a698b55a137393636a26827747f6c436dab4"
+@@ -10361,6 +10369,14 @@ passport@^0.6.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -376,15 +368,3 @@ index 42ced2fb5..7a4bf3f9c 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
-@@ -10400,6 +10416,11 @@ pkg-up@^3.1.0:
-   dependencies:
-     find-up "^3.0.0"
- 
-+pkginfo@0.2.x:
-+  version "0.2.3"
-+  resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.2.3.tgz#7239c42a5ef6c30b8f328439d9b9ff71042490f8"
-+  integrity sha512-7W7wTrE/NsY8xv/DTGjwNIyNah81EQH0MWcTzrHL6pOpMocOGZc0Mbdz9aXxSrp+U0mSmkU8jrNCDCfUs3sOBg==
-+
- pkginfo@^0.4.1:
-   version "0.4.1"
-   resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.4.1.tgz#b5418ef0439de5425fc4995042dced14fb2a84ff"
