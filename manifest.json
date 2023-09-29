@@ -6,7 +6,7 @@
         "en": "Wiki and knowledge base for teams",
         "fr": "Wiki et base de connaissances pour les équipes"
     },
-    "version": "0.72.0.3.1~ynh1",
+    "version": "0.72.0.3.2~ynh1",
     "url": "www.getoutline.com",
     "upstream": {
         "license": "BUSL-1.1",
@@ -63,30 +63,6 @@
                 "ask": {
                     "en": "Path for authentication URL. Please don't use 'auth' as it will break NGINX configuration.",
                     "fr": "Chemin de l'URL d'authentification. Veuillez ne pas utiliser 'auth' car cela casserait la configuration NGINX."
-                }
-            },
-            {
-                "name": "minio_domain",
-                "type": "domain",
-                "ask": {
-                    "en": "Domain for MinIO app, used for images and attachments storage. If not yet installed, it will automatically be. MinIO has to be installed at the root.",
-                    "fr": "Domaine pour l'application MinIO, utilisé pour le stockage des images et des pièces jointes. S'il n'est pas encore installé, il le sera automatiquement. MinIO doit être installé à la racine."
-                }
-            },
-            {
-                "name": "minio_admin",
-                "type": "user",
-                "ask": {
-                    "en": "Administrator for MinIO app, used for images and attachments storage. Please note that if MinIO is already installed, that setting won't be used.",
-                    "fr": "Administrateur pour l'application MinIO, utilisée pour le stockage des images et des pièces jointes. Veuillez noter que si MinIO est déjà installé, ce paramètre ne sera pas utilisé."
-                }
-            },
-            {
-                "name": "minio_password",
-                "type": "password",
-                "ask": {
-                    "en": "Password for MinIO administrator",
-                    "fr": "Mot de passe pour l'administrateur MinIO"
                 }
             }
         ]
