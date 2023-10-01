@@ -47,7 +47,6 @@ ynh_script_progression --message="Backing up the app before upgrading (may take 
 
 # Ugly fix for an early mistake - to be removed with next upgrade
 ynh_secure_remove --file="$final_path/outlinestorage"
-ynh_secure_remove --file="$mc_path/outlinestorage"
 
 # Backup the current version of the app
 ynh_backup_before_upgrade
@@ -84,6 +83,7 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
 	# Download, check integrity, uncompress and patch the source from app.src
+	ynh_secure_remove --file="$final_path"
 	ynh_setup_source --dest_dir="$final_path"
 fi
 
@@ -107,7 +107,7 @@ then
 	minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
 	mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
 
-	mkdir "/var/lib/$app/data"
+	mkdir -p "/var/lib/$app/data"
 	chown -R minio:www-data "/var/lib/$app"
 	ynh_exec_warn_less sudo -u minio $mc_path/mc mirror --preserve "minio/outlinestorage" "/var/lib/$app/data"
 
