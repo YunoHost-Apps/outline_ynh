@@ -5,7 +5,7 @@ name = "Outline"
 description.en = "Wiki and knowledge base for teams"
 description.fr = "Wiki et base de connaissances pour les équipes"
 
-version = "0.69.2.2~ynh1"
+version = "0.72.0.3.4~ynh1"
 
 maintainers = ["Raoul de Limezy"]
 
@@ -53,25 +53,10 @@ ram.runtime = "50M"
     type = "path"
     default = "/"
 
-    [install.minio_domain]
-    ask.en = "Domain for MinIO app, used for images and attachments storage. If not yet installed, it will automatically be. MinIO has to be installed at the root."
-    ask.fr = "Domaine pour l'application MinIO, utilisé pour le stockage des images et des pièces jointes. S'il n'est pas encore installé, il le sera automatiquement. MinIO doit être installé à la racine."
-    type = "domain"
-
-    [install.minio_admin]
-    ask.en = "Administrator for MinIO app, used for images and attachments storage. Please note that if MinIO is already installed, that setting won't be used."
-    ask.fr = "Administrateur pour l'application MinIO, utilisée pour le stockage des images et des pièces jointes. Veuillez noter que si MinIO est déjà installé, ce paramètre ne sera pas utilisé."
-    type = "user"
-
-    [install.minio_password]
-    ask.en = "Password for MinIO administrator"
-    ask.fr = "Mot de passe pour l'administrateur MinIO"
-    type = "password"
-
 [resources]
         [resources.sources.main]
-        url = "https://github.com/outline/outline/archive/25e8c32b8403042b6813e2a6861f4cd16586ed69.zip"
-        sha256 = "8bb592ae014e653752311eb0664cc7741faaeb14b7101b06c5b55d878b616658"
+        url = "https://github.com/outline/outline/archive/5397907599d373bcb5cef8057d4c58526d64b084.zip"
+        sha256 = "751bfaf5b1abb346337c537795540a4a809e544891d1313ed1df66b31261df5e"
         autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]

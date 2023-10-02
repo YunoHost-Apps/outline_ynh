@@ -10,7 +10,6 @@ test_format = 1.0
 
     preinstall = """
     sudo yunohost domain add dex.domain.tld
-    sudo yunohost domain add minio.domain.tld
     """
 
     # -------------------------------
@@ -19,6 +18,3 @@ test_format = 1.0
     
     args.dex_domain = "dex.domain.tld"
     args.dex_path = "/example"
-    args.minio_domain = "minio.domain.tld"
-    args.minio_admin = "package_checker"
-    args.minio_password = "1Strong-Password"
