@@ -16,18 +16,10 @@ source /usr/share/yunohost/helpers
 ynh_print_info --message="Declaring files to be backed up..."
 
 #=================================================
-# BACKUP MINIO
+# BACKUP LOCAL STORAGE
 #=================================================
 
-ynh_secure_remove --file="$mc_path/outlinestorage"
-pushd "$mc_path"
-        ynh_exec_warn_less sudo -u minio mkdir outlinestorage
-        ynh_exec_warn_less sudo -u minio ./mc mirror --a minio/outlinestorage ./outlinestorage/
-popd
-
-#REMOVEME? ynh_secure_remove --file="$install_dir/outlinestorage"
-mv "$mc_path/outlinestorage" "$install_dir/outlinestorage"
-chown -R outline:www-data "$install_dir/outlinestorage"
+ynh_backup --src_path="/var/lib/outline"
 
 #=================================================
 # BACKUP THE APP MAIN DIR

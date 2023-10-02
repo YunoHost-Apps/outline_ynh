@@ -10,35 +10,6 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# LOAD SETTINGS
-#=================================================
-#REMOVEME? ynh_script_progression --message="Loading installation settings..." --weight=1
-
-#REMOVEME? app=$YNH_APP_INSTANCE_NAME
-
-#REMOVEME? #REMOVEME? install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
-#REMOVEME? domain=$(ynh_app_setting_get --app=$app --key=domain)
-#REMOVEME? path=$(ynh_app_setting_get --app=$app --key=path)
-#REMOVEME? port=$(ynh_app_setting_get --app=$app --key=port)
-#REMOVEME? db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-#REMOVEME? language_key=$(ynh_app_setting_get --app=$app --key=language_key)
-#REMOVEME? secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
-#REMOVEME? utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
-#REMOVEME? minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
-#REMOVEME? minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
-#REMOVEME? minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
-#REMOVEME? mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
-#REMOVEME? dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
-#REMOVEME? dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
-#REMOVEME? dex_path=$(ynh_app_setting_get --app=$app --key=dex_path)
-#REMOVEME? oidc_secret=$(ynh_app_setting_get --app=$app --key=oidc_secret)
-#REMOVEME? oidc_name=$(ynh_app_setting_get --app=$app --key=oidc_name)
-#REMOVEME? oidc_callback=$(ynh_app_setting_get --app=$app --key=oidc_callback)
-#REMOVEME? dex_auth_uri=$(ynh_app_setting_get --app=$app --key=dex_auth_uri)
-#REMOVEME? dex_token_uri=$(ynh_app_setting_get --app=$app --key=dex_token_uri)
-#REMOVEME? dex_user_uri=$(ynh_app_setting_get --app=$app --key=dex_user_uri)
-
-#=================================================
 # STANDARD REMOVE
 #=================================================
 # REMOVE SERVICE INTEGRATION IN YUNOHOST
@@ -70,15 +41,11 @@ ynh_script_progression --message="Removing Dex app used for Outline auth..." --w
 yunohost app remove $dex_app
 
 #=================================================
-# REMOVE MINIO BUCKET
+# REMOVE LOCAL STORAGE
 #=================================================
-ynh_script_progression --message="Removing Outline MinIO bucket..." --weight=1
 
-pushd "$mc_path"
-	ynh_exec_warn_less sudo -u minio ./mc rb minio/outlinestorage --force
-popd
-
-ynh_secure_remove --file="$mc_path/outlinestorage"
+ynh_script_progression --message="Removing Outline local storage..." --weight=1
+ynh_secure_remove --file="/var/lib/outline"
 
 #=================================================
 # END OF SCRIPT

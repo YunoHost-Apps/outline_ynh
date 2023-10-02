@@ -10,35 +10,6 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# LOAD SETTINGS
-#=================================================
-#REMOVEME? ynh_script_progression --message="Loading installation settings..." --weight=1
-
-#REMOVEME? app=$YNH_APP_INSTANCE_NAME
-
-#REMOVEME? #REMOVEME? install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
-#REMOVEME? domain=$(ynh_app_setting_get --app=$app --key=domain)
-#REMOVEME? path=$(ynh_app_setting_get --app=$app --key=path)
-#REMOVEME? port=$(ynh_app_setting_get --app=$app --key=port)
-#REMOVEME? db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-#REMOVEME? language_key=$(ynh_app_setting_get --app=$app --key=language_key)
-#REMOVEME? secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
-#REMOVEME? utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
-#REMOVEME? minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
-#REMOVEME? minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
-#REMOVEME? minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
-#REMOVEME? mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
-#REMOVEME? dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
-#REMOVEME? dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
-#REMOVEME? dex_path=$(ynh_app_setting_get --app=$app --key=dex_path)
-#REMOVEME? oidc_secret=$(ynh_app_setting_get --app=$app --key=oidc_secret)
-#REMOVEME? oidc_name=$(ynh_app_setting_get --app=$app --key=oidc_name)
-#REMOVEME? oidc_callback=$(ynh_app_setting_get --app=$app --key=oidc_callback)
-#REMOVEME? dex_auth_uri=$(ynh_app_setting_get --app=$app --key=dex_auth_uri)
-#REMOVEME? dex_token_uri=$(ynh_app_setting_get --app=$app --key=dex_token_uri)
-#REMOVEME? dex_user_uri=$(ynh_app_setting_get --app=$app --key=dex_user_uri)
-
-#=================================================
 # CHECK VERSION
 #=================================================
 
@@ -62,23 +33,39 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir" --full_replace=1
+	ynh_secure_remove --file="$final_path"
+	ynh_setup_source --dest_dir="$final_path"
 fi
 
-chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
 
-#=================================================
-# UPDATE MINIO BUCKET
-#=================================================
-ynh_script_progression --message="Updating outlinestorage MinIO bucket access policy..." --weight=1
+#=======================================================
+# MIGRATE MINIO BUCKET IF UPGRADING FROM AN OLD VERSION
+#=======================================================
 
-ynh_add_config --template="../conf/policy.json" --destination="$mc_path/policy.json"
-chown minio:www-data "$mc_path/policy.json"
+ynh_script_progression --message="Checking if a migration is needed"
+if ynh_compare_current_package_version --comparison le --version 0.69.2.2~ynh1
+then
+	ynh_script_progression --message="Migrating MinIO data to local directory"
+	
+	minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
+	minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
+	minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
+	mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
 
-pushd "$mc_path"
-	ynh_exec_warn_less sudo -u minio ./mc anonymous set-json ./policy.json minio/outlinestorage
-popd
+	mkdir -p "/var/lib/$app/data"
+	chown -R minio:www-data "/var/lib/$app"
+	ynh_exec_warn_less sudo -u minio $mc_path/mc mirror --preserve "minio/outlinestorage" "/var/lib/$app/data"
+
+	chown -R $app:www-data "/var/lib/$app"
+	ynh_script_progression --message="Data migration finished"
+	ynh_script_progression --message="Data bucket was kept for safety, just in case !"
+	ynh_script_progression --message="Don't forget to remove MinIO app if you don't use it !"
+else
+	ynh_script_progression --message="No migration to be done"
+fi
 
 #=================================================
 # NGINX CONFIGURATION
