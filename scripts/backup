@@ -36,10 +36,6 @@ db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 language_key=$(ynh_app_setting_get --app=$app --key=language_key)
 secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
 utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
-minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
-minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
-minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
-mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
 dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
 dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
 dex_path=$(ynh_app_setting_get --app=$app --key=dex_path)
@@ -61,18 +57,10 @@ ynh_print_info --message="Declaring files to be backed up..."
 ### script is called. Hence ynh_backups calls takes basically 0 seconds to run.
 
 #=================================================
-# BACKUP MINIO
+# BACKUP LOCAL STORAGE
 #=================================================
 
-ynh_secure_remove --file="$mc_path/outlinestorage"
-pushd "$mc_path"
-        ynh_exec_warn_less sudo -u minio mkdir outlinestorage
-        ynh_exec_warn_less sudo -u minio ./mc mirror --a minio/outlinestorage ./outlinestorage/
-popd
-
-ynh_secure_remove --file="$final_path/outlinestorage"
-mv "$mc_path/outlinestorage" "$final_path/outlinestorage"
-chown -R outline:www-data "$final_path/outlinestorage"
+ynh_backup --src_path="/var/lib/outline"
 
 #=================================================
 # BACKUP THE APP MAIN DIR

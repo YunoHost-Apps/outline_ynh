@@ -24,10 +24,6 @@ db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 language_key=$(ynh_app_setting_get --app=$app --key=language_key)
 secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
 utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
-minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
-minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
-minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
-mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
 dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
 dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
 dex_path=$(ynh_app_setting_get --app=$app --key=dex_path)
@@ -100,14 +96,10 @@ ynh_script_progression --message="Removing Dex app used for Outline auth..." --w
 yunohost app remove $dex_app
 
 #=================================================
-# REMOVE MINIO BUCKET
+# REMOVE LOCAL STORAGE
 #=================================================
-ynh_script_progression --message="Removing Outline MinIO bucket..." --weight=1
-
-pushd "$mc_path"
-	ynh_exec_warn_less sudo -u minio ./mc rb minio/outlinestorage --force
-popd
-ynh_secure_remove --file="$mc_path/outlinestorage"
+ynh_script_progression --message="Removing Outline local storage..." --weight=1
+ynh_secure_remove --file="/var/lib/outline"
 
 #=================================================
 # REMOVE NGINX CONFIGURATION

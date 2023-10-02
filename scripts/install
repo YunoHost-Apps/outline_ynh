@@ -44,27 +44,6 @@ utils_secret=$(ynh_hex_32_random)
 app=$YNH_APP_INSTANCE_NAME
 
 #=================================================
-# CHECK IF MINIO IS INSTALLED, IF NOT INSTALL IT
-#=================================================
-ynh_script_progression --message="Installing MinIO if needed..." --weight=18
-
-if ! yunohost app list | grep -q "id: minio"; then
-	echo "MinIO is not installed. Installing... "
-	yunohost tools update
-	if yunohost app list | grep -q "$YNH_APP_ARG_MINIO_DOMAIN"; then
-		ynh_die "The domain provided for MinIO is already used by another app. Please chose another one !"
-	fi
-	# FIXME hackish workaround to circumvent the linter
-	public=public
-	yunohost app install https://github.com/YunoHost-Apps/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_$public=true&admin=$YNH_APP_ARG_MINIO_ADMIN&password=$YNH_APP_ARG_MINIO_PASSWORD"
-fi
-
-minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
-minio_admin=$(ynh_app_setting_get --app="minio" --key=admin)
-minio_password=$(ynh_app_setting_get --app="minio" --key=password)
-mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
-
-#=================================================
 # INSTALL DEX APP FOR OAUTH2 / OIDC
 #=================================================
 ynh_script_progression --message="Installing Dex..." --weight=18
@@ -117,10 +96,6 @@ ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=secret_key --value=$secret_key
 ynh_app_setting_set --app=$app --key=utils_secret --value=$utils_secret
 ynh_app_setting_set --app=$app --key=language_key --value=$language_key
-ynh_app_setting_set --app=$app --key=minio_domain --value=$minio_domain
-ynh_app_setting_set --app=$app --key=minio_admin --value=$minio_admin
-ynh_app_setting_set --app=$app --key=minio_password --value=$minio_password
-ynh_app_setting_set --app=$app --key=mc_path --value=$mc_path
 ynh_app_setting_set --app=$app --key=dex_app --value=$dex_app
 ynh_app_setting_set --app=$app --key=dex_domain --value=$dex_domain
 ynh_app_setting_set --app=$app --key=dex_path --value=$dex_path
@@ -190,17 +165,11 @@ chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
 
 #=================================================
-# SETUP MINIO BUCKET
+# SETUP LOCAL STORAGE
 #=================================================
-ynh_script_progression --message="Setting up MinIO bucket for Outline..." --weight=1
 
-ynh_add_config --template="../conf/policy.json" --destination="$mc_path/policy.json"
-chown minio:www-data "$mc_path/policy.json"
-
-pushd "$mc_path"
-	ynh_exec_warn_less sudo -u minio ./mc mb minio/outlinestorage --region "fr-ynh-1"
-	ynh_exec_warn_less sudo -u minio ./mc anonymous set-json ./policy.json minio/outlinestorage
-popd
+mkdir "/var/lib/$app"
+chown -R $app:www-data "/var/lib/$app"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -220,7 +189,7 @@ pushd "$final_path"
 	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --weight=18
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
 	ynh_script_progression --message="Building... This can be very long, be patient !" --weight=18
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn build 2>&1
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3000" yarn build 2>&1
 	ynh_script_progression --message="Cleaning cache... " --weight=3
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
 popd
