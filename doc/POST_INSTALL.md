@@ -1,1 +1,0 @@
-Don't forget to add a new redirction URL in your Slack app settings!
