@@ -104,7 +104,7 @@ ynh_script_progression --message="Restoring the app local storage..." --weight=1
 
 ynh_restore_file --origin_path="/var/lib/outline"
 
-chmod -R 750 "/var/lib/outline"
+chmod -R o-rwx "/var/lib/outline"
 chown -R $app:www-data "/var/lib/outline"
 
 #=================================================

@@ -10,7 +10,7 @@
     "url": "www.getoutline.com",
     "upstream": {
         "license": "BUSL-1.1",
-        "website": "www.getoutline.com",
+        "website": "https://www.getoutline.com",
         "demo": "https://app.getoutline.com/create",
         "admindoc": "https://www.getoutline.com/developers",
         "userdoc": "https://www.getoutline.com/about",
