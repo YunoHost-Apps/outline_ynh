@@ -1,5 +1,5 @@
 diff --git a/package.json b/package.json
-index 92b6ec86b..9215ec275 100644
+index fa43b3532..32a658cee 100644
 --- a/package.json
 +++ b/package.json
 @@ -157,6 +157,7 @@
@@ -106,7 +106,7 @@ index 000000000..bc03fc6d3
 +
 +export default router;
 diff --git a/yarn.lock b/yarn.lock
-index d9e8ec607..a1106ef17 100644
+index 0413a0132..a35fe073c 100644
 --- a/yarn.lock
 +++ b/yarn.lock
 @@ -10340,6 +10340,14 @@ passport-oauth@1.0.x:
