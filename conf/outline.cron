@@ -1,0 +1,1 @@
+0 3 * * * __APP__ curl https://__DOMAIN__/api/cron.daily?token=__UTILS_SECRET__
