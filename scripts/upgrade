@@ -194,6 +194,15 @@ ynh_script_progression --message="Upgrading logrotate configuration..." --weight
 ynh_use_logrotate --non-append
 
 #=================================================
+# UPDATE THE CRON JOB
+#=================================================
+
+cron_path="/etc/cron.d/$app"
+ynh_add_config --template="../conf/outline.cron" --destination="$cron_path"
+chown root: "$cron_path"
+chmod 644 "$cron_path"
+
+#=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
