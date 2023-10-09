@@ -12,27 +12,27 @@ source /usr/share/yunohost/helpers
 #=================================================
 # LOAD SETTINGS
 #=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=1
+#REMOVEME? ynh_script_progression --message="Loading installation settings..." --weight=1
 
-app=$YNH_APP_INSTANCE_NAME
+#REMOVEME? app=$YNH_APP_INSTANCE_NAME
 
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url=$(ynh_app_setting_get --app=$app --key=path_url)
-port=$(ynh_app_setting_get --app=$app --key=port)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-language_key=$(ynh_app_setting_get --app=$app --key=language_key)
-secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
-utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
-dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
-dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
-dex_path=$(ynh_app_setting_get --app=$app --key=dex_path)
-oidc_secret=$(ynh_app_setting_get --app=$app --key=oidc_secret)
-oidc_name=$(ynh_app_setting_get --app=$app --key=oidc_name)
-oidc_callback=$(ynh_app_setting_get --app=$app --key=oidc_callback)
-dex_auth_uri=$(ynh_app_setting_get --app=$app --key=dex_auth_uri)
-dex_token_uri=$(ynh_app_setting_get --app=$app --key=dex_token_uri)
-dex_user_uri=$(ynh_app_setting_get --app=$app --key=dex_user_uri)
+#REMOVEME? #REMOVEME? install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
+#REMOVEME? domain=$(ynh_app_setting_get --app=$app --key=domain)
+#REMOVEME? path=$(ynh_app_setting_get --app=$app --key=path)
+#REMOVEME? port=$(ynh_app_setting_get --app=$app --key=port)
+#REMOVEME? db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+#REMOVEME? language_key=$(ynh_app_setting_get --app=$app --key=language_key)
+#REMOVEME? secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
+#REMOVEME? utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
+#REMOVEME? dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
+#REMOVEME? dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
+#REMOVEME? dex_path=$(ynh_app_setting_get --app=$app --key=dex_path)
+#REMOVEME? oidc_secret=$(ynh_app_setting_get --app=$app --key=oidc_secret)
+#REMOVEME? oidc_name=$(ynh_app_setting_get --app=$app --key=oidc_name)
+#REMOVEME? oidc_callback=$(ynh_app_setting_get --app=$app --key=oidc_callback)
+#REMOVEME? dex_auth_uri=$(ynh_app_setting_get --app=$app --key=dex_auth_uri)
+#REMOVEME? dex_token_uri=$(ynh_app_setting_get --app=$app --key=dex_token_uri)
+#REMOVEME? dex_user_uri=$(ynh_app_setting_get --app=$app --key=dex_user_uri)
 
 #=================================================
 # STANDARD REMOVE
@@ -66,27 +66,27 @@ ynh_remove_logrotate
 #=================================================
 # REMOVE THE POSTGRESQL DATABASE
 #=================================================
-ynh_script_progression --message="Removing the PostgreSQL database..."
+#REMOVEME? ynh_script_progression --message="Removing the PostgreSQL database..."
 
 # Remove a database if it exists, along with the associated user
-ynh_psql_remove_db --db_user=$db_name --db_name=$db_name
+#REMOVEME? ynh_psql_remove_db --db_user=$db_name --db_name=$db_name
 
 #=================================================
 # REMOVE DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Removing dependencies..." --weight=1
+#REMOVEME? ynh_script_progression --message="Removing dependencies..." --weight=1
 
 # Remove metapackage and its dependencies
-ynh_remove_app_dependencies
+#REMOVEME? ynh_remove_app_dependencies
 ynh_remove_nodejs
 
 #=================================================
 # REMOVE APP MAIN DIR
 #=================================================
-ynh_script_progression --message="Removing app main directory..." --weight=1
+#REMOVEME? ynh_script_progression --message="Removing app main directory..." --weight=1
 
 # Remove the app directory securely
-ynh_secure_remove --file="$final_path"
+#REMOVEME? ynh_secure_remove --file="$install_dir"
 
 #=================================================
 # REMOVE DEX APP
@@ -124,10 +124,10 @@ ynh_secure_remove --file="/etc/cron.d/$app"
 #=================================================
 # REMOVE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Removing the dedicated system user..." --weight=1
+#REMOVEME? ynh_script_progression --message="Removing the dedicated system user..." --weight=1
 
 # Delete a system user
-ynh_system_user_delete --username=$app
+#REMOVEME? ynh_system_user_delete --username=$app
 
 #=================================================
 # END OF SCRIPT

@@ -5,7 +5,7 @@
 #=================================================
 
 # dependencies used by the app
-pkg_dependencies="postgresql"
+#REMOVEME? pkg_dependencies="postgresql"
 
 NODEJS_VERSION=20
 
