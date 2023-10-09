@@ -34,7 +34,6 @@ path_url=$(ynh_app_setting_get --app=$app --key=path_url)
 port=$(ynh_app_setting_get --app=$app --key=port)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 language_key=$(ynh_app_setting_get --app=$app --key=language_key)
-secret_key=$(ynh_app_setting_get --app=$app --key=secret_key)
 utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
 dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
 dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
@@ -45,6 +44,7 @@ oidc_callback=$(ynh_app_setting_get --app=$app --key=oidc_callback)
 dex_auth_uri=$(ynh_app_setting_get --app=$app --key=dex_auth_uri)
 dex_token_uri=$(ynh_app_setting_get --app=$app --key=dex_token_uri)
 dex_user_uri=$(ynh_app_setting_get --app=$app --key=dex_user_uri)
+db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 
 #=================================================
 # CHECK IF THE APP CAN BE RESTORED
@@ -128,7 +128,7 @@ ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ st
 ynh_script_progression --message="Restoring the PostgreSQL database..." --weight=6
 
 ynh_psql_test_if_first_run
-ynh_psql_setup_db --db_user=$db_name --db_name=$db_name --db_pwd=$secret_key
+ynh_psql_setup_db --db_user=$db_name --db_name=$db_name --db_pwd=$db_pwd
 ynh_psql_execute_file_as_root --file="./db.sql" --database=$db_name
 
 #=================================================
