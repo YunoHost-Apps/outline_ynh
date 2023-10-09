@@ -21,7 +21,6 @@ else
 	echo "English"
 fi
 
-secret_key=$(ynh_hex_32_random)
 utils_secret=$(ynh_hex_32_random)
 
 #=================================================
@@ -61,7 +60,6 @@ fi
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=language --value=$language
-ynh_app_setting_set --app=$app --key=secret_key --value=$secret_key
 ynh_app_setting_set --app=$app --key=utils_secret --value=$utils_secret
 ynh_app_setting_set --app=$app --key=language_key --value=$language_key
 ynh_app_setting_set --app=$app --key=dex_app --value=$dex_app
