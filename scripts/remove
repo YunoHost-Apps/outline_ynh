@@ -10,22 +10,6 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# LOAD SETTINGS
-#=================================================
-#REMOVEME? ynh_script_progression --message="Loading installation settings..." --weight=1
-
-#REMOVEME? utils_secret=$(ynh_app_setting_get --app=$app --key=utils_secret)
-#REMOVEME? dex_app=$(ynh_app_setting_get --app=$app --key=dex_app)
-#REMOVEME? dex_domain=$(ynh_app_setting_get --app=$app --key=dex_domain)
-#REMOVEME? dex_path=$(ynh_app_setting_get --app=$app --key=dex_path)
-#REMOVEME? oidc_secret=$(ynh_app_setting_get --app=$app --key=oidc_secret)
-#REMOVEME? oidc_name=$(ynh_app_setting_get --app=$app --key=oidc_name)
-#REMOVEME? oidc_callback=$(ynh_app_setting_get --app=$app --key=oidc_callback)
-#REMOVEME? dex_auth_uri=$(ynh_app_setting_get --app=$app --key=dex_auth_uri)
-#REMOVEME? dex_token_uri=$(ynh_app_setting_get --app=$app --key=dex_token_uri)
-#REMOVEME? dex_user_uri=$(ynh_app_setting_get --app=$app --key=dex_user_uri)
-
-#=================================================
 # STANDARD REMOVE
 #=================================================
 # REMOVE SERVICE INTEGRATION IN YUNOHOST
