@@ -172,7 +172,7 @@ ynh_script_progression --message="Running DB initial migration..."
 
 pushd "$final_path"
 	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production yarn db:migrate
 popd
 
 #=================================================
