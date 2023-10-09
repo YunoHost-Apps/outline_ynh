@@ -25,23 +25,6 @@ if ! yunohost app list | grep -q "id: $dex_app"; then
 fi
 
 #=================================================
-# STANDARD RESTORATION STEPS
-#=================================================
-# RESTORE THE NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Restoring the NGINX configuration..." --weight=1
-
-ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
-
-#=================================================
-# RECREATE THE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Recreating the dedicated system user..." --weight=1
-
-# Create the dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir="$final_path"
-
-#=================================================
 # RESTORE THE APP MAIN DIR
 #=================================================
 ynh_script_progression --message="Restoring the app main directory..." --weight=1
@@ -54,7 +37,6 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 # RESTORE LOCAL STORAGE
 #=================================================
-
 ynh_script_progression --message="Restoring the app local storage..." --weight=1
 
 ynh_restore_file --origin_path="/var/lib/outline"
@@ -79,18 +61,6 @@ ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 ynh_script_progression --message="Restoring the PostgreSQL database..." --weight=6
 
 ynh_psql_execute_file_as_root --file="./db.sql" --database=$db_name
-
-#=================================================
-# UPDATING A CONFIGURATION
-#=================================================
-
-#REMOVEME? ynh_secure_remove --file="$install_dir/.env"
-ynh_script_progression --message="Updating the configuration file..." --weight=1
-
-ynh_add_config --template="../conf/.env" --destination="$install_dir/.env"
-
-chmod 400 "$install_dir/.env"
-chown $app:$app "$install_dir/.env"
 
 #=================================================
 # RESTORE SYSTEMD
