@@ -22,8 +22,6 @@ utils_secret=$(ynh_hex_32_random)
 #=================================================
 ynh_script_progression --message="Installing Dex..." --weight=18
 
-#REMOVEME? dex_domain=$YNH_APP_ARG_DEX_DOMAIN
-#REMOVEME? dex_path=$YNH_APP_ARG_DEX_PATH
 oidc_secret=$(ynh_hex_32_random)
 oidc_name="Outline"
 oidc_callback="$domain/auth/oidc.callback"
@@ -53,11 +51,7 @@ fi
 #=================================================
 #REMOVEME? ynh_script_progression --message="Storing installation settings..." --weight=1
 
-#REMOVEME? ynh_app_setting_set --app=$app --key=domain --value=$domain
-#REMOVEME? ynh_app_setting_set --app=$app --key=path --value=$path
-ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=utils_secret --value=$utils_secret
-ynh_app_setting_set --app=$app --key=language_key --value=$language_key
 ynh_app_setting_set --app=$app --key=dex_app --value=$dex_app
 #REMOVEME? ynh_app_setting_set --app=$app --key=dex_domain --value=$dex_domain
 #REMOVEME? ynh_app_setting_set --app=$app --key=dex_path --value=$dex_path
@@ -69,46 +63,17 @@ ynh_app_setting_set --app=$app --key=dex_token_uri --value=$dex_token_uri
 ynh_app_setting_set --app=$app --key=dex_user_uri --value=$dex_user_uri
 
 #=================================================
-# STANDARD MODIFICATIONS
-#=================================================
-# FIND AND OPEN A PORT
-#=================================================
-#REMOVEME? ynh_script_progression --message="Finding an available port..." --weight=1
-
-# Find an available port
-#REMOVEME? port=$(ynh_find_port --port=2410)
-#REMOVEME? ynh_app_setting_set --app=$app --key=port --value=$port
-
-#=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-#REMOVEME? ynh_script_progression --message="Installing dependencies..." --weight=1
+ynh_script_progression --message="Installing dependencies..." --weight=1
 
 # Install nodejs
 ynh_install_nodejs --nodejs_version=$NODEJS_VERSION 2>&1
 
-#REMOVEME? ynh_install_app_dependencies $pkg_dependencies 2>&1
-
-# Install Yarn
-#REMOVEME? ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg" 2>&1
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-#REMOVEME? ynh_script_progression --message="Configuring system user..." --weight=1
-
-# Create a system user
-#REMOVEME? ynh_system_user_create --username=$app --home_dir="$install_dir"
-
 #=================================================
 # CREATE A POSTGRESQL DATABASE
 #=================================================
-#REMOVEME? ynh_script_progression --message="Creating a PostgreSQL database..." --weight=1
-
-#REMOVEME? db_name=$(ynh_sanitize_dbid --db_name=$app)
-#REMOVEME? ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-#REMOVEME? ynh_psql_test_if_first_run
-#REMOVEME? ynh_psql_setup_db --db_user=$db_name --db_name=$db_name --db_pwd=$secret_key
+ynh_script_progression --message="Creating a PostgreSQL database..." --weight=1
 
 ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS unaccent;" --database=$db_name
 ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS pg_trgm;" --database=$db_name
@@ -118,11 +83,9 @@ ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS pg_trgm;" --datab
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=2
 
-#REMOVEME? ynh_app_setting_set --app=$app --key=install_dir --value=$install_dir
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
-chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
 
@@ -141,6 +104,18 @@ ynh_script_progression --message="Configuring NGINX web server..." --weight=1
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
+# Create a dedicated systemd config
+ynh_add_systemd_config
+
+# Use logrotate to manage application logfile(s)
+ynh_use_logrotate
+
+cron_path="/etc/cron.d/$app"
+ynh_add_config --template="../conf/outline.cron" --destination="$cron_path"
+chown root: "$cron_path"
+chmod 644 "$cron_path"
+
+yunohost service add $app --description="Outline server" --log="/var/log/$app/$app.log"
 
 #=================================================
 # BUILD YARN DEPENDENCIES
@@ -177,65 +152,12 @@ pushd "$install_dir"
 popd
 
 #=================================================
-# SETUP SYSTEMD
-#=================================================
-ynh_script_progression --message="Configuring a systemd service..." --weight=1
-
-# Create a dedicated systemd config
-ynh_add_systemd_config
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SETUP LOGROTATE
-#=================================================
-ynh_script_progression --message="Configuring log rotation..." --weight=1
-
-# Use logrotate to manage application logfile(s)
-ynh_use_logrotate
-
-#=================================================
-# ADD A CRON JOB
-#=================================================
-
-cron_path="/etc/cron.d/$app"
-ynh_add_config --template="../conf/outline.cron" --destination="$cron_path"
-chown root: "$cron_path"
-chmod 644 "$cron_path"
-
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
-
-yunohost service add $app --description="Outline server" --log="/var/log/$app/$app.log"
-
-#=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 # Start a systemd service
 ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
-
-#=================================================
-# SETUP SSOWAT
-#=================================================
-#REMOVEME? ynh_script_progression --message="Configuring permissions..." --weight=1
-
-# Make app public if necessary
-#REMOVEME? if [ $is_public -eq 1 ]
-then
-#REMOVEME? 	ynh_permission_update --permission="main" --add="visitors"
-fi
-	ynh_permission_url --permission="main" --auth_header=false
-
-#=================================================
-# RELOAD NGINX
-#=================================================
-#REMOVEME? ynh_script_progression --message="Reloading NGINX web server..." --weight=1
-
-#REMOVEME? ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
