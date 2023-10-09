@@ -26,7 +26,7 @@ oidc_secret=$(ynh_hex_32_random)
 oidc_name="Outline"
 oidc_callback="$domain/auth/oidc.callback"
 
-#REMOVEME? if yunohost app list | grep -q "$YNH_APP_ARG_DEX_DOMAIN$YNH_APP_ARG_DEX_PATH"; then
+if yunohost app list | grep -q "$YNH_APP_ARG_DEX_DOMAIN$YNH_APP_ARG_DEX_PATH"; then
 	ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
 fi
 
@@ -49,12 +49,10 @@ fi
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
-#REMOVEME? ynh_script_progression --message="Storing installation settings..." --weight=1
+ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=utils_secret --value=$utils_secret
 ynh_app_setting_set --app=$app --key=dex_app --value=$dex_app
-#REMOVEME? ynh_app_setting_set --app=$app --key=dex_domain --value=$dex_domain
-#REMOVEME? ynh_app_setting_set --app=$app --key=dex_path --value=$dex_path
 ynh_app_setting_set --app=$app --key=oidc_name --value=$oidc_name
 ynh_app_setting_set --app=$app --key=oidc_secret --value=$oidc_secret
 ynh_app_setting_set --app=$app --key=oidc_callback --value=$oidc_callback
