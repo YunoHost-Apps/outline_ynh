@@ -67,7 +67,7 @@ index f30b74449..406e1fcde 100644
  
    interface Colors {
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index 906d070d0..e246e36fb 100644
+index a1f818892..df3d469df 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
 @@ -865,6 +865,20 @@ h6 {

@@ -1,5 +1,5 @@
 diff --git a/package.json b/package.json
-index fa43b3532..32a658cee 100644
+index b33348a07..24a4af6f2 100644
 --- a/package.json
 +++ b/package.json
 @@ -157,6 +157,7 @@
@@ -22,11 +22,11 @@ index 000000000..ae7c40333
 +}
 diff --git a/plugins/req/server/.babelrc b/plugins/req/server/.babelrc
 new file mode 100644
-index 000000000..c87001bc4
+index 000000000..2bc0ef3ed
 --- /dev/null
 +++ b/plugins/req/server/.babelrc
 @@ -0,0 +1,3 @@
-+{ 
++{
 +  "extends": "../../../server/.babelrc"
 +}
 diff --git a/plugins/req/server/auth/req.ts b/plugins/req/server/auth/req.ts
@@ -106,7 +106,7 @@ index 000000000..bc03fc6d3
 +
 +export default router;
 diff --git a/yarn.lock b/yarn.lock
-index 0413a0132..a35fe073c 100644
+index 2db13c657..2dbdf3907 100644
 --- a/yarn.lock
 +++ b/yarn.lock
 @@ -10340,6 +10340,14 @@ passport-oauth@1.0.x:
