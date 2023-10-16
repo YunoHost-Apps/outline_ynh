@@ -172,7 +172,7 @@ ynh_script_progression --message="Running DB initial migration..."
 
 pushd "$final_path"
 	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production yarn db:migrate
 popd
 
 #=================================================
@@ -192,6 +192,15 @@ ynh_script_progression --message="Upgrading logrotate configuration..." --weight
 
 # Use logrotate to manage app-specific logfile(s)
 ynh_use_logrotate --non-append
+
+#=================================================
+# UPDATE THE CRON JOB
+#=================================================
+
+cron_path="/etc/cron.d/$app"
+ynh_add_config --template="../conf/outline.cron" --destination="$cron_path"
+chown root: "$cron_path"
+chmod 644 "$cron_path"
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
