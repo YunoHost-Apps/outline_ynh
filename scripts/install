@@ -14,8 +14,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 utils_secret=$(ynh_hex_32_random)
-
-#REMOVEME? app=$YNH_APP_INSTANCE_NAME
+secret_key=$(ynh_hex_32_random)
 
 #=================================================
 # INSTALL DEX APP FOR OAUTH2 / OIDC
