@@ -24,7 +24,7 @@ multi_instance = false
 ldap = false
 sso = false
 disk = "50M"
-ram.build = "50M"
+ram.build = "3G"
 ram.runtime = "50M"
 
 [install]
@@ -39,8 +39,8 @@ ram.runtime = "50M"
     ask.en = "Choose the application language"
     ask.fr = "Choisissez la langue de l'application"
     type = "select"
-    choices = ["fr_FR", "en_US"]
-    default = "en_US"
+    choices = ["de_DE", "en_US", "es_ES", "fr_FR", "it_IT", "nl_NL", "pl_PL", "pt_PT"]
+    default = "fr_FR"
 
     [install.dex_domain]
     ask.en = "Domain for authentication. It can't be the same domain as above. Dex app will be installed and used for the authentication mechanism."
