@@ -19,7 +19,7 @@ if ! yunohost app list | grep -q "id: $dex_app"; then
 	echo "Dex is not installed. Installing... "
 	yunohost tools update
 	if yunohost app list | grep -q "$dex_domain$dex_path"; then
-		ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
+		ynh_die "The domain provided for Dex is already used by another app. Please chose another one!"
 	fi
 	yunohost app install https://github.com/YunoHost-Apps/dex_ynh --force --args "domain=$dex_domain&path=$dex_path&OIDC_name=$oidc_name&OIDC_secret=$oidc_secret&OIDC_callback=$oidc_callback"
 fi
@@ -49,7 +49,7 @@ chown -R $app:www-data "/var/lib/outline"
 #=================================================
 ynh_script_progression --message="Restoring the PostgreSQL database..." --weight=6
 
-ynh_psql_execute_file_as_root --file="./db.sql" --database=$db_name
+ynh_psql_connect_as --user=$db_user --password=$db_pwd --database=$db_name < ./db.sql
 
 #=================================================
 # SPECIFIC RESTORATION
@@ -59,7 +59,7 @@ ynh_psql_execute_file_as_root --file="./db.sql" --database=$db_name
 ynh_script_progression --message="Reinstalling dependencies..." --weight=1
 
 # Install nodejs
-ynh_install_nodejs --nodejs_version=$NODEJS_VERSION 2>&1
+ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
 ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 
@@ -77,8 +77,6 @@ yunohost service add $app --description="Outline server" --log="/var/log/$app/$a
 #=================================================
 # UPDATING A CONFIGURATION
 #=================================================
-
-#REMOVEME? ynh_secure_remove --file="$install_dir/.env"
 ynh_script_progression --message="Updating the configuration file..." --weight=1
 
 ynh_add_config --template="../conf/.env" --destination="$install_dir/.env"

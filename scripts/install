@@ -63,10 +63,10 @@ ynh_app_setting_set --app=$app --key=dex_user_uri --value=$dex_user_uri
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=1
+ynh_script_progression --message="Installing dependencies..." --weight=7
 
 # Install nodejs
-ynh_install_nodejs --nodejs_version=$NODEJS_VERSION 2>&1
+ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
 #=================================================
 # CREATE A POSTGRESQL DATABASE
@@ -116,20 +116,6 @@ chmod 644 "$cron_path"
 yunohost service add $app --description="Outline server" --log="/var/log/$app/$app.log"
 
 #=================================================
-# BUILD YARN DEPENDENCIES
-#=================================================
-
-pushd "$install_dir"
-	ynh_use_nodejs
-#REMOVEME? 	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --weight=18
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_script_progression --message="Building... This can be very long, be patient !" --weight=18
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3200" yarn build 2>&1
-	ynh_script_progression --message="Cleaning cache... " --weight=3
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
-popd
-
-#=================================================
 # ADD A CONFIGURATION
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
@@ -140,12 +126,15 @@ chmod 400 "$install_dir/.env"
 chown $app:$app "$install_dir/.env"
 
 #=================================================
-# RUN DB MIGRATION
+# BUILD YARN DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Running DB initial migration..." --weight=3
+ynh_script_progression --message="Building $app..." --weight=10
 
 pushd "$install_dir"
 	ynh_use_nodejs
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3200" yarn build
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
 popd
 

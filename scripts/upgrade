@@ -42,16 +42,11 @@ chown -R $app:www-data "$install_dir"
 #=======================================================
 # MIGRATE MINIO BUCKET IF UPGRADING FROM AN OLD VERSION
 #=======================================================
-
 ynh_script_progression --message="Checking if a migration is needed"
+
 if ynh_compare_current_package_version --comparison le --version 0.69.2.2~ynh1
 then
 	ynh_script_progression --message="Migrating MinIO data to local directory"
-	
-#REMOVEME? 	minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
-#REMOVEME? 	minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
-#REMOVEME? 	minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
-#REMOVEME? 	mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
 
 	mkdir -p "/var/lib/$app/data"
 	chown -R minio:www-data "/var/lib/$app"
@@ -59,8 +54,6 @@ then
 
 	chown -R $app:www-data "/var/lib/$app"
 	ynh_script_progression --message="Data migration finished"
-	ynh_script_progression --message="Data bucket was kept for safety, just in case !"
-	ynh_script_progression --message="Don't forget to remove MinIO app if you don't use it !"
 else
 	ynh_script_progression --message="No migration to be done"
 fi
@@ -72,49 +65,6 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
-
-# Install Nodejs
-ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
-
-#=================================================
-# UPGRADE YARN DEPENDENCIES
-#=================================================
-#REMOVEME? ynh_script_progression --message="Building Yarn dependencies... This can be very long, be patient !" --weight=10
-
-pushd "$install_dir"
-	ynh_use_nodejs
-#REMOVEME? 	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --weight=18
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_script_progression --message="Building... This can be very long, be patient !" --weight=18
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3900" yarn build 2>&1
-	ynh_script_progression --message="Cleaning cache... " --weight=3
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
-popd
-
-#=================================================
-# UPDATE A CONFIG FILE
-#=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
-
-ynh_add_config --template="../conf/.env" --destination="$install_dir/.env"
-
-chmod 400 "$install_dir/.env"
-chown $app:$app "$install_dir/.env"
-
-#=================================================
-# RUN DB MIGRATION
-#=================================================
-ynh_script_progression --message="Running DB initial migration..."
-
-pushd "$install_dir"
-	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
-popd
-
-#=================================================
-# SETUP SYSTEMD
-#=================================================
-ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
 
 # Create a dedicated systemd config
 ynh_add_systemd_config
@@ -128,6 +78,32 @@ chown root: "$cron_path"
 chmod 644 "$cron_path"
 
 yunohost service add $app --description="Outline server" --log="/var/log/$app/$app.log"
+
+# Install Nodejs
+ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
+
+#=================================================
+# UPDATE A CONFIG FILE
+#=================================================
+ynh_script_progression --message="Adding a configuration file..." --weight=1
+
+ynh_add_config --template="../conf/.env" --destination="$install_dir/.env"
+
+chmod 400 "$install_dir/.env"
+chown $app:$app "$install_dir/.env"
+
+#=================================================
+# UPGRADE YARN DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Building $app" --weight=10
+
+pushd "$install_dir"
+	ynh_use_nodejs
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3900" yarn build
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
+popd
 
 #=================================================
 # START SYSTEMD SERVICE
