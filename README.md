@@ -31,7 +31,7 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 
 ## Screenshots
 
-![Screenshot of Outline](./doc/screenshots/outline_screenshot.png)
+![Screenshot of Outline](./doc/screenshots/screenshot.png)
 
 ## :red_circle: Antifeatures
 
