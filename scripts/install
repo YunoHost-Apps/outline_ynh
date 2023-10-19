@@ -51,6 +51,7 @@ fi
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=utils_secret --value=$utils_secret
+ynh_app_setting_set --app=$app --key=secret_key --value=$secret_key
 ynh_app_setting_set --app=$app --key=dex_app --value=$dex_app
 ynh_app_setting_set --app=$app --key=oidc_name --value=$oidc_name
 ynh_app_setting_set --app=$app --key=oidc_secret --value=$oidc_secret
