@@ -16,3 +16,9 @@ test_format = 1.0
 
     args.dex_domain="dex.domain.tld"
     args.dex_path="/example"
+
+    # -------------------------------
+    # Commits to test upgrade from
+    # -------------------------------
+
+    test_upgrade_from.01d37841270a502d16767a9d7e4e19c8a85a5d06.name = "Upgrade from 0.69.2"
