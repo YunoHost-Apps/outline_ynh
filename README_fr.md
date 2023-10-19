@@ -31,7 +31,7 @@ The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, 
 
 ## Captures d’écran
 
-![Capture d’écran de Outline](./doc/screenshots/outline_screenshot.png)
+![Capture d’écran de Outline](./doc/screenshots/screenshot.png)
 
 ## :red_circle: Fonctions indésirables
 
