@@ -77,8 +77,6 @@ yunohost service add $app --description="Outline server" --log="/var/log/$app/$a
 #=================================================
 # UPDATING A CONFIGURATION
 #=================================================
-
-#REMOVEME? ynh_secure_remove --file="$install_dir/.env"
 ynh_script_progression --message="Updating the configuration file..." --weight=1
 
 ynh_add_config --template="../conf/.env" --destination="$install_dir/.env"
