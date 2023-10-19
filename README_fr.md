@@ -16,14 +16,13 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 
 ## Vue d’ensemble
 
-The fastest wiki and knowledge base for growing teams. Beautiful, feature rich, and markdown compatible.
+Outile est un wiki et la base de connaissances les plus rapides pour les équipes en pleine croissance. Beau, riche en fonctionnalités et compatible avec les démarques.
 
-### Features
+### Caractéristiques
 
-- Fully working installation of Outline wiki
-- Including a Dex server to connect to Yunohost's LDAP userbase using an OIDC auth flow
-- Using Yunohost's built-in SMTP server for notifications
-
+- Installation entièrement fonctionnelle du wiki Outline
+- Y compris un serveur Dex pour se connecter à la base d'utilisateurs LDAP de YunoHost à l'aide d'un flux d'authentification OIDC
+- Utilisation du serveur SMTP intégré de Yunohost pour les notifications
 
 **Version incluse :** 0.72.1.1~ynh1
 
