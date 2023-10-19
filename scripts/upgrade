@@ -48,11 +48,6 @@ if ynh_compare_current_package_version --comparison le --version 0.69.2.2~ynh1
 then
 	ynh_script_progression --message="Migrating MinIO data to local directory"
 	
-#REMOVEME? 	minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
-#REMOVEME? 	minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
-#REMOVEME? 	minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
-#REMOVEME? 	mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
-
 	mkdir -p "/var/lib/$app/data"
 	chown -R minio:www-data "/var/lib/$app"
 	ynh_exec_warn_less sudo -u minio $mc_path/mc mirror --preserve "minio/outlinestorage" "/var/lib/$app/data"
@@ -82,15 +77,12 @@ ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 #=================================================
 # UPGRADE YARN DEPENDENCIES
 #=================================================
-#REMOVEME? ynh_script_progression --message="Building Yarn dependencies... This can be very long, be patient !" --weight=10
+ynh_script_progression --message="Building $app" --weight=10
 
 pushd "$install_dir"
 	ynh_use_nodejs
-#REMOVEME? 	ynh_script_progression --message="Fetching Yarn production dependencies... This can be very long, be patient !" --weight=18
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_script_progression --message="Building... This can be very long, be patient !" --weight=18
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3900" yarn build 2>&1
-	ynh_script_progression --message="Cleaning cache... " --weight=3
 	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
 popd
 
