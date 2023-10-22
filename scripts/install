@@ -44,6 +44,19 @@ utils_secret=$(ynh_hex_32_random)
 app=$YNH_APP_INSTANCE_NAME
 
 #=================================================
+# INSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Installing dependencies..." --weight=1
+
+# Install nodejs
+ynh_install_nodejs --nodejs_version=$NODEJS_VERSION 2>&1
+
+ynh_install_app_dependencies $pkg_dependencies 2>&1
+
+# Install Yarn
+ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg" 2>&1
+
+#=================================================
 # INSTALL DEX APP FOR OAUTH2 / OIDC
 #=================================================
 ynh_script_progression --message="Installing Dex..." --weight=18
@@ -116,19 +129,6 @@ ynh_script_progression --message="Finding an available port..." --weight=1
 # Find an available port
 port=$(ynh_find_port --port=2410)
 ynh_app_setting_set --app=$app --key=port --value=$port
-
-#=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=1
-
-# Install nodejs
-ynh_install_nodejs --nodejs_version=$NODEJS_VERSION 2>&1
-
-ynh_install_app_dependencies $pkg_dependencies 2>&1
-
-# Install Yarn
-ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg" 2>&1
 
 #=================================================
 # CREATE DEDICATED USER
