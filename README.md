@@ -64,6 +64,7 @@ You can then change the user rights by default and/or change the admin user afte
 * Official user documentation: <https://www.getoutline.com/about>
 * Official admin documentation: <https://www.getoutline.com/developers>
 * Upstream app code repository: <https://github.com/outline/outline>
+* YunoHost Store: <https://apps.yunohost.org/app/outline>
 * Report a bug: <https://github.com/YunoHost-Apps/outline_ynh/issues>
 
 ## Developer info
