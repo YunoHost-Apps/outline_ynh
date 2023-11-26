@@ -1,7 +1,7 @@
 ### Not totally free licence
 Outline is a softwared licenced under [BUSL 1.1 licence](https://spdx.org/licenses/BUSL-1.1.html). 
 ⚠️ That licence **is not totally free**. Please read it very carefully if you have any commercial use in mind.
-The Outline version shipped with this package (v0.72.1) will be released under Apache-2.0 licence [after August 18th 2027](https://github.com/outline/outline/blob/ebeb201a9f48e2c6b619a0d152e051946849aa10/LICENSE).
+The Outline version shipped with this package (v0.72.2) will be released under Apache-2.0 licence [after August 18th 2027](https://github.com/outline/outline/blob/ebeb201a9f48e2c6b619a0d152e051946849aa10/LICENSE).
 
 ### Known limitations
 
