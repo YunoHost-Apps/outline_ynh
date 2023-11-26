@@ -15,10 +15,10 @@ index bb7f29ce7..70db50bcd 100644
    );
  }
 diff --git a/app/editor/menus/block.tsx b/app/editor/menus/block.tsx
-index f795fc56d..a4dc4e17a 100644
+index 301c2610d..1e6917bd8 100644
 --- a/app/editor/menus/block.tsx
 +++ b/app/editor/menus/block.tsx
-@@ -21,6 +21,7 @@ import {
+@@ -20,6 +20,7 @@ import {
    MathIcon,
    DoneIcon,
    EmbedIcon,
@@ -26,7 +26,7 @@ index f795fc56d..a4dc4e17a 100644
  } from "outline-icons";
  import * as React from "react";
  import styled from "styled-components";
-@@ -203,6 +204,13 @@ export default function blockMenuItems(dictionary: Dictionary): MenuItem[] {
+@@ -195,6 +196,13 @@ export default function blockMenuItems(dictionary: Dictionary): MenuItem[] {
        keywords: "notice card suggestion",
        attrs: { style: "tip" },
      },
@@ -41,10 +41,10 @@ index f795fc56d..a4dc4e17a 100644
        name: "separator",
      },
 diff --git a/app/hooks/useDictionary.ts b/app/hooks/useDictionary.ts
-index 6472c88cc..8bedb092d 100644
+index 6e9f9c383..8791bddb7 100644
 --- a/app/hooks/useDictionary.ts
 +++ b/app/hooks/useDictionary.ts
-@@ -78,6 +78,8 @@ export default function useDictionary() {
+@@ -76,6 +76,8 @@ export default function useDictionary() {
        warningNotice: t("Warning notice"),
        success: t("Success"),
        successNotice: t("Success notice"),
@@ -54,10 +54,10 @@ index 6472c88cc..8bedb092d 100644
        insertTime: t("Current time"),
        insertDateTime: t("Current date and time"),
 diff --git a/app/scenes/Document/components/Document.tsx b/app/scenes/Document/components/Document.tsx
-index 8e3542d40..8a7c461af 100644
+index 9eb541af1..d2c2e5a24 100644
 --- a/app/scenes/Document/components/Document.tsx
 +++ b/app/scenes/Document/components/Document.tsx
-@@ -552,11 +552,6 @@ class DocumentScene extends React.Component<Props> {
+@@ -556,11 +556,6 @@ class DocumentScene extends React.Component<Props> {
                  </Flex>
                </React.Suspense>
              </MaxWidth>
@@ -107,10 +107,10 @@ index af218c06c..b2d93d994 100644
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index de4245890..c751e3299 100644
+index 57f82919c..65efc59c9 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
-@@ -255,7 +255,7 @@ function Login({ children }: Props) {
+@@ -257,7 +257,7 @@ function Login({ children }: Props) {
          ) : (
            <>
              <StyledHeading as="h2" centered>
@@ -119,7 +119,7 @@ index de4245890..c751e3299 100644
                  authProviderName: config.name || env.APP_NAME,
                })}
              </StyledHeading>
-@@ -273,7 +273,7 @@ function Login({ children }: Props) {
+@@ -275,7 +275,7 @@ function Login({ children }: Props) {
              {hasMultipleProviders && (
                <>
                  <Note>
@@ -142,13 +142,13 @@ index f30b74449..406e1fcde 100644
  
    interface Colors {
 diff --git a/package.json b/package.json
-index b33348a07..24a4af6f2 100644
+index 22aafec21..7abdd9a97 100644
 --- a/package.json
 +++ b/package.json
-@@ -157,6 +157,7 @@
-     "patch-package": "^7.0.2",
+@@ -158,6 +158,7 @@
      "pg": "^8.11.1",
      "pg-tsquery": "^8.4.1",
+     "pluralize": "^8.0.0",
 +    "passport-req": "^0.1.1",
      "polished": "^4.2.2",
      "prosemirror-codemark": "^0.4.2",
@@ -250,10 +250,10 @@ index 000000000..bc03fc6d3
 +export default router;
 \ No newline at end of file
 diff --git a/server/emails/mailer.tsx b/server/emails/mailer.tsx
-index 4d4f6f09c..f457025d5 100644
+index f53e44b6b..bcf56efca 100644
 --- a/server/emails/mailer.tsx
 +++ b/server/emails/mailer.tsx
-@@ -208,6 +208,7 @@ export class Mailer {
+@@ -207,6 +207,7 @@ export class Mailer {
          : {
              rejectUnauthorized: false,
            },
@@ -262,10 +262,10 @@ index 4d4f6f09c..f457025d5 100644
    }
  
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index a1f818892..df3d469df 100644
+index b8410e53d..f0559b5d0 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -865,6 +865,20 @@ h6 {
+@@ -866,6 +866,20 @@ h6 {
    }
  }
  
@@ -316,7 +316,7 @@ index bd976e69b..9ee40b8d5 100644
              component = <InfoIcon />;
            }
 diff --git a/shared/styles/theme.ts b/shared/styles/theme.ts
-index f76e9c6a2..05d78850a 100644
+index 40a9bbd62..47dce4316 100644
 --- a/shared/styles/theme.ts
 +++ b/shared/styles/theme.ts
 @@ -32,6 +32,7 @@ const defaultColors: Colors = {
@@ -345,10 +345,10 @@ index f76e9c6a2..05d78850a 100644
      scrollbarBackground: colors.black,
      scrollbarThumb: colors.lightBlack,
 diff --git a/yarn.lock b/yarn.lock
-index 2db13c657..2dbdf3907 100644
+index 55f386865..74c7e8adc 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -10340,6 +10340,14 @@ passport-oauth@1.0.x:
+@@ -10378,6 +10378,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -363,7 +363,7 @@ index 2db13c657..2dbdf3907 100644
  passport-slack-oauth2@^1.2.0:
    version "1.2.0"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.2.0.tgz#d214a698b55a137393636a26827747f6c436dab4"
-@@ -10361,6 +10369,14 @@ passport@^0.6.0:
+@@ -10399,6 +10407,14 @@ passport@^0.6.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
