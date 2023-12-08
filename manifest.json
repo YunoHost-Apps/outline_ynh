@@ -7,7 +7,7 @@
         "fr": "Wiki et base de connaissances pour les équipes"
     },
     "version": "0.73.1~ynh1",
-    "url": "www.getoutline.com",
+    "url": "https://www.getoutline.com",
     "upstream": {
         "license": "BUSL-1.1",
         "website": "https://www.getoutline.com",
