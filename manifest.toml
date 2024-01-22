@@ -71,7 +71,7 @@ ram.runtime = "50M"
     main.auth_header = false
 
     [resources.apt]
-    packages = "postgresql"
+    packages = "postgresql gawk"
 
     extras.yarn.repo = "deb https://dl.yarnpkg.com/debian/ stable main"
     extras.yarn.key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
