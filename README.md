@@ -43,6 +43,7 @@ Outline is a wiki and knowledge base for growing teams. Beautiful, feature rich,
 * Official user documentation: <https://www.getoutline.com/about>
 * Official admin documentation: <https://www.getoutline.com/developers>
 * Upstream app code repository: <https://github.com/outline/outline>
+* YunoHost Store: <https://apps.yunohost.org/app/outline>
 * Report a bug: <https://github.com/YunoHost-Apps/outline_ynh/issues>
 
 ## Developer info

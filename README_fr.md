@@ -42,6 +42,7 @@ Outile est un wiki et la base de connaissances les plus rapides pour les équipe
 * Documentation officielle utilisateur : <https://www.getoutline.com/about>
 * Documentation officielle de l’admin : <https://www.getoutline.com/developers>
 * Dépôt de code officiel de l’app : <https://github.com/outline/outline>
+* YunoHost Store: <https://apps.yunohost.org/app/outline>
 * Signaler un bug : <https://github.com/YunoHost-Apps/outline_ynh/issues>
 
 ## Informations pour les développeurs
