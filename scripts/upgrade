@@ -56,6 +56,9 @@ then
 	ynh_script_progression --message="Data migration finished"
 	ynh_script_progression --message="Data bucket was kept for safety, just in case !"
 	ynh_script_progression --message="Don't forget to remove MinIO app if you don't use it !"
+
+	db_name=$(ynh_sanitize_dbid --db_name=$app)
+	ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS uuid-ossp;" --database=$db_name
 else
 	ynh_script_progression --message="No migration to be done"
 fi
@@ -100,7 +103,7 @@ ynh_script_progression --message="Running DB initial migration..."
 
 pushd "$install_dir"
 	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production yarn db:migrate
 popd
 
 #=================================================
