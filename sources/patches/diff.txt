@@ -41,10 +41,10 @@ index 301c2610d..1e6917bd8 100644
        name: "separator",
      },
 diff --git a/app/hooks/useDictionary.ts b/app/hooks/useDictionary.ts
-index 6e9f9c383..8791bddb7 100644
+index 6a73e6750..15b74aa9e 100644
 --- a/app/hooks/useDictionary.ts
 +++ b/app/hooks/useDictionary.ts
-@@ -76,6 +76,8 @@ export default function useDictionary() {
+@@ -81,6 +81,8 @@ export default function useDictionary() {
        warningNotice: t("Warning notice"),
        success: t("Success"),
        successNotice: t("Success notice"),
@@ -54,10 +54,10 @@ index 6e9f9c383..8791bddb7 100644
        insertTime: t("Current time"),
        insertDateTime: t("Current date and time"),
 diff --git a/app/scenes/Document/components/Document.tsx b/app/scenes/Document/components/Document.tsx
-index 9eb541af1..d2c2e5a24 100644
+index a231a90ee..67684d36d 100644
 --- a/app/scenes/Document/components/Document.tsx
 +++ b/app/scenes/Document/components/Document.tsx
-@@ -556,11 +556,6 @@ class DocumentScene extends React.Component<Props> {
+@@ -532,11 +532,6 @@ class DocumentScene extends React.Component<Props> {
                  </Flex>
                </React.Suspense>
              </MaxWidth>
@@ -70,10 +70,10 @@ index 9eb541af1..d2c2e5a24 100644
            {!isShare && (
              <Footer>
 diff --git a/app/scenes/Login/components/AuthenticationProvider.tsx b/app/scenes/Login/components/AuthenticationProvider.tsx
-index af218c06c..b2d93d994 100644
+index 5d564453d..9e3c5b55b 100644
 --- a/app/scenes/Login/components/AuthenticationProvider.tsx
 +++ b/app/scenes/Login/components/AuthenticationProvider.tsx
-@@ -91,7 +91,7 @@ function AuthenticationProvider(props: Props) {
+@@ -70,7 +70,7 @@ function AuthenticationProvider(props: Props) {
                <InputLarge
                  type="email"
                  name="email"
@@ -82,7 +82,7 @@ index af218c06c..b2d93d994 100644
                  value={email}
                  onChange={handleChangeEmail}
                  disabled={isSubmitting}
-@@ -100,12 +100,12 @@ function AuthenticationProvider(props: Props) {
+@@ -79,12 +79,12 @@ function AuthenticationProvider(props: Props) {
                  short
                />
                <ButtonLarge type="submit" disabled={isSubmitting}>
@@ -97,7 +97,7 @@ index af218c06c..b2d93d994 100644
              </ButtonLarge>
            )}
          </Form>
-@@ -120,7 +120,7 @@ function AuthenticationProvider(props: Props) {
+@@ -99,7 +99,7 @@ function AuthenticationProvider(props: Props) {
          icon={<PluginIcon id={id} />}
          fullwidth
        >
@@ -107,10 +107,10 @@ index af218c06c..b2d93d994 100644
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index 57f82919c..65efc59c9 100644
+index 9a9650b48..5357d5cf5 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
-@@ -257,7 +257,7 @@ function Login({ children }: Props) {
+@@ -264,7 +264,7 @@ function Login({ children }: Props) {
          ) : (
            <>
              <StyledHeading as="h2" centered>
@@ -119,7 +119,7 @@ index 57f82919c..65efc59c9 100644
                  authProviderName: config.name || env.APP_NAME,
                })}
              </StyledHeading>
-@@ -275,7 +275,7 @@ function Login({ children }: Props) {
+@@ -282,7 +282,7 @@ function Login({ children }: Props) {
              {hasMultipleProviders && (
                <>
                  <Note>
@@ -129,7 +129,7 @@ index 57f82919c..65efc59c9 100644
                    })}
                  </Note>
 diff --git a/app/typings/styled-components.d.ts b/app/typings/styled-components.d.ts
-index bb65ceb13..a6dde2103 100644
+index be368444f..ecfcae00c 100644
 --- a/app/typings/styled-components.d.ts
 +++ b/app/typings/styled-components.d.ts
 @@ -54,6 +54,8 @@ declare module "styled-components" {
@@ -142,13 +142,13 @@ index bb65ceb13..a6dde2103 100644
  
    interface Colors {
 diff --git a/package.json b/package.json
-index f4d7d2080..456f5349c 100644
+index e0d3f56ea..fcd1ce270 100644
 --- a/package.json
 +++ b/package.json
-@@ -158,6 +158,7 @@
-     "pg": "^8.11.1",
+@@ -160,6 +160,7 @@
      "pg-tsquery": "^8.4.1",
      "pluralize": "^8.0.0",
+     "png-chunks-extract": "^1.0.0",
 +    "passport-req": "^0.1.1",
      "polished": "^4.2.2",
      "prosemirror-codemark": "^0.4.2",
@@ -262,10 +262,10 @@ index f53e44b6b..bcf56efca 100644
    }
  
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index b5184dcd3..793d9eb13 100644
+index bdebcc6c0..ca670a66f 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -872,6 +872,20 @@ h6 {
+@@ -886,6 +886,20 @@ h6 {
    }
  }
  
@@ -316,7 +316,7 @@ index bd976e69b..9ee40b8d5 100644
              component = <InfoIcon />;
            }
 diff --git a/shared/styles/theme.ts b/shared/styles/theme.ts
-index 3b849efc6..8f25225d0 100644
+index 5f10aa263..137f125c9 100644
 --- a/shared/styles/theme.ts
 +++ b/shared/styles/theme.ts
 @@ -31,6 +31,7 @@ const defaultColors: Colors = {
@@ -327,7 +327,7 @@ index 3b849efc6..8f25225d0 100644
    brand: {
      red: "#FF5C80",
      pink: "#FF4DFA",
-@@ -95,6 +96,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
+@@ -96,6 +97,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
      noticeSuccessBackground: colors.brand.green,
      noticeSuccessText: colors.almostBlack,
      tableSelectedBackground: transparentize(0.8, colors.accent),
@@ -336,7 +336,7 @@ index 3b849efc6..8f25225d0 100644
      breakpoints,
      ...colors,
      ...spacing,
-@@ -233,6 +236,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
+@@ -234,6 +237,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
      noticeTipText: colors.white,
      noticeWarningText: colors.white,
      noticeSuccessText: colors.white,
@@ -345,10 +345,10 @@ index 3b849efc6..8f25225d0 100644
      scrollbarBackground: colors.black,
      scrollbarThumb: colors.lightBlack,
 diff --git a/yarn.lock b/yarn.lock
-index 4abdce687..5b31b8d81 100644
+index c47df111a..3d7a8e387 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -10119,6 +10119,14 @@ passport-oauth@1.0.x:
+@@ -10290,6 +10290,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -363,7 +363,7 @@ index 4abdce687..5b31b8d81 100644
  passport-slack-oauth2@^1.2.0:
    version "1.2.0"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.2.0.tgz#d214a698b55a137393636a26827747f6c436dab4"
-@@ -10140,6 +10148,14 @@ passport@^0.6.0:
+@@ -10320,6 +10328,14 @@ passport@^0.7.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  

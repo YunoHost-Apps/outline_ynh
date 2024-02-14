@@ -25,10 +25,10 @@ index 301c2610d..1e6917bd8 100644
        name: "separator",
      },
 diff --git a/app/hooks/useDictionary.ts b/app/hooks/useDictionary.ts
-index 6e9f9c383..8791bddb7 100644
+index 6a73e6750..15b74aa9e 100644
 --- a/app/hooks/useDictionary.ts
 +++ b/app/hooks/useDictionary.ts
-@@ -76,6 +76,8 @@ export default function useDictionary() {
+@@ -81,6 +81,8 @@ export default function useDictionary() {
        warningNotice: t("Warning notice"),
        success: t("Success"),
        successNotice: t("Success notice"),
@@ -38,10 +38,10 @@ index 6e9f9c383..8791bddb7 100644
        insertTime: t("Current time"),
        insertDateTime: t("Current date and time"),
 diff --git a/app/scenes/Document/components/Document.tsx b/app/scenes/Document/components/Document.tsx
-index 9eb541af1..d2c2e5a24 100644
+index a231a90ee..67684d36d 100644
 --- a/app/scenes/Document/components/Document.tsx
 +++ b/app/scenes/Document/components/Document.tsx
-@@ -556,11 +556,6 @@ class DocumentScene extends React.Component<Props> {
+@@ -532,11 +532,6 @@ class DocumentScene extends React.Component<Props> {
                  </Flex>
                </React.Suspense>
              </MaxWidth>
@@ -54,7 +54,7 @@ index 9eb541af1..d2c2e5a24 100644
            {!isShare && (
              <Footer>
 diff --git a/app/typings/styled-components.d.ts b/app/typings/styled-components.d.ts
-index bb65ceb13..a6dde2103 100644
+index be368444f..ecfcae00c 100644
 --- a/app/typings/styled-components.d.ts
 +++ b/app/typings/styled-components.d.ts
 @@ -54,6 +54,8 @@ declare module "styled-components" {
@@ -67,10 +67,10 @@ index bb65ceb13..a6dde2103 100644
  
    interface Colors {
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index b5184dcd3..793d9eb13 100644
+index bdebcc6c0..ca670a66f 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -872,6 +872,20 @@ h6 {
+@@ -886,6 +886,20 @@ h6 {
    }
  }
  
@@ -121,7 +121,7 @@ index bd976e69b..9ee40b8d5 100644
              component = <InfoIcon />;
            }
 diff --git a/shared/styles/theme.ts b/shared/styles/theme.ts
-index 3b849efc6..8f25225d0 100644
+index 5f10aa263..137f125c9 100644
 --- a/shared/styles/theme.ts
 +++ b/shared/styles/theme.ts
 @@ -31,6 +31,7 @@ const defaultColors: Colors = {
@@ -132,7 +132,7 @@ index 3b849efc6..8f25225d0 100644
    brand: {
      red: "#FF5C80",
      pink: "#FF4DFA",
-@@ -95,6 +96,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
+@@ -96,6 +97,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
      noticeSuccessBackground: colors.brand.green,
      noticeSuccessText: colors.almostBlack,
      tableSelectedBackground: transparentize(0.8, colors.accent),
@@ -141,7 +141,7 @@ index 3b849efc6..8f25225d0 100644
      breakpoints,
      ...colors,
      ...spacing,
-@@ -233,6 +236,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
+@@ -234,6 +237,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
      noticeTipText: colors.white,
      noticeWarningText: colors.white,
      noticeSuccessText: colors.white,
