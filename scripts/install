@@ -118,7 +118,7 @@ yunohost service add $app --description="Outline server" --log="/var/log/$app/$a
 #=================================================
 # BUILD YARN DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Building $app" --weight=18
+ynh_script_progression --message="Building $app. This can be very long, be patient !" --weight=18
 
 pushd "$install_dir"
 	ynh_use_nodejs

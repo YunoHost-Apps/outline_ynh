@@ -77,7 +77,7 @@ ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 #=================================================
 # UPGRADE YARN DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Building $app" --weight=10
+ynh_script_progression --message="Building $app. This can be very long, be patient !" --weight=10
 
 pushd "$install_dir"
 	ynh_use_nodejs
