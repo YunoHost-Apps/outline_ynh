@@ -36,23 +36,10 @@ index 5d564453d..9e3c5b55b 100644
          })}
        </ButtonLarge>
 diff --git a/app/scenes/Login/index.tsx b/app/scenes/Login/index.tsx
-index 9a9650b48..e642869b1 100644
+index 9a9650b48..5357d5cf5 100644
 --- a/app/scenes/Login/index.tsx
 +++ b/app/scenes/Login/index.tsx
-@@ -228,12 +228,6 @@ function Login({ children }: Props) {
-     );
-   }
- 
--  // If there is only one provider and it's OIDC, redirect immediately.
--  if (config.providers.length === 1 && config.providers[0].id === "oidc") {
--    window.location.href = getRedirectUrl(config.providers[0].authUrl);
--    return null;
--  }
--
-   return (
-     <Background>
-       <BackButton config={config} />
-@@ -264,7 +258,7 @@ function Login({ children }: Props) {
+@@ -264,7 +264,7 @@ function Login({ children }: Props) {
          ) : (
            <>
              <StyledHeading as="h2" centered>
@@ -61,7 +48,7 @@ index 9a9650b48..e642869b1 100644
                  authProviderName: config.name || env.APP_NAME,
                })}
              </StyledHeading>
-@@ -282,7 +276,7 @@ function Login({ children }: Props) {
+@@ -282,7 +282,7 @@ function Login({ children }: Props) {
              {hasMultipleProviders && (
                <>
                  <Note>
