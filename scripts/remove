@@ -44,5 +44,4 @@ ynh_secure_remove --file="/etc/cron.d/$app"
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="If you don't need it anymore, don't forget to remove the MinIO app !"
 ynh_script_progression --message="Removal of $app completed" --last
