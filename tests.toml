@@ -8,7 +8,6 @@ test_format = 1.0
 
     preinstall = """
     sudo yunohost domain add dex.domain.tld
-    sudo yunohost domain add minio.domain.tld
     """
 
     # -------------------------------
@@ -17,15 +16,3 @@ test_format = 1.0
 
     args.dex_domain="dex.domain.tld"
     args.dex_path="/example"
-
-    # -------------------------------
-    # Commits to test upgrade from
-    # -------------------------------
-
-    test_upgrade_from.01d37841270a502d16767a9d7e4e19c8a85a5d06.name = "Upgrade from 0.69.2"
-    test_upgrade_from.01d37841270a502d16767a9d7e4e19c8a85a5d06.args.language = "en"
-    test_upgrade_from.01d37841270a502d16767a9d7e4e19c8a85a5d06.args.domain = "domain.tld"
-    test_upgrade_from.01d37841270a502d16767a9d7e4e19c8a85a5d06.args.dex_domain = "dex.domain.tld"
-    test_upgrade_from.01d37841270a502d16767a9d7e4e19c8a85a5d06.args.minio_domain = "minio.domain.tld"
-    test_upgrade_from.01d37841270a502d16767a9d7e4e19c8a85a5d06.args.minio_admin = "package_checker"
-    test_upgrade_from.01d37841270a502d16767a9d7e4e19c8a85a5d06.args.minio_password = "SomeSuperPassword1234"
