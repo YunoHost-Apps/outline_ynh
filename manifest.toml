@@ -57,6 +57,7 @@ ram.runtime = "50M"
         [resources.sources.main]
         url = "https://github.com/outline/outline/archive/2c9b01391fa12ebfd65dc01ec33bbb4941ef23bf.zip"
         sha256 = "1bf8ef7fdac470ed0faeefd9575ffbac1f12d623e89d9ee244b2f83788d92933"
+        autoupdate.strategy = "latest_github_release"
 
     [resources.system_user]
     allow_email = true
