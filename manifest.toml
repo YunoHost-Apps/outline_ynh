@@ -1,0 +1,81 @@
+packaging_format = 2
+
+id = "outline"
+name = "Outline"
+description.en = "Wiki and knowledge base for teams"
+description.fr = "Wiki et base de connaissances pour les équipes"
+
+version = "0.75.0~ynh1"
+
+maintainers = ["Raoul de Limezy"]
+
+[upstream]
+license = "BUSL-1.1"
+website = "https://www.getoutline.com"
+demo = "https://app.getoutline.com/create"
+admindoc = "https://www.getoutline.com/developers"
+userdoc = "https://www.getoutline.com/about"
+code = "https://github.com/outline/outline"
+
+[integration]
+yunohost = ">= 11.2"
+architectures = "all"
+multi_instance = false
+ldap = false
+sso = false
+disk = "50M"
+ram.build = "3G"
+ram.runtime = "50M"
+
+[install]
+    [install.domain]
+    type = "domain"
+
+    [install.init_main_permission]
+    type = "group"
+    default = "visitors"
+
+    [install.language]
+    ask.en = "Choose the application language"
+    ask.fr = "Choisissez la langue de l'application"
+    type = "select"
+    choices = ["de_DE", "en_US", "es_ES", "fr_FR", "it_IT", "nl_NL", "pl_PL", "pt_PT"]
+    default = "fr_FR"
+
+    [install.dex_domain]
+    ask.en = "Domain for authentication. It can't be the same domain as above. Dex app will be installed and used for the authentication mechanism."
+    ask.fr = "Domaine pour l'authentification. Il ne peut pas s'agir du même domaine que ci-dessus. L'application Dex sera installée et utilisée pour le mécanisme d'authentification."
+    type = "domain"
+
+    [install.dex_path]
+    ask.en = "Path for authentication URL. Please don't use 'auth' as it will break NGINX configuration."
+    ask.fr = "Chemin de l'URL d'authentification. Veuillez ne pas utiliser 'auth' car cela casserait la configuration NGINX."
+    type = "path"
+    default = "/"
+
+[resources]
+        [resources.sources.main]
+        url = "https://github.com/outline/outline/archive/2c9b01391fa12ebfd65dc01ec33bbb4941ef23bf.zip"
+        sha256 = "1bf8ef7fdac470ed0faeefd9575ffbac1f12d623e89d9ee244b2f83788d92933"
+
+    [resources.system_user]
+    allow_email = true
+
+    [resources.install_dir]
+
+    [resources.ports]
+    main.default = 2410
+
+    [resources.permissions]
+    main.url = "/"
+    main.auth_header = false
+
+    [resources.apt]
+    packages = "postgresql gawk"
+
+    extras.yarn.repo = "deb https://dl.yarnpkg.com/debian/ stable main"
+    extras.yarn.key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
+    extras.yarn.packages = "yarn"
+
+    [resources.database]
+    type = "postgresql"
