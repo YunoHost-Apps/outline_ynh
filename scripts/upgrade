@@ -63,6 +63,23 @@ else
 	ynh_script_progression --message="No migration to be done"
 fi
 
+#=======================================================
+# MIGRATE DEFAULT LANGUAGE ENV PARAMETER
+#=======================================================
+
+if ynh_compare_current_package_version --comparison le --version 0.75.0~ynh1
+then
+	ynh_script_progression --message="Migrating default language variable"
+	if [ "$language" == "fr" ]
+	then
+		$language = "fr_FR"
+	else
+		$language = "en_US"
+	fi
+else
+	ynh_script_progression --message="No default language migration to be done"
+fi
+
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
