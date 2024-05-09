@@ -242,6 +242,26 @@ index 000000000..6fca14d54
 +
 +export default router;
 \ No newline at end of file
+diff --git a/plugins/req/server/index.ts b/plugins/req/server/index.ts
+new file mode 100644
+index 000000000..68081fb65
+--- /dev/null
++++ b/plugins/req/server/index.ts
+@@ -0,0 +1,14 @@
++import { PluginManager, Hook } from "@server/utils/PluginManager";
++import config from "../plugin.json";
++import router from "./auth/req";
++
++const enabled = true;
++
++if (enabled) {
++  PluginManager.add({
++    ...config,
++    type: Hook.AuthProvider,
++    value: { router, id: config.id },
++    name: config.name,
++  });
++}
 diff --git a/server/emails/mailer.tsx b/server/emails/mailer.tsx
 index f53e44b6b..bcf56efca 100644
 --- a/server/emails/mailer.tsx
