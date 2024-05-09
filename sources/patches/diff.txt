@@ -142,17 +142,17 @@ index be368444f..ecfcae00c 100644
  
    interface Colors {
 diff --git a/package.json b/package.json
-index 872709a30..52ef90de6 100644
+index ada9fc0be..62d550282 100644
 --- a/package.json
 +++ b/package.json
-@@ -165,6 +165,7 @@
+@@ -164,6 +164,7 @@
+     "pg-tsquery": "^8.4.2",
      "pluralize": "^8.0.0",
      "png-chunks-extract": "^1.0.0",
-     "polished": "^4.3.1",
 +    "passport-req": "^0.1.1",
+     "polished": "^4.3.1",
      "prosemirror-codemark": "^0.4.2",
      "prosemirror-commands": "^1.5.2",
-     "prosemirror-dropcursor": "^1.8.1",
 diff --git a/plugins/req/plugin.json b/plugins/req/plugin.json
 new file mode 100644
 index 000000000..bf4c23043

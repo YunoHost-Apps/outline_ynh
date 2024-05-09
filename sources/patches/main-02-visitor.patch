@@ -1,13 +1,13 @@
 diff --git a/package.json b/package.json
-index e0d3f56ea..fcd1ce270 100644
+index ada9fc0be..62d550282 100644
 --- a/package.json
 +++ b/package.json
-@@ -160,6 +160,7 @@
-     "pg-tsquery": "^8.4.1",
+@@ -164,6 +164,7 @@
+     "pg-tsquery": "^8.4.2",
      "pluralize": "^8.0.0",
      "png-chunks-extract": "^1.0.0",
 +    "passport-req": "^0.1.1",
-     "polished": "^4.2.2",
+     "polished": "^4.3.1",
      "prosemirror-codemark": "^0.4.2",
      "prosemirror-commands": "^1.5.2",
 diff --git a/plugins/req/plugin.json b/plugins/req/plugin.json
