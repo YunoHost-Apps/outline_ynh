@@ -12,12 +12,12 @@ index ada9fc0be..62d550282 100644
      "prosemirror-commands": "^1.5.2",
 diff --git a/plugins/req/plugin.json b/plugins/req/plugin.json
 new file mode 100644
-index 000000000..bf4c23043
+index 000000000..88780ccd7
 --- /dev/null
 +++ b/plugins/req/plugin.json
 @@ -0,0 +1,6 @@
 +{
-+  "id": "visiteur",
++  "id": "req",
 +  "name": "visiteur",
 +  "priority": 30,
 +  "description": "Adds an req compatible authentication provider."
