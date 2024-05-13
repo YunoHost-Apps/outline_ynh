@@ -12,13 +12,13 @@ index ada9fc0be..62d550282 100644
      "prosemirror-commands": "^1.5.2",
 diff --git a/plugins/req/plugin.json b/plugins/req/plugin.json
 new file mode 100644
-index 000000000..7cb31853b
+index 000000000..88780ccd7
 --- /dev/null
 +++ b/plugins/req/plugin.json
 @@ -0,0 +1,6 @@
 +{
 +  "id": "req",
-+  "name": "req",
++  "name": "visiteur",
 +  "priority": 30,
 +  "description": "Adds an req compatible authentication provider."
 +}
@@ -119,10 +119,10 @@ index 000000000..68081fb65
 +  });
 +}
 diff --git a/yarn.lock b/yarn.lock
-index c47df111a..3d7a8e387 100644
+index d29efefc4..e9fccc0e7 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -10290,6 +10290,14 @@ passport-oauth@1.0.x:
+@@ -10653,6 +10653,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -137,7 +137,7 @@ index c47df111a..3d7a8e387 100644
  passport-slack-oauth2@^1.2.0:
    version "1.2.0"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.2.0.tgz#d214a698b55a137393636a26827747f6c436dab4"
-@@ -10320,6 +10328,14 @@ passport@^0.7.0:
+@@ -10683,6 +10691,14 @@ passport@^0.7.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -152,3 +152,15 @@ index c47df111a..3d7a8e387 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
+@@ -10890,6 +10906,11 @@ pkg-up@^3.1.0:
+   dependencies:
+     find-up "^3.0.0"
+ 
++pkginfo@0.2.x:
++  version "0.2.3"
++  resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.2.3.tgz#7239c42a5ef6c30b8f328439d9b9ff71042490f8"
++  integrity sha512-7W7wTrE/NsY8xv/DTGjwNIyNah81EQH0MWcTzrHL6pOpMocOGZc0Mbdz9aXxSrp+U0mSmkU8jrNCDCfUs3sOBg==
++
+ pluralize@^8.0.0:
+   version "8.0.0"
+   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
