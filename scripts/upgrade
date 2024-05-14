@@ -58,7 +58,7 @@ then
 	ynh_script_progression --message="Don't forget to remove MinIO app if you don't use it !"
 
 	db_name=$(ynh_sanitize_dbid --db_name=$app)
-	ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS uuid-ossp;" --database=$db_name
+	ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS "uuid-ossp";" --database=$db_name
 else
 	ynh_script_progression --message="No migration to be done"
 fi
