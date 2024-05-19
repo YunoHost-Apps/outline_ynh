@@ -58,9 +58,26 @@ then
 	ynh_script_progression --message="Don't forget to remove MinIO app if you don't use it !"
 
 	db_name=$(ynh_sanitize_dbid --db_name=$app)
-	ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS uuid-ossp;" --database=$db_name
+	ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS "uuid-ossp";" --database=$db_name
 else
 	ynh_script_progression --message="No migration to be done"
+fi
+
+#=======================================================
+# MIGRATE DEFAULT LANGUAGE ENV PARAMETER
+#=======================================================
+
+if ynh_compare_current_package_version --comparison le --version 0.75.0~ynh1
+then
+	ynh_script_progression --message="Migrating default language variable"
+	if [ "$language" == "fr" ]
+	then
+		ynh_app_setting_set --app=$app --key=language --value="fr_FR"
+	else
+		ynh_app_setting_set --app=$app --key=language --value="en_US"
+	fi
+else
+	ynh_script_progression --message="No default language migration to be done"
 fi
 
 #=================================================
