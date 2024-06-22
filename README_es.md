@@ -33,7 +33,7 @@ Outline is a wiki and knowledge base for growing teams. Beautiful, feature rich,
 
 ![Captura de Outline](./doc/screenshots/screenshot.png)
 
-## :red_circle: funcionalidades no deseadas
+## :red_circle: Características no deseables
 
 - **Not totally free upstream**: The packaged app is under an overall free license, but with clauses that may restrict its use.
 
