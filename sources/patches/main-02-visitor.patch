@@ -1,15 +1,15 @@
 diff --git a/package.json b/package.json
-index ada9fc0be..62d550282 100644
+index fd6010972..800dd9882 100644
 --- a/package.json
 +++ b/package.json
-@@ -164,6 +164,7 @@
+@@ -169,6 +169,7 @@
      "pg-tsquery": "^8.4.2",
      "pluralize": "^8.0.0",
      "png-chunks-extract": "^1.0.0",
 +    "passport-req": "^0.1.1",
      "polished": "^4.3.1",
      "prosemirror-codemark": "^0.4.2",
-     "prosemirror-commands": "^1.5.2",
+     "prosemirror-commands": "^1.6.0",
 diff --git a/plugins/req/plugin.json b/plugins/req/plugin.json
 new file mode 100644
 index 000000000..88780ccd7
@@ -24,7 +24,7 @@ index 000000000..88780ccd7
 +}
 diff --git a/plugins/req/server/auth/req.ts b/plugins/req/server/auth/req.ts
 new file mode 100644
-index 000000000..6fca14d54
+index 000000000..da37414e9
 --- /dev/null
 +++ b/plugins/req/server/auth/req.ts
 @@ -0,0 +1,70 @@
@@ -58,7 +58,7 @@ index 000000000..6fca14d54
 +    new ReqStrategy(
 +      async function (req,done) {
 +        try {
-+          const domain = "domain.tld";
++          const domain = "anthropologiebiblique.fr";
 +          const subdomain = domain.split(".")[0];
 +          const teamName = capitalize(subdomain);
 +          const name = "visiteur";
@@ -98,6 +98,7 @@ index 000000000..6fca14d54
 +}
 +
 +export default router;
+\ No newline at end of file
 diff --git a/plugins/req/server/index.ts b/plugins/req/server/index.ts
 new file mode 100644
 index 000000000..68081fb65
@@ -119,10 +120,10 @@ index 000000000..68081fb65
 +  });
 +}
 diff --git a/yarn.lock b/yarn.lock
-index d29efefc4..e9fccc0e7 100644
+index bb51a8f70..884861c76 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -10653,6 +10653,14 @@ passport-oauth@1.0.x:
+@@ -12104,6 +12104,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -137,7 +138,7 @@ index d29efefc4..e9fccc0e7 100644
  passport-slack-oauth2@^1.2.0:
    version "1.2.0"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.2.0.tgz#d214a698b55a137393636a26827747f6c436dab4"
-@@ -10683,6 +10691,14 @@ passport@^0.7.0:
+@@ -12134,6 +12142,14 @@ passport@^0.7.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -152,7 +153,7 @@ index d29efefc4..e9fccc0e7 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
-@@ -10890,6 +10906,11 @@ pkg-up@^3.1.0:
+@@ -12341,6 +12357,11 @@ pkg-up@^3.1.0:
    dependencies:
      find-up "^3.0.0"
  
