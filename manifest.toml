@@ -18,7 +18,7 @@ userdoc = "https://www.getoutline.com/about"
 code = "https://github.com/outline/outline"
 
 [integration]
-yunohost = ">= 11.2"
+yunohost = ">= 11.2.14"
 architectures = "all"
 multi_instance = false
 ldap = false
