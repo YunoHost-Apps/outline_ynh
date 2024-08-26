@@ -72,9 +72,9 @@ then
 	ynh_script_progression --message="Migrating default language variable"
 	if [ "$language" == "fr" ]
 	then
-		$language = "fr_FR"
+		language = "fr_FR"
 	else
-		$language = "en_US"
+		language = "en_US"
 	fi
 else
 	ynh_script_progression --message="No default language migration to be done"
