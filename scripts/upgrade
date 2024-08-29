@@ -33,7 +33,7 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir"
+	ynh_setup_source --dest_dir="$install_dir" --full_replace=1
 fi
 
 chmod -R o-rwx "$install_dir"
@@ -72,9 +72,9 @@ then
 	ynh_script_progression --message="Migrating default language variable"
 	if [ "$language" == "fr" ]
 	then
-		ynh_app_setting_set --app=$app --key=language --value="fr_FR"
+		ynh_app_setting_set --key=language --value="fr_FR"
 	else
-		ynh_app_setting_set --app=$app --key=language --value="en_US"
+		ynh_app_setting_set --key=language --value="en_US"
 	fi
 else
 	ynh_script_progression --message="No default language migration to be done"
