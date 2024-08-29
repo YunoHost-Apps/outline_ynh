@@ -24,7 +24,7 @@ Outile est un wiki et la base de connaissances les plus rapides pour les équipe
 - Y compris un serveur Dex pour se connecter à la base d'utilisateurs LDAP de YunoHost à l'aide d'un flux d'authentification OIDC
 - Utilisation du serveur SMTP intégré de Yunohost pour les notifications
 
-**Version incluse :** 0.78.0~ynh1
+**Version incluse :** 0.78.0~ynh2
 
 **Démo :** <https://app.getoutline.com/create>
 
