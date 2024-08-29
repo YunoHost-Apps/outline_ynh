@@ -5,11 +5,11 @@ It shall NOT be edited by hand.
 
 # Outline for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/outline.svg)](https://dash.yunohost.org/appci/app/outline) ![Working status](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)
+[![Integration level](https://dash.yunohost.org/integration/outline.svg)](https://ci-apps.yunohost.org/ci/apps/outline/) ![Working status](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)
 
 [![Install Outline with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=outline)
 
-*[Read this README is other languages.](./ALL_README.md)*
+*[Read this README in other languages.](./ALL_README.md)*
 
 > *This package allows you to install Outline quickly and simply on a YunoHost server.*  
 > *If you don't have YunoHost, please consult [the guide](https://yunohost.org/install) to learn how to install it.*
@@ -25,7 +25,7 @@ Outline is a wiki and knowledge base for growing teams. Beautiful, feature rich,
 - Using Yunohost's built-in SMTP server for notifications
 
 
-**Shipped version:** 0.75.0~ynh1
+**Shipped version:** 0.78.0~ynh1
 
 **Demo:** <https://app.getoutline.com/create>
 
@@ -35,7 +35,7 @@ Outline is a wiki and knowledge base for growing teams. Beautiful, feature rich,
 
 ## :red_circle: Antifeatures
 
-- **Not totally free upstream**: The packaged app is under an overall free licence, but with clauses that restrict its use.
+- **Not totally free upstream**: The packaged app is under an overall free license, but with clauses that may restrict its use.
 
 ## Documentation and resources
 
