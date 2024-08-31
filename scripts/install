@@ -1,11 +1,5 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -19,7 +13,7 @@ secret_key=$(ynh_hex_32_random)
 #=================================================
 # INSTALL DEX APP FOR OAUTH2 / OIDC
 #=================================================
-ynh_script_progression --message="Installing Dex..." --weight=18
+ynh_script_progression "Installing Dex..."
 
 oidc_secret=$(ynh_hex_32_random)
 oidc_name="Outline"
@@ -42,51 +36,52 @@ then
 else
 	dex_auth_uri="https://$dex_domain$dex_path/auth"
 	dex_token_uri="https://$dex_domain$dex_path/token"
-	dex_user_uri="https://$dex_domain$dex_path/userinfo"	
+	dex_user_uri="https://$dex_domain$dex_path/userinfo"
+
 fi
 
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
-ynh_script_progression --message="Storing installation settings..." --weight=1
+ynh_script_progression "Storing installation settings..."
 
-ynh_app_setting_set --app=$app --key=utils_secret --value=$utils_secret
-ynh_app_setting_set --app=$app --key=secret_key --value=$secret_key
-ynh_app_setting_set --app=$app --key=dex_app --value=$dex_app
-ynh_app_setting_set --app=$app --key=oidc_name --value=$oidc_name
-ynh_app_setting_set --app=$app --key=oidc_secret --value=$oidc_secret
-ynh_app_setting_set --app=$app --key=oidc_callback --value=$oidc_callback
-ynh_app_setting_set --app=$app --key=dex_auth_uri --value=$dex_auth_uri
-ynh_app_setting_set --app=$app --key=dex_token_uri --value=$dex_token_uri
-ynh_app_setting_set --app=$app --key=dex_user_uri --value=$dex_user_uri
+ynh_app_setting_set --key=utils_secret --value=$utils_secret
+ynh_app_setting_set --key=secret_key --value=$secret_key
+ynh_app_setting_set --key=dex_app --value=$dex_app
+ynh_app_setting_set --key=oidc_name --value=$oidc_name
+ynh_app_setting_set --key=oidc_secret --value=$oidc_secret
+ynh_app_setting_set --key=oidc_callback --value=$oidc_callback
+ynh_app_setting_set --key=dex_auth_uri --value=$dex_auth_uri
+ynh_app_setting_set --key=dex_token_uri --value=$dex_token_uri
+ynh_app_setting_set --key=dex_user_uri --value=$dex_user_uri
 
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=1
+ynh_script_progression "Installing dependencies..."
 
 # Install nodejs
-ynh_install_nodejs --nodejs_version=$NODEJS_VERSION 2>&1
+ynh_nodejs_install 2>&1
 
 #=================================================
 # CREATE A POSTGRESQL DATABASE
 #=================================================
-ynh_script_progression --message="Creating a PostgreSQL database..." --weight=1
+ynh_script_progression "Creating a PostgreSQL database..."
 
-ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS unaccent;" --database=$db_name
-ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS pg_trgm;" --database=$db_name
+ynh_psql_db_shell <<< "CREATE EXTENSION IF NOT EXISTS unaccent;"
+
+ynh_psql_db_shell <<< "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --weight=2
+ynh_script_progression "Setting up source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
-chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 #=================================================
 # SETUP LOCAL STORAGE
 #=================================================
@@ -97,66 +92,66 @@ chown -R $app:www-data "/var/lib/$app"
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --weight=1
+ynh_script_progression "Configuring NGINX web server..."
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 # Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 
 # Use logrotate to manage application logfile(s)
-ynh_use_logrotate
+ynh_config_add_logrotate
 
 cron_path="/etc/cron.d/$app"
-ynh_add_config --template="../conf/outline.cron" --destination="$cron_path"
-chown root: "$cron_path"
-chmod 644 "$cron_path"
+ynh_config_add --template="outline.cron" --destination="$cron_path"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown root: "$cron_path"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 644 "$cron_path"
 
 yunohost service add $app --description="Outline server" --log="/var/log/$app/$app.log"
 
 #=================================================
 # BUILD YARN DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Building $app. This can be very long, be patient !" --weight=18
+ynh_script_progression "Building $app. This can be very long, be patient !"
 
 pushd "$install_dir"
-	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3200" yarn build 2>&1
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
+
+	ynh_hide_warnings ynh_exec_as_app node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
+	ynh_hide_warnings ynh_exec_as_app node_load_PATH NODE_OPTIONS="--max-old-space-size=3200" yarn build 2>&1
+	ynh_hide_warnings ynh_exec_as_app node_load_PATH yarn cache clean 2>&1
 popd
 
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
+ynh_script_progression "Adding $app's configuration..."
 
-ynh_add_config --template="../conf/.env" --destination="$install_dir/.env"
+ynh_config_add --template=".env" --destination="$install_dir/.env"
 
-chmod 400 "$install_dir/.env"
-chown $app:$app "$install_dir/.env"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/.env"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/.env"
 
 #=================================================
 # RUN DB MIGRATION
 #=================================================
-ynh_script_progression --message="Running DB initial migration..." --weight=3
+ynh_script_progression "Running DB initial migration..."
 
 pushd "$install_dir"
-	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
+
+	ynh_hide_warnings ynh_exec_as_app node_load_PATH yarn db:migrate
 popd
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
+ynh_systemctl --service=$app --action="start" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --last
+ynh_script_progression "Installation of $app completed"
