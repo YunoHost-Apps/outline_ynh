@@ -1,5 +1,5 @@
 diff --git a/package.json b/package.json
-index fd6010972..800dd9882 100644
+index d08fcaa53..1e482e4b3 100644
 --- a/package.json
 +++ b/package.json
 @@ -169,6 +169,7 @@
@@ -24,7 +24,7 @@ index 000000000..88780ccd7
 +}
 diff --git a/plugins/req/server/auth/req.ts b/plugins/req/server/auth/req.ts
 new file mode 100644
-index 000000000..da37414e9
+index 000000000..6fca14d54
 --- /dev/null
 +++ b/plugins/req/server/auth/req.ts
 @@ -0,0 +1,70 @@
@@ -58,7 +58,7 @@ index 000000000..da37414e9
 +    new ReqStrategy(
 +      async function (req,done) {
 +        try {
-+          const domain = "anthropologiebiblique.fr";
++          const domain = "domain.tld";
 +          const subdomain = domain.split(".")[0];
 +          const teamName = capitalize(subdomain);
 +          const name = "visiteur";
@@ -120,10 +120,10 @@ index 000000000..68081fb65
 +  });
 +}
 diff --git a/yarn.lock b/yarn.lock
-index bb51a8f70..884861c76 100644
+index 4b1d030f3..3457f7372 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -12104,6 +12104,14 @@ passport-oauth@1.0.x:
+@@ -12058,6 +12058,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -138,7 +138,7 @@ index bb51a8f70..884861c76 100644
  passport-slack-oauth2@^1.2.0:
    version "1.2.0"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.2.0.tgz#d214a698b55a137393636a26827747f6c436dab4"
-@@ -12134,6 +12142,14 @@ passport@^0.7.0:
+@@ -12088,6 +12096,14 @@ passport@^0.7.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -153,7 +153,7 @@ index bb51a8f70..884861c76 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
-@@ -12341,6 +12357,11 @@ pkg-up@^3.1.0:
+@@ -12300,6 +12316,11 @@ pkg-up@^3.1.0:
    dependencies:
      find-up "^3.0.0"
  

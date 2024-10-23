@@ -1,8 +1,8 @@
 diff --git a/app/editor/menus/block.tsx b/app/editor/menus/block.tsx
-index 05e9acee6..aca761095 100644
+index 914335690..5c1cff41c 100644
 --- a/app/editor/menus/block.tsx
 +++ b/app/editor/menus/block.tsx
-@@ -20,6 +20,7 @@ import {
+@@ -21,6 +21,7 @@ import {
    MathIcon,
    DoneIcon,
    EmbedIcon,
@@ -10,7 +10,7 @@ index 05e9acee6..aca761095 100644
  } from "outline-icons";
  import * as React from "react";
  import styled from "styled-components";
-@@ -195,6 +196,13 @@ export default function blockMenuItems(dictionary: Dictionary): MenuItem[] {
+@@ -204,6 +205,13 @@ export default function blockMenuItems(dictionary: Dictionary): MenuItem[] {
        keywords: "notice card suggestion",
        attrs: { style: "tip" },
      },
@@ -25,10 +25,10 @@ index 05e9acee6..aca761095 100644
        name: "separator",
      },
 diff --git a/app/hooks/useDictionary.ts b/app/hooks/useDictionary.ts
-index e8178b11d..9dac7edba 100644
+index 5ea7f68e1..53baf92df 100644
 --- a/app/hooks/useDictionary.ts
 +++ b/app/hooks/useDictionary.ts
-@@ -85,6 +85,8 @@ export default function useDictionary() {
+@@ -87,6 +87,8 @@ export default function useDictionary() {
        warningNotice: t("Warning notice"),
        success: t("Success"),
        successNotice: t("Success notice"),
@@ -38,10 +38,10 @@ index e8178b11d..9dac7edba 100644
        insertTime: t("Current time"),
        insertDateTime: t("Current date and time"),
 diff --git a/app/scenes/Document/components/Document.tsx b/app/scenes/Document/components/Document.tsx
-index 752915e89..5eefe890c 100644
+index 3fca9d5b9..fdaceac74 100644
 --- a/app/scenes/Document/components/Document.tsx
 +++ b/app/scenes/Document/components/Document.tsx
-@@ -599,11 +599,6 @@ class DocumentScene extends React.Component<Props> {
+@@ -577,11 +577,6 @@ class DocumentScene extends React.Component<Props> {
                  )}
                </React.Suspense>
              </Main>
@@ -126,7 +126,7 @@ index 0a5da6e6f..bc64bb3bc 100644
  
    interface Colors {
 diff --git a/package.json b/package.json
-index fd6010972..800dd9882 100644
+index d08fcaa53..1e482e4b3 100644
 --- a/package.json
 +++ b/package.json
 @@ -169,6 +169,7 @@
@@ -151,7 +151,7 @@ index 000000000..88780ccd7
 +}
 diff --git a/plugins/req/server/auth/req.ts b/plugins/req/server/auth/req.ts
 new file mode 100644
-index 000000000..da37414e9
+index 000000000..6fca14d54
 --- /dev/null
 +++ b/plugins/req/server/auth/req.ts
 @@ -0,0 +1,70 @@
@@ -185,7 +185,7 @@ index 000000000..da37414e9
 +    new ReqStrategy(
 +      async function (req,done) {
 +        try {
-+          const domain = "anthropologiebiblique.fr";
++          const domain = "domain.tld";
 +          const subdomain = domain.split(".")[0];
 +          const teamName = capitalize(subdomain);
 +          const name = "visiteur";
@@ -247,10 +247,10 @@ index 000000000..68081fb65
 +  });
 +}
 diff --git a/server/emails/mailer.tsx b/server/emails/mailer.tsx
-index f53e44b6b..bcf56efca 100644
+index 0f92ba4e9..eae7c87bb 100644
 --- a/server/emails/mailer.tsx
 +++ b/server/emails/mailer.tsx
-@@ -207,6 +207,7 @@ export class Mailer {
+@@ -217,6 +217,7 @@ export class Mailer {
          : {
              rejectUnauthorized: false,
            },
@@ -259,10 +259,10 @@ index f53e44b6b..bcf56efca 100644
    }
  
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index 9567dab95..896a1ced4 100644
+index 55c071de1..76d3fc9cf 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -949,6 +949,20 @@ h6 {
+@@ -983,6 +983,20 @@ h6 {
    }
  }
  
@@ -284,11 +284,11 @@ index 9567dab95..896a1ced4 100644
    margin: 0;
    padding: 8px 10px 8px 1.5em;
 diff --git a/shared/editor/nodes/Notice.tsx b/shared/editor/nodes/Notice.tsx
-index bd976e69b..9ee40b8d5 100644
+index 3c34b5038..d33d99443 100644
 --- a/shared/editor/nodes/Notice.tsx
 +++ b/shared/editor/nodes/Notice.tsx
 @@ -1,5 +1,5 @@
- import Token from "markdown-it/lib/token";
+ import { Token } from "markdown-it";
 -import { WarningIcon, InfoIcon, StarredIcon, DoneIcon } from "outline-icons";
 +import { WarningIcon, InfoIcon, StarredIcon, BookmarkedIcon, DoneIcon } from "outline-icons";
  import { wrappingInputRule } from "prosemirror-inputrules";
@@ -342,10 +342,10 @@ index 35b410dde..daa0a3e3e 100644
      scrollbarBackground: colors.black,
      scrollbarThumb: colors.lightBlack,
 diff --git a/yarn.lock b/yarn.lock
-index bb51a8f70..884861c76 100644
+index 4b1d030f3..3457f7372 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -12104,6 +12104,14 @@ passport-oauth@1.0.x:
+@@ -12058,6 +12058,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -360,7 +360,7 @@ index bb51a8f70..884861c76 100644
  passport-slack-oauth2@^1.2.0:
    version "1.2.0"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.2.0.tgz#d214a698b55a137393636a26827747f6c436dab4"
-@@ -12134,6 +12142,14 @@ passport@^0.7.0:
+@@ -12088,6 +12096,14 @@ passport@^0.7.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -375,7 +375,7 @@ index bb51a8f70..884861c76 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
-@@ -12341,6 +12357,11 @@ pkg-up@^3.1.0:
+@@ -12300,6 +12316,11 @@ pkg-up@^3.1.0:
    dependencies:
      find-up "^3.0.0"
  
