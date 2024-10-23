@@ -20,7 +20,7 @@ code = "https://github.com/outline/outline"
 [integration]
 yunohost = ">= 11.2.14"
 architectures = "all"
-multi_instance = false
+multi_instance = true
 ldap = false
 sso = false
 disk = "50M"
