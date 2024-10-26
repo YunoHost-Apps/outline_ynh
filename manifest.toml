@@ -5,7 +5,7 @@ name = "Outline"
 description.en = "Wiki and knowledge base for teams"
 description.fr = "Wiki et base de connaissances pour les équipes"
 
-version = "0.80.2~ynh1"
+version = "0.80.2~ynh2"
 
 maintainers = ["Raoul de Limezy"]
 
@@ -55,8 +55,8 @@ ram.runtime = "50M"
 
 [resources]
         [resources.sources.main]
-        url = "https://github.com/outline/outline/archive/57e9abd77f8271a5f37521c8581fa78779af3c0c.zip"
-        sha256 = "a03f32182aa231b2587b86964862298807bf4435e0c260fd11ae0734b05ea304"
+        url = "https://github.com/outline/outline/archive/3692d9c93087086d5ae688cd8a35a351c9a81650.zip"
+        sha256 = "272eb5cedca8f3330fd6f48ec80658a4e1464676035890c2d608db3a0202e2e8"
 
     [resources.system_user]
     allow_email = true
