@@ -1,8 +1,8 @@
 diff --git a/server/emails/mailer.tsx b/server/emails/mailer.tsx
-index 0f92ba4e9..eae7c87bb 100644
+index 64fd26c01..67b00e60b 100644
 --- a/server/emails/mailer.tsx
 +++ b/server/emails/mailer.tsx
-@@ -217,6 +217,7 @@ export class Mailer {
+@@ -204,6 +204,7 @@ export class Mailer {
          : {
              rejectUnauthorized: false,
            },

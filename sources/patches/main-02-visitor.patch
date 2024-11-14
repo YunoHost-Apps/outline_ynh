@@ -1,15 +1,15 @@
 diff --git a/package.json b/package.json
-index d08fcaa53..1e482e4b3 100644
+index da6e4874d..666517bdb 100644
 --- a/package.json
 +++ b/package.json
-@@ -169,6 +169,7 @@
+@@ -170,6 +170,7 @@
      "pg-tsquery": "^8.4.2",
      "pluralize": "^8.0.0",
      "png-chunks-extract": "^1.0.0",
 +    "passport-req": "^0.1.1",
      "polished": "^4.3.1",
      "prosemirror-codemark": "^0.4.2",
-     "prosemirror-commands": "^1.6.0",
+     "prosemirror-commands": "^1.6.2",
 diff --git a/plugins/req/plugin.json b/plugins/req/plugin.json
 new file mode 100644
 index 000000000..88780ccd7
@@ -120,10 +120,10 @@ index 000000000..68081fb65
 +  });
 +}
 diff --git a/yarn.lock b/yarn.lock
-index 4b1d030f3..3457f7372 100644
+index 3f9856bdc..fe16eb9ef 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -12058,6 +12058,14 @@ passport-oauth@1.0.x:
+@@ -12074,6 +12074,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -138,7 +138,7 @@ index 4b1d030f3..3457f7372 100644
  passport-slack-oauth2@^1.2.0:
    version "1.2.0"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.2.0.tgz#d214a698b55a137393636a26827747f6c436dab4"
-@@ -12088,6 +12096,14 @@ passport@^0.7.0:
+@@ -12104,6 +12112,14 @@ passport@^0.7.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -153,7 +153,7 @@ index 4b1d030f3..3457f7372 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
-@@ -12300,6 +12316,11 @@ pkg-up@^3.1.0:
+@@ -12316,6 +12332,11 @@ pkg-up@^3.1.0:
    dependencies:
      find-up "^3.0.0"
  

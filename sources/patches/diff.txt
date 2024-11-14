@@ -113,7 +113,7 @@ index b2b8c3929..78590e823 100644
                    })}
                  </Note>
 diff --git a/app/typings/styled-components.d.ts b/app/typings/styled-components.d.ts
-index 0a5da6e6f..bc64bb3bc 100644
+index baef9721b..8cb2af8e5 100644
 --- a/app/typings/styled-components.d.ts
 +++ b/app/typings/styled-components.d.ts
 @@ -54,6 +54,8 @@ declare module "styled-components" {
@@ -126,17 +126,17 @@ index 0a5da6e6f..bc64bb3bc 100644
  
    interface Colors {
 diff --git a/package.json b/package.json
-index d08fcaa53..1e482e4b3 100644
+index da6e4874d..666517bdb 100644
 --- a/package.json
 +++ b/package.json
-@@ -169,6 +169,7 @@
+@@ -170,6 +170,7 @@
      "pg-tsquery": "^8.4.2",
      "pluralize": "^8.0.0",
      "png-chunks-extract": "^1.0.0",
 +    "passport-req": "^0.1.1",
      "polished": "^4.3.1",
      "prosemirror-codemark": "^0.4.2",
-     "prosemirror-commands": "^1.6.0",
+     "prosemirror-commands": "^1.6.2",
 diff --git a/plugins/req/plugin.json b/plugins/req/plugin.json
 new file mode 100644
 index 000000000..88780ccd7
@@ -247,10 +247,10 @@ index 000000000..68081fb65
 +  });
 +}
 diff --git a/server/emails/mailer.tsx b/server/emails/mailer.tsx
-index 0f92ba4e9..eae7c87bb 100644
+index 64fd26c01..67b00e60b 100644
 --- a/server/emails/mailer.tsx
 +++ b/server/emails/mailer.tsx
-@@ -217,6 +217,7 @@ export class Mailer {
+@@ -204,6 +204,7 @@ export class Mailer {
          : {
              rejectUnauthorized: false,
            },
@@ -259,10 +259,10 @@ index 0f92ba4e9..eae7c87bb 100644
    }
  
 diff --git a/shared/editor/components/Styles.ts b/shared/editor/components/Styles.ts
-index 55c071de1..76d3fc9cf 100644
+index e7d8d1dbd..fcdec338f 100644
 --- a/shared/editor/components/Styles.ts
 +++ b/shared/editor/components/Styles.ts
-@@ -983,6 +983,20 @@ h6 {
+@@ -986,6 +986,20 @@ h6 {
    }
  }
  
@@ -313,7 +313,7 @@ index 3c34b5038..d33d99443 100644
              component = <InfoIcon />;
            }
 diff --git a/shared/styles/theme.ts b/shared/styles/theme.ts
-index 35b410dde..daa0a3e3e 100644
+index 2f03d14e0..2ce73cfe6 100644
 --- a/shared/styles/theme.ts
 +++ b/shared/styles/theme.ts
 @@ -31,6 +31,7 @@ const defaultColors: Colors = {
@@ -324,7 +324,7 @@ index 35b410dde..daa0a3e3e 100644
    brand: {
      red: "#FF5C80",
      pink: "#FF4DFA",
-@@ -98,6 +99,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
+@@ -99,6 +100,8 @@ const buildBaseTheme = (input: Partial<Colors>) => {
      noticeSuccessBackground: colors.brand.green,
      noticeSuccessText: colors.almostBlack,
      tableSelectedBackground: transparentize(0.9, colors.accent),
@@ -333,7 +333,7 @@ index 35b410dde..daa0a3e3e 100644
      breakpoints,
      ...colors,
      ...spacing,
-@@ -234,6 +237,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
+@@ -235,6 +238,7 @@ export const buildDarkTheme = (input: Partial<Colors>): DefaultTheme => {
      noticeTipText: colors.white,
      noticeWarningText: colors.white,
      noticeSuccessText: colors.white,
@@ -342,10 +342,10 @@ index 35b410dde..daa0a3e3e 100644
      scrollbarBackground: colors.black,
      scrollbarThumb: colors.lightBlack,
 diff --git a/yarn.lock b/yarn.lock
-index 4b1d030f3..3457f7372 100644
+index 3f9856bdc..fe16eb9ef 100644
 --- a/yarn.lock
 +++ b/yarn.lock
-@@ -12058,6 +12058,14 @@ passport-oauth@1.0.x:
+@@ -12074,6 +12074,14 @@ passport-oauth@1.0.x:
      passport-oauth1 "1.x.x"
      passport-oauth2 "1.x.x"
  
@@ -360,7 +360,7 @@ index 4b1d030f3..3457f7372 100644
  passport-slack-oauth2@^1.2.0:
    version "1.2.0"
    resolved "https://registry.yarnpkg.com/passport-slack-oauth2/-/passport-slack-oauth2-1.2.0.tgz#d214a698b55a137393636a26827747f6c436dab4"
-@@ -12088,6 +12096,14 @@ passport@^0.7.0:
+@@ -12104,6 +12112,14 @@ passport@^0.7.0:
      pause "0.0.1"
      utils-merge "^1.0.1"
  
@@ -375,7 +375,7 @@ index 4b1d030f3..3457f7372 100644
  passthrough-counter@^1.0.0:
    version "1.0.0"
    resolved "https://registry.yarnpkg.com/passthrough-counter/-/passthrough-counter-1.0.0.tgz#1967d9e66da572b5c023c787db112a387ab166fa"
-@@ -12300,6 +12316,11 @@ pkg-up@^3.1.0:
+@@ -12316,6 +12332,11 @@ pkg-up@^3.1.0:
    dependencies:
      find-up "^3.0.0"
  
