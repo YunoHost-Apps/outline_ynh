@@ -21,7 +21,7 @@ if ! yunohost app list | grep -q "id: $dex_app"; then
 	if yunohost app list | grep -q "$dex_domain$dex_path"; then
 		ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
 	fi
-	yunohost app install https://github.com/YunoHost-Apps/dex_ynh --force --args "domain=$dex_domain&path=$dex_path&oidc_name=$oidc_name&oidc_secret=$oidc_secret&oidc_callback=$oidc_callback"
+	yunohost app install https://github.com/YunoHost-Apps/dex_ynh/tree/ccc5b82dc9762b42abe82dfa0582e6e4bb6175c5 --force --args "domain=$dex_domain&path=$dex_path&oidc_name=$oidc_name&oidc_secret=$oidc_secret&oidc_callback=$oidc_callback"
 fi
 
 #=================================================
