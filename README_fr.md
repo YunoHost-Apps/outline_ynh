@@ -5,7 +5,9 @@ Il NE doit PAS être modifié à la main.
 
 # Outline pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/outline.svg)](https://ci-apps.yunohost.org/ci/apps/outline/) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)
+[![Niveau d’intégration](https://apps.yunohost.org/badge/integration/outline)](https://ci-apps.yunohost.org/ci/apps/outline/)
+![Statut du fonctionnement](https://apps.yunohost.org/badge/state/outline)
+![Statut de maintenance](https://apps.yunohost.org/badge/maintained/outline)
 
 [![Installer Outline avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=outline)
 
@@ -24,7 +26,7 @@ Outile est un wiki et la base de connaissances les plus rapides pour les équipe
 - Y compris un serveur Dex pour se connecter à la base d'utilisateurs LDAP de YunoHost à l'aide d'un flux d'authentification OIDC
 - Utilisation du serveur SMTP intégré de Yunohost pour les notifications
 
-**Version incluse :** 0.78.0~ynh2
+**Version incluse :** 0.81.0~ynh1
 
 **Démo :** <https://app.getoutline.com/create>
 

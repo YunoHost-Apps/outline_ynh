@@ -5,7 +5,9 @@
 
 # Outline для YunoHost
 
-[![Уровень интеграции](https://dash.yunohost.org/integration/outline.svg)](https://ci-apps.yunohost.org/ci/apps/outline/) ![Состояние работы](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Состояние сопровождения](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)
+[![Уровень интеграции](https://apps.yunohost.org/badge/integration/outline)](https://ci-apps.yunohost.org/ci/apps/outline/)
+![Состояние работы](https://apps.yunohost.org/badge/state/outline)
+![Состояние сопровождения](https://apps.yunohost.org/badge/maintained/outline)
 
 [![Установите Outline с YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=outline)
 
@@ -25,7 +27,7 @@ Outline is a wiki and knowledge base for growing teams. Beautiful, feature rich,
 - Using Yunohost's built-in SMTP server for notifications
 
 
-**Поставляемая версия:** 0.78.0~ynh2
+**Поставляемая версия:** 0.81.0~ynh1
 
 **Демо-версия:** <https://app.getoutline.com/create>
 
