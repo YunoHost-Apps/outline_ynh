@@ -5,7 +5,9 @@ No se debe editar a mano.
 
 # Outline para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/outline.svg)](https://ci-apps.yunohost.org/ci/apps/outline/) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/outline.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/outline.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/outline)](https://ci-apps.yunohost.org/ci/apps/outline/)
+![Estado funcional](https://apps.yunohost.org/badge/state/outline)
+![Estado En Mantención](https://apps.yunohost.org/badge/maintained/outline)
 
 [![Instalar Outline con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=outline)
 
@@ -25,7 +27,7 @@ Outline is a wiki and knowledge base for growing teams. Beautiful, feature rich,
 - Using Yunohost's built-in SMTP server for notifications
 
 
-**Versión actual:** 0.78.0~ynh2
+**Versión actual:** 0.81.0~ynh1
 
 **Demo:** <https://app.getoutline.com/create>
 
@@ -48,7 +50,7 @@ Outline is a wiki and knowledge base for growing teams. Beautiful, feature rich,
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/outline_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/outline_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
