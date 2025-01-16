@@ -27,7 +27,7 @@ Outline is a wiki and knowledge base for growing teams. Beautiful, feature rich,
 - Using Yunohost's built-in SMTP server for notifications
 
 
-**分发版本：** 0.81.0~ynh1
+**分发版本：** 0.81.1~ynh1
 
 **演示：** <https://app.getoutline.com/create>
 
