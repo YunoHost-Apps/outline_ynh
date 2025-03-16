@@ -19,25 +19,17 @@ ynh_backup "/var/lib/outline"
 ynh_backup "$install_dir"
 
 #=================================================
-# BACKUP THE NGINX CONFIGURATION
+# SYSTEM CONFIGURATION
 #=================================================
 
 ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
 
-#=================================================
-# BACKUP FAIL2BAN CONFIGURATION
-#=================================================
+ynh_backup "/etc/systemd/system/$app.service"
+
+ynh_backup "/etc/logrotate.d/$app"
 
 ynh_backup "/etc/fail2ban/jail.d/$app.conf"
 ynh_backup "/etc/fail2ban/filter.d/$app.conf"
-
-#=================================================
-# SPECIFIC BACKUP
-#=================================================
-# BACKUP LOGROTATE
-#=================================================
-
-ynh_backup "/etc/logrotate.d/$app"
 
 #=================================================
 # BACKUP THE CRON FILE
@@ -45,17 +37,7 @@ ynh_backup "/etc/logrotate.d/$app"
 
 ynh_backup "/etc/cron.d/$app"
 
-#=================================================
-# BACKUP LOGS
-#=================================================
-
 ynh_backup "/var/log/$app/$app.log"
-
-#=================================================
-# BACKUP SYSTEMD
-#=================================================
-
-ynh_backup "/etc/systemd/system/$app.service"
 
 #=================================================
 # BACKUP THE POSTGRESQL DATABASE

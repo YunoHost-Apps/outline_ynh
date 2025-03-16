@@ -24,17 +24,13 @@ ynh_script_progression "Updating the configuration file..."
 
 ynh_config_add --template=".env" --destination="$install_dir/.env"
 
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/.env"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/.env"
-
 #=================================================
 # RUN DB MIGRATION
 #=================================================
 ynh_script_progression "Running DB initial migration..."
 
 pushd "$install_dir"
-
-	ynh_hide_warnings ynh_exec_as_app node_load_PATH yarn db:migrate
+	ynh_hide_warnings ynh_exec_as_app yarn db:migrate
 popd
 
 #=================================================
@@ -47,7 +43,7 @@ ynh_systemctl --service=$app --action="start" --log_path="systemd"
 #=================================================
 # SLACK WARNING
 #=================================================
-ynh_print_info "Don't forget to add a new redirction url in your Slack app settings !"
+ynh_print_info "Don't forget to add a new redirction URL in your Slack app settings !"
 
 #=================================================
 # END OF SCRIPT

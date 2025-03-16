@@ -25,8 +25,6 @@ ynh_script_progression "Restoring the app main directory..."
 
 ynh_restore "$install_dir"
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 #=================================================
 # RESTORE LOCAL STORAGE
 #=================================================
@@ -42,17 +40,15 @@ chown -R $app:www-data "/var/lib/outline"
 #=================================================
 ynh_script_progression "Restoring the PostgreSQL database..."
 
-ynh_psql_db_shell  < "./db.sql""
+ynh_psql_db_shell < ./db.sql
 
-#=================================================
-# SPECIFIC RESTORATION
 #=================================================
 # REINSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression "Reinstalling dependencies..."
 
 # Install nodejs
-ynh_nodejs_install 2>&1
+ynh_nodejs_install
 
 ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
@@ -73,9 +69,6 @@ yunohost service add $app --description="Outline server" --log="/var/log/$app/$a
 ynh_script_progression "Updating the configuration file..."
 
 ynh_config_add --template=".env" --destination="$install_dir/.env"
-
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/.env"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/.env"
 
 #=================================================
 # START SYSTEMD SERVICE

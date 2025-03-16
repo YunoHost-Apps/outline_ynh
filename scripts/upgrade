@@ -13,24 +13,16 @@ ynh_systemctl --service=$app --action="stop" --log_path="systemd"
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
+ynh_script_progression "Upgrading source files..."
 
-# FIXME: this is still supported but the recommendation is now to *always* re-setup the app sources wether or not the upstream sources changed
-if ynh_app_upstream_version_changed
-then
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$install_dir" --full_replace
 
-	ynh_script_progression "Upgrading source files..."
-
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir" --full_replace
-fi
-
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 #=======================================================
 # MIGRATE MINIO BUCKET IF UPGRADING FROM AN OLD VERSION
 #=======================================================
-
 ynh_script_progression "Checking if a migration is needed"
+
 if ynh_app_upgrading_from_version_before_or_equal_to 0.69.2.2~ynh1
 then
 	ynh_script_progression "Migrating MinIO data to local directory"
@@ -80,35 +72,22 @@ ynh_config_add_nginx
 ynh_nodejs_install
 
 #=================================================
-# UPGRADE YARN DEPENDENCIES
-#=================================================
-ynh_script_progression "Building $app. This can be very long, be patient !"
-
-pushd "$install_dir"
-
-	ynh_hide_warnings ynh_exec_as_app node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_hide_warnings ynh_exec_as_app node_load_PATH NODE_OPTIONS="--max-old-space-size=3900" yarn build 2>&1
-	ynh_hide_warnings ynh_exec_as_app node_load_PATH yarn cache clean 2>&1
-popd
-
-#=================================================
 # UPDATE A CONFIG FILE
 #=================================================
 ynh_script_progression "Adding $app's configuration..."
 
 ynh_config_add --template=".env" --destination="$install_dir/.env"
 
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/.env"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/.env"
-
 #=================================================
-# RUN DB MIGRATION
+# UPGRADE YARN DEPENDENCIES
 #=================================================
-ynh_script_progression "Running DB initial migration..."
+ynh_script_progression "Building $app. This can be very long, be patient !"
 
 pushd "$install_dir"
-
-	ynh_hide_warnings ynh_exec_as_app node_load_PATH NODE_ENV=production yarn db:migrate
+	ynh_hide_warnings ynh_exec_as_app yarn install --frozen-lockfile --network-timeout 1000000000
+	ynh_hide_warnings ynh_exec_as_app NODE_OPTIONS="--max-old-space-size=3900" yarn build
+	ynh_hide_warnings ynh_exec_as_app yarn cache clean
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production yarn db:migrate
 popd
 
 #=================================================
@@ -124,8 +103,6 @@ ynh_config_add_logrotate
 
 cron_path="/etc/cron.d/$app"
 ynh_config_add --template="outline.cron" --destination="$cron_path"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown root: "$cron_path"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 644 "$cron_path"
 
 yunohost service add $app --description="Outline server" --log="/var/log/$app/$app.log"
 
