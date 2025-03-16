@@ -1,3 +1,5 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
 packaging_format = 2
 
 id = "outline"
@@ -5,7 +7,7 @@ name = "Outline"
 description.en = "Wiki and knowledge base for teams"
 description.fr = "Wiki et base de connaissances pour les équipes"
 
-version = "0.81.0~ynh1"
+version = "0.81.1~ynh1"
 
 maintainers = ["Raoul de Limezy"]
 
@@ -18,10 +20,11 @@ userdoc = "https://www.getoutline.com/about"
 code = "https://github.com/outline/outline"
 
 [integration]
-yunohost = ">= 11.2.14"
+yunohost = ">= 11.2.30"
 architectures = "all"
 multi_instance = false
 ldap = false
+
 sso = false
 disk = "50M"
 ram.build = "3G"
@@ -54,24 +57,24 @@ ram.runtime = "50M"
     default = "/"
 
 [resources]
-        [resources.sources.main]
-        url = "https://github.com/outline/outline/archive/bb43c24efef817cdbc76d4e90781355897280c0b.zip"
-        sha256 = "eaf2c9465b3ce1cb1cc735ef0fe74d98d4babf12935025125a429d21623c7eb5"
+    [resources.sources.main]
+    url = "https://github.com/outline/outline/archive/refs/tags/v0.81.1.tar.gz"
+    sha256 = "d7b6f249db9a5cade0422b206e648ac53558f7af694b283353f031bb8b87a1b9"
 
     [resources.system_user]
     allow_email = true
 
     [resources.install_dir]
 
-    [resources.ports]
-    main.default = 2410
-
     [resources.permissions]
     main.url = "/"
     main.auth_header = false
 
+    [resources.ports]
+    main.default = 2410
+
     [resources.apt]
-    packages = "postgresql gawk"
+    packages = "postgresql, gawk, redis-server"
 
     extras.yarn.repo = "deb https://dl.yarnpkg.com/debian/ stable main"
     extras.yarn.key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
