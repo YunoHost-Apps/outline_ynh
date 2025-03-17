@@ -8,8 +8,8 @@ User=__APP__
 Group=__APP__
 WorkingDirectory=__INSTALL_DIR__/
 Environment="NODE_ENV=production"
-Environment="__YNH_NODE_LOAD_PATH__"
-ExecStart=__YNH_NPM__ start
+Environment="PATH=__PATH_WITH_NODEJS__"
+ExecStart=__NODEJS_DIR__/npm start
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 
