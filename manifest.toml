@@ -61,6 +61,8 @@ ram.runtime = "50M"
     url = "https://github.com/outline/outline/archive/refs/tags/v0.81.1.tar.gz"
     sha256 = "d7b6f249db9a5cade0422b206e648ac53558f7af694b283353f031bb8b87a1b9"
 
+    autoupdate.strategy = "latest_github_release"
+
     [resources.system_user]
     allow_email = true
 
