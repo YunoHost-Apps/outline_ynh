@@ -7,7 +7,7 @@ name = "Outline"
 description.en = "Wiki and knowledge base for teams"
 description.fr = "Wiki et base de connaissances pour les équipes"
 
-version = "0.81.1~ynh1"
+version = "0.81.1~ynh2"
 
 maintainers = ["Raoul de Limezy"]
 
