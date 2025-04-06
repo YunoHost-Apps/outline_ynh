@@ -25,7 +25,7 @@ oidc_secret=$(ynh_hex_32_random)
 oidc_name="Outline"
 oidc_callback="$domain/auth/oidc.callback"
 
-if yunohost app list | grep -q "$YNH_APP_ARG_DEX_DOMAIN$YNH_APP_ARG_DEX_PATH"; then
+if yunohost app list | grep -q "$dex_domain$dex_path"; then
 	ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
 fi
 
