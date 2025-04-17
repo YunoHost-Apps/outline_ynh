@@ -30,8 +30,12 @@ if yunohost app list | grep -q "$dex_domain$dex_path"; then
 fi
 
 yunohost app install https://github.com/YunoHost-Apps/dex_ynh/tree/ccc5b82dc9762b42abe82dfa0582e6e4bb6175c5 --force --args "domain=$dex_domain&path=$dex_path&oidc_name=$oidc_name&oidc_secret=$oidc_secret&oidc_callback=$oidc_callback" 2>&1 | tee dexlog.txt
-dex_app=$(gawk 'match($0, /Installation of (.+) completed/, app) {print app[1]}' dexlog.txt)
+dex_app=$(grep -Po 'Installation of\s+\K.*(?=\s+completed)' dexlog.txt)
 rm dexlog.txt
+
+if [ -z "$dex_app" ]; then
+  ynh_die "Dex package installation failed"
+fi
 
 # Create Dex URIs
 if [ $dex_path = "/" ]

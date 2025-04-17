@@ -76,7 +76,7 @@ ram.runtime = "50M"
     main.default = 2410
 
     [resources.apt]
-    packages = "postgresql, gawk, redis-server"
+    packages = "postgresql, redis-server"
 
     extras.yarn.repo = "deb https://dl.yarnpkg.com/debian/ stable main"
     extras.yarn.key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
