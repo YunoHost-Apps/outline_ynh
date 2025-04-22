@@ -19,6 +19,10 @@ admindoc = "https://www.getoutline.com/developers"
 userdoc = "https://www.getoutline.com/about"
 code = "https://github.com/outline/outline"
 
+[antifeatures]
+not-totally-free-upstream.en = "Must not be used as a commercial service to third parties"
+not-totally-free-upstream.fr = "Ne doit pas être utilisé comme un service commercial pour des tiers"
+
 [integration]
 yunohost = ">= 11.2.30"
 architectures = "all"
