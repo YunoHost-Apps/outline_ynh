@@ -24,7 +24,7 @@ setup_dex() {
 	elif [ $(jq --arg dex $dex -r '[ .[] | select(.id == $dex) ] | length' <<< $dex_apps) -ne 1 ]
 	then
 		dex="$(jq -r 'sort_by(.id) | first.id' <<< $dex_apps)"
-		ynh_print_warn "The dex app was not set up, or the one initially set up for $app has not been found. Reconfiguring with $first_dex"
+		ynh_print_warn "The dex app was not set up, or the one initially set up for $app has not been found. Reconfiguring with $dex"
 		ynh_app_setting_set --key=dex --value=$dex
 	fi
 
