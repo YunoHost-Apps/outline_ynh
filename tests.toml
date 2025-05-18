@@ -9,15 +9,19 @@ test_format = 1.0
     # ------------
 
     preinstall = """
+    sudo yunohost tools update apps
     sudo yunohost domain add dex.domain.tld
+    sudo yunohost app install https://github.com/YunoHost-Apps/dex_ynh/tree/testing -f -a "domain=dex.domain.tld&path=/&oidc_name=&oidc_secret=&oidc_callback"
+    """
+
+    preupgrade = """
+    sudo yunohost app remove dex__2 || true
+    sudo yunohost app upgrade dex -u https://github.com/YunoHost-Apps/dex_ynh/tree/testing -F
     """
 
     # -------------------------------
     # Default args to use for install
     # -------------------------------
-
-    args.dex_domain="dex.domain.tld"
-    args.dex_path="/example"
 
     # -------------------------------
     # Commits to test upgrade from
