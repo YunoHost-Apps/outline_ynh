@@ -14,13 +14,14 @@ oidc_callback="https://$domain${path%/}/oidc/callback"
 setup_dex() {
 	# List the Dex apps installed on the system
 	dex_apps="$(yunohost app list -f --output-as json | jq -r '[ .apps[] | select(.manifest.id == "dex") ]')"
+	dex="dex"
 
 	# If there are no Dex app installed
 	if [ $(jq -r '[ .[] | select(.manifest.id == "dex").id ] | length' <<< $dex_apps) -eq 0 ]
 	then
 	    ynh_die "The apps needs at least one Dex instance to be installed. Install or restore one first."
 	# Else if the configured Dex app is not in the list, default to the first one and display a warning
-	elif [ $(jq --arg dex ${dex:-dex} -r '[ .[] | select(.id == $dex) ] | length' <<< $dex_apps) -ne 1 ]
+	elif [ $(jq --arg dex $dex -r '[ .[] | select(.id == $dex) ] | length' <<< $dex_apps) -ne 1 ]
 	then
 		dex="$(jq -r 'sort_by(.id) | first.id' <<< $dex_apps)"
 		ynh_print_warn "The dex app was not set up, or the one initially set up for $app has not been found. Reconfiguring with $first_dex"
