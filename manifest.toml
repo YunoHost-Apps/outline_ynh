@@ -7,7 +7,7 @@ name = "Outline"
 description.en = "Wiki and knowledge base for teams"
 description.fr = "Wiki et base de connaissances pour les équipes"
 
-version = "0.84.0~ynh1"
+version = "0.84.0~ynh2"
 
 maintainers = ["Raoul de Limezy"]
 
@@ -48,17 +48,6 @@ ram.runtime = "50M"
     type = "select"
     choices = ["de_DE", "en_US", "es_ES", "fr_FR", "it_IT", "nl_NL", "pl_PL", "pt_PT"]
     default = "fr_FR"
-
-    [install.dex_domain]
-    ask.en = "Domain for authentication. It can't be the same domain as above. Dex app will be installed and used for the authentication mechanism."
-    ask.fr = "Domaine pour l'authentification. Il ne peut pas s'agir du même domaine que ci-dessus. L'application Dex sera installée et utilisée pour le mécanisme d'authentification."
-    type = "domain"
-
-    [install.dex_path]
-    ask.en = "Path for authentication URL. Please don't use 'auth' as it will break NGINX configuration."
-    ask.fr = "Chemin de l'URL d'authentification. Veuillez ne pas utiliser 'auth' car cela casserait la configuration NGINX."
-    type = "path"
-    default = "/"
 
 [resources]
     [resources.sources.main]
