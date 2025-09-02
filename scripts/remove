@@ -28,7 +28,7 @@ ynh_remove_systemd_config
 # Remove the app-specific logrotate config
 ynh_remove_logrotate
 
-ynh_remove_nodejs
+#REMOVEME? ynh_remove_nodejs
 
 yunohost app remove $dex_app
 
