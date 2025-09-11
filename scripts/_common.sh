@@ -4,7 +4,7 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-oidc_callback="https://$domain${path%/}/oidc/callback"
+oidc_callback="https://$domain${path%/}/auth/oidc.callback"
 
 #=================================================
 # PERSONAL HELPERS
@@ -37,9 +37,9 @@ setup_dex() {
 	dex_install_dir="$(ynh_app_setting_get --app $dex --key install_dir)"
 	dex_domain="$(ynh_app_setting_get --app $dex --key domain)"
 	dex_path="$(ynh_app_setting_get --app $dex --key path)"
-	dex_auth_uri="https://$domain${path%/}/auth"
-	dex_token_uri="https://$domain${path%/}/token"
-	dex_user_uri="https://$domain${path%/}/userinfo"
+	dex_auth_uri="https://$dex_domain${dex_path%/}/auth"
+	dex_token_uri="https://$dex_domain${dex_path%/}/token"
+	dex_user_uri="https://$dex_domain${dex_path%/}/userinfo"
 
 	# If the API key needs updating (exclude Headscale requirement in CI context)
 	if [[ -z "${api_key:-}" || "$(date +%s)" -gt "${api_key_expires:-0}" ]]; then
