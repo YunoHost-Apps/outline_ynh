@@ -10,8 +10,8 @@ ynh_script_progression --message="Initializing and storing installation settings
 
 setup_dex
 
-ynh_app_setting_set_default --key=utils_secret --value="$(ynh_string_random --length=32 --filter='A-F0-9')"
-ynh_app_setting_set_default --key=secret_key   --value="$(ynh_string_random --length=32 --filter='A-F0-9')"
+ynh_app_setting_set_default --key=utils_secret --value="$(ynh_string_random --length=64 --filter='a-f0-9')"
+ynh_app_setting_set_default --key=secret_key   --value="$(ynh_string_random --length=64 --filter='a-f0-9')"
 
 #=================================================
 # CREATE A POSTGRESQL DATABASE
