@@ -50,6 +50,9 @@ ynh_psql_execute_file_as_root --file="./db.sql" --database=$db_name
 #=================================================
 ynh_script_progression --message="Reinstalling dependencies..." --weight=1
 
+# Install nodejs
+ynh_install_nodejs --nodejs_version=$NODEJS_VERSION 2>&1
+
 ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 
 ynh_restore_file --origin_path="/etc/systemd/system/$app.service"
