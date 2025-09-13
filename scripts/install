@@ -20,14 +20,6 @@ ynh_app_setting_set_default --key=utils_secret --value="$(ynh_string_random --le
 ynh_app_setting_set_default --key=secret_key   --value="$(ynh_string_random --length=32 --filter='A-F0-9')"
 
 #=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=1
-
-# Install nodejs
-#REMOVEME? ynh_install_nodejs --#REMOVEME? nodejs_version=$NODEJS_VERSION 2>&1
-
-#=================================================
 # CREATE A POSTGRESQL DATABASE
 #=================================================
 ynh_script_progression --message="Creating a PostgreSQL database..." --weight=1
@@ -80,10 +72,11 @@ yunohost service add $app --description="Outline server" --log="/var/log/$app/$a
 ynh_script_progression --message="Building $app. This can be very long, be patient !" --weight=18
 
 pushd "$install_dir"
-	#REMOVEME? ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3200" yarn build 2>&1
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
+	ynh_hide_warnings ynh_exec_as_app corepack enable
+	ynh_hide_warnings ynh_exec_as_app corepack prepare yarn@latest --activate
+	ynh_hide_warnings ynh_exec_as_app yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
+	ynh_hide_warnings ynh_exec_as_app NODE_OPTIONS="--max-old-space-size=3200" yarn build 2>&1
+	ynh_hide_warnings ynh_exec_as_app yarn cache clean 2>&1
 popd
 
 #=================================================
@@ -102,8 +95,7 @@ chown $app:$app "$install_dir/.env"
 ynh_script_progression --message="Running DB initial migration..." --weight=3
 
 pushd "$install_dir"
-	#REMOVEME? ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn db:migrate
+	ynh_hide_warnings ynh_exec_as_app yarn db:migrate
 popd
 
 #=================================================

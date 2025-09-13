@@ -4,7 +4,6 @@
 # COMMON VARIABLES
 #=================================================
 
-#REMOVEME? NODEJS_VERSION=18
 oidc_callback="https://$domain${path%/}/oidc/callback"
 
 #=================================================
