@@ -4,56 +4,14 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# RETRIEVE ARGUMENTS FROM THE MANIFEST
+# INITIALIZE AND STORE SETTINGS
 #=================================================
+ynh_script_progression --message="Initializing and storing installation settings..." --weight=1
 
-utils_secret=$(ynh_hex_32_random)
-secret_key=$(ynh_hex_32_random)
+setup_dex
 
-#=================================================
-# INSTALL DEX APP FOR OAUTH2 / OIDC
-#=================================================
-ynh_script_progression "Installing Dex..."
-
-oidc_secret=$(ynh_hex_32_random)
-oidc_name="Outline"
-oidc_callback="$domain/auth/oidc.callback"
-
-if yunohost app list | grep -q "$YNH_APP_ARG_DEX_DOMAIN$YNH_APP_ARG_DEX_PATH"; then
-	ynh_die "The domain provided for Dex is already used by another app. Please chose another one !"
-fi
-
-yunohost app install https://github.com/YunoHost-Apps/dex_ynh/tree/ccc5b82dc9762b42abe82dfa0582e6e4bb6175c5 --force --args "domain=$dex_domain&path=$dex_path&oidc_name=$oidc_name&oidc_secret=$oidc_secret&oidc_callback=$oidc_callback" 2>&1 | tee dexlog.txt
-dex_app=$(gawk 'match($0, /Installation of (.+) completed/, app) {print app[1]}' dexlog.txt)
-rm dexlog.txt
-
-# Create Dex URIs
-if [ $dex_path = "/" ]
-then
-	dex_auth_uri="https://$dex_domain/auth"
-	dex_token_uri="https://$dex_domain/token"
-	dex_user_uri="https://$dex_domain/userinfo"
-else
-	dex_auth_uri="https://$dex_domain$dex_path/auth"
-	dex_token_uri="https://$dex_domain$dex_path/token"
-	dex_user_uri="https://$dex_domain$dex_path/userinfo"
-
-fi
-
-#=================================================
-# STORE SETTINGS FROM MANIFEST
-#=================================================
-ynh_script_progression "Storing installation settings..."
-
-ynh_app_setting_set --key=utils_secret --value=$utils_secret
-ynh_app_setting_set --key=secret_key --value=$secret_key
-ynh_app_setting_set --key=dex_app --value=$dex_app
-ynh_app_setting_set --key=oidc_name --value=$oidc_name
-ynh_app_setting_set --key=oidc_secret --value=$oidc_secret
-ynh_app_setting_set --key=oidc_callback --value=$oidc_callback
-ynh_app_setting_set --key=dex_auth_uri --value=$dex_auth_uri
-ynh_app_setting_set --key=dex_token_uri --value=$dex_token_uri
-ynh_app_setting_set --key=dex_user_uri --value=$dex_user_uri
+ynh_app_setting_set_default --key=utils_secret --value="$(ynh_string_random --length=32 --filter='A-F0-9')"
+ynh_app_setting_set_default --key=secret_key   --value="$(ynh_string_random --length=32 --filter='A-F0-9')"
 
 #=================================================
 # INSTALL DEPENDENCIES
