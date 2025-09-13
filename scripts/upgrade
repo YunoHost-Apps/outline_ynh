@@ -94,19 +94,17 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
-# Install Nodejs
-ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
-
 #=================================================
 # UPGRADE YARN DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Building $app. This can be very long, be patient !" --weight=10
 
 pushd "$install_dir"
-	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3900" yarn build 2>&1
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
+	ynh_hide_warnings ynh_exec_as_app corepack enable
+	ynh_hide_warnings ynh_exec_as_app corepack prepare yarn@latest --activate
+	ynh_hide_warnings ynh_exec_as_app yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
+	ynh_hide_warnings ynh_exec_as_app NODE_OPTIONS="--max-old-space-size=3200" yarn build 2>&1
+	ynh_hide_warnings ynh_exec_as_app yarn cache clean 2>&1
 popd
 
 #=================================================
@@ -125,8 +123,7 @@ chown $app:$app "$install_dir/.env"
 ynh_script_progression --message="Running DB initial migration..."
 
 pushd "$install_dir"
-	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production yarn db:migrate
+	ynh_exec_warn_less ynh_exec_as_app NODE_ENV=production yarn db:migrate
 popd
 
 #=================================================
