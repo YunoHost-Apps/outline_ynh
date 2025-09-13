@@ -74,9 +74,6 @@ ynh_script_progression "Upgrading NGINX web server configuration..."
 # Create a dedicated NGINX config
 ynh_config_add_nginx
 
-# Install Nodejs
-ynh_nodejs_install
-
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
@@ -90,10 +87,12 @@ ynh_config_add --template=".env" --destination="$install_dir/.env"
 ynh_script_progression "Building $app. This can be very long, be patient !"
 
 pushd "$install_dir"
-	ynh_hide_warnings ynh_exec_as_app yarn install --frozen-lockfile --network-timeout 1000000000
-	ynh_hide_warnings ynh_exec_as_app NODE_OPTIONS="--max-old-space-size=3900" yarn build
-	ynh_hide_warnings ynh_exec_as_app yarn cache clean
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production yarn db:migrate
+	ynh_hide_warnings ynh_exec_as_app corepack enable
+	ynh_hide_warnings ynh_exec_as_app corepack prepare yarn@latest --activate
+	ynh_hide_warnings ynh_exec_as_app $nodejs_dir/yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
+	ynh_hide_warnings ynh_exec_as_app NODE_OPTIONS="--max-old-space-size=3200" $nodejs_dir/yarn build 2>&1
+	ynh_hide_warnings ynh_exec_as_app $nodejs_dir/yarn cache clean
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production $nodejs_dir/yarn db:migrate
 popd
 
 #=================================================

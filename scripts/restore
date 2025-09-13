@@ -39,9 +39,6 @@ ynh_psql_db_shell < ./db.sql
 #=================================================
 ynh_script_progression "Reinstalling dependencies..."
 
-# Install nodejs
-ynh_nodejs_install
-
 ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
 ynh_restore "/etc/systemd/system/$app.service"

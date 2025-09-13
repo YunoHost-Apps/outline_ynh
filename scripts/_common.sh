@@ -4,7 +4,6 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-NODEJS_VERSION=18
 oidc_callback="https://$domain${path%/}/oidc/callback"
 
 #=================================================
@@ -19,7 +18,7 @@ setup_dex() {
 	# If there are no Dex app installed
 	if [ $(jq -r '[ .[] | select(.manifest.id == "dex").id ] | length' <<< $dex_apps) -eq 0 ]
 	then
-	    ynh_die "The apps needs at least one Dex instance to be installed. Install or restore one first."
+		ynh_die "The apps needs at least one Dex instance to be installed. Install or restore one first."
 	# Else if the configured Dex app is not in the list, default to the first one and display a warning
 	elif [ $(jq --arg dex $dex -r '[ .[] | select(.id == $dex) ] | length' <<< $dex_apps) -ne 1 ]
 	then
