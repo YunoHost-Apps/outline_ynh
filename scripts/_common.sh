@@ -29,7 +29,7 @@ setup_dex() {
 
 	# Make sure that the Dex version is compatible
 	dex_version=$(yunohost app info $dex --output-as json | jq -r '.version')
-	if [ $(dpkg --compare-versions "${dex_version#v}" lt "2.42.1~ynh4") ]; then
+	if dpkg --compare-versions "${dex_version#v}" lt "2.42.1~ynh4"; then
 		ynh_die "You need to upgrade $dex to v2.42.1~ynh4 and above first."
 	fi
 
