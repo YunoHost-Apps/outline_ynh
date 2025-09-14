@@ -9,12 +9,12 @@ source /usr/share/yunohost/helpers
 ynh_script_progression "Ensuring downward compatibility..."
 
 if [ ${#utils_secret} -lt 64 ]; then
-	utils_secret=$(openssl rand -hex 32)
+	utils_secret=$(ynh_string_random --length=64 --filter='a-f0-9')
 	ynh_app_setting_set --key=utils_secret --value="$utils_secret"
 fi
 
 if [ ${#secret_key} -lt 64 ]; then
-	secret_key=$(openssl rand -hex 32)
+	secret_key=$(ynh_string_random --length=64 --filter='a-f0-9')
 	ynh_app_setting_set --key=secret_key --value="$secret_key"
 fi
 
