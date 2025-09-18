@@ -35,7 +35,7 @@ ynh_setup_source --dest_dir="$install_dir"
 #=================================================
 
 mkdir "/var/lib/$app"
-chown -R $app:www-data "/var/lib/$app"
+chown -R $app:$app "/var/lib/$app"
 
 #=================================================
 # NGINX CONFIGURATION
