@@ -6,7 +6,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 # INITIALIZE AND STORE SETTINGS
 #=================================================
-ynh_script_progression --message="Initializing and storing installation settings..." --weight=1
+ynh_script_progression "Initializing and storing installation settings..."
 
 setup_dex
 
