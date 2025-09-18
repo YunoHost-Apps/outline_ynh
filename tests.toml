@@ -11,6 +11,7 @@ test_format = 1.0
     preinstall = """
     sudo yunohost tools update apps
     sudo yunohost domain add dex.domain.tld
+    sudo yunohost domain add dexold.domain.tld
     sudo yunohost app install https://github.com/YunoHost-Apps/dex_ynh/tree/testing -f -a "domain=dex.domain.tld&path=/&oidc_name=&oidc_secret=&oidc_callback"
     """
 
@@ -28,3 +29,5 @@ test_format = 1.0
     # -------------------------------
 
     test_upgrade_from.b6ef27d3cee76b5a6d09f89f0a6705091c35f7b3.name = "Upgrade from 0.81.1~ynh1"
+    test_upgrade_from.b6ef27d3cee76b5a6d09f89f0a6705091c35f7b3.args.dex_domain = "dexold.domain.tld"
+    test_upgrade_from.b6ef27d3cee76b5a6d09f89f0a6705091c35f7b3.args.dex_path = "/"
