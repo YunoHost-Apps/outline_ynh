@@ -10,7 +10,7 @@ ynh_print_info "Declaring files to be backed up..."
 # BACKUP LOCAL STORAGE
 #=================================================
 
-ynh_backup "/var/lib/outline"
+ynh_backup "/var/lib/$app"
 
 #=================================================
 # BACKUP THE APP MAIN DIR
