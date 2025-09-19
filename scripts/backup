@@ -11,6 +11,7 @@ ynh_print_info "Declaring files to be backed up..."
 #=================================================
 
 ynh_backup "/var/lib/$app"
+chmod ug+rwX "/var/lib/$app"
 
 #=================================================
 # BACKUP THE APP MAIN DIR
