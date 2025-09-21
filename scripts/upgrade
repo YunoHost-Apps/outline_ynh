@@ -4,6 +4,23 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression "Ensuring downward compatibility..."
+
+if [ ${#utils_secret} -lt 64 ]; then
+	utils_secret=$(ynh_string_random --length=64 --filter='a-f0-9')
+	ynh_app_setting_set --key=utils_secret --value="$utils_secret"
+fi
+
+if [ ${#secret_key} -lt 64 ]; then
+	secret_key=$(ynh_string_random --length=64 --filter='a-f0-9')
+	ynh_app_setting_set --key=secret_key --value="$secret_key"
+fi
+
+#=================================================
+# STANDARD UPGRADE STEPS
+#=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Stopping $app's systemd service..."
@@ -37,7 +54,7 @@ then
 	chown -R minio:www-data "/var/lib/$app"
 	ynh_hide_warnings sudo -u minio $mc_path/mc mirror --preserve "minio/outlinestorage" "/var/lib/$app/data"
 
-	chown -R $app:www-data "/var/lib/$app"
+	chown -R $app:$app "/var/lib/$app"
 	ynh_script_progression "Data migration finished"
 	ynh_script_progression "Data bucket was kept for safety, just in case !"
 	ynh_script_progression "Don't forget to remove MinIO app if you don't use it !"
@@ -87,8 +104,8 @@ ynh_config_add --template=".env" --destination="$install_dir/.env"
 ynh_script_progression "Building $app. This can be very long, be patient !"
 
 pushd "$install_dir"
-	ynh_hide_warnings ynh_exec_as_app corepack enable
-	ynh_hide_warnings ynh_exec_as_app corepack prepare yarn@latest --activate
+	ynh_hide_warnings corepack enable
+	ynh_hide_warnings corepack prepare yarn@latest --activate
 	ynh_hide_warnings ynh_exec_as_app $nodejs_dir/yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
 	ynh_hide_warnings ynh_exec_as_app NODE_OPTIONS="--max-old-space-size=3200" $nodejs_dir/yarn build 2>&1
 	ynh_hide_warnings ynh_exec_as_app $nodejs_dir/yarn cache clean

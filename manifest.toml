@@ -7,7 +7,7 @@ name = "Outline"
 description.en = "Wiki and knowledge base for teams"
 description.fr = "Wiki et base de connaissances pour les équipes"
 
-version = "0.87.3~ynh1"
+version = "0.87.3~ynh2"
 
 maintainers = ["Raoul de Limezy"]
 
@@ -24,7 +24,7 @@ not-totally-free-upstream.en = "Must not be used as a commercial service to thir
 not-totally-free-upstream.fr = "Ne doit pas être utilisé comme un service commercial pour des tiers"
 
 [integration]
-yunohost = ">= 12.1.17"
+yunohost = ">= 12.1.24"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
@@ -71,15 +71,11 @@ ram.runtime = "50M"
     [resources.ports]
     main.default = 2410
 
+    [resources.nodejs]
+    version = "20"
+
     [resources.apt]
     packages = "postgresql, redis-server"
 
-    extras.yarn.repo = "deb https://dl.yarnpkg.com/debian/ stable main"
-    extras.yarn.key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
-    extras.yarn.packages = "yarn"
-
     [resources.database]
     type = "postgresql"
-
-    [resources.nodejs]
-    version = "18"
