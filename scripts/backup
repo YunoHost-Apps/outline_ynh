@@ -10,7 +10,8 @@ ynh_print_info "Declaring files to be backed up..."
 # BACKUP LOCAL STORAGE
 #=================================================
 
-ynh_backup "/var/lib/outline"
+ynh_backup "/var/lib/$app"
+chmod ug+rwX "/var/lib/$app"
 
 #=================================================
 # BACKUP THE APP MAIN DIR
@@ -27,9 +28,6 @@ ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
 ynh_backup "/etc/systemd/system/$app.service"
 
 ynh_backup "/etc/logrotate.d/$app"
-
-ynh_backup "/etc/fail2ban/jail.d/$app.conf"
-ynh_backup "/etc/fail2ban/filter.d/$app.conf"
 
 #=================================================
 # BACKUP THE CRON FILE
