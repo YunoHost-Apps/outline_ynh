@@ -15,10 +15,10 @@ test_format = 1.0
     sudo yunohost app install https://github.com/YunoHost-Apps/dex_ynh -f -a "domain=dex.domain.tld&path=/&oidc_name=&oidc_secret=&oidc_callback"
     """
 
-    preupgrade = """
-    sudo yunohost app remove dex__2 || true
-    sudo yunohost app upgrade dex -u https://github.com/YunoHost-Apps/dex_ynh -F || true
-    """
+#    preupgrade = """
+#    sudo yunohost app remove dex__2 || true
+#    sudo yunohost app upgrade dex -u https://github.com/YunoHost-Apps/dex_ynh -F || true
+#    """
 
     # -------------------------------
     # Default args to use for install
@@ -28,6 +28,7 @@ test_format = 1.0
     # Commits to test upgrade from
     # -------------------------------
 
-    test_upgrade_from.b6ef27d3cee76b5a6d09f89f0a6705091c35f7b3.name = "Upgrade from 0.81.1~ynh1"
-    test_upgrade_from.b6ef27d3cee76b5a6d09f89f0a6705091c35f7b3.args.dex_domain = "dexold.domain.tld"
-    test_upgrade_from.b6ef27d3cee76b5a6d09f89f0a6705091c35f7b3.args.dex_path = "/"
+# TODO: reinstate this test upon next upstream release with a newer version of the app
+#    test_upgrade_from.b6ef27d3cee76b5a6d09f89f0a6705091c35f7b3.name = "Upgrade from 0.81.1~ynh1"
+#    test_upgrade_from.b6ef27d3cee76b5a6d09f89f0a6705091c35f7b3.args.dex_domain = "dexold.domain.tld"
+#    test_upgrade_from.b6ef27d3cee76b5a6d09f89f0a6705091c35f7b3.args.dex_path = "/"
