@@ -1,11 +1,10 @@
 #!/bin/bash
 
 #=================================================
-# COMMON VARIABLES
+# COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-NODEJS_VERSION=18
-oidc_callback="https://$domain${path%/}/oidc/callback"
+oidc_callback="https://$domain${path%/}/auth/oidc.callback"
 
 #=================================================
 # PERSONAL HELPERS
@@ -19,7 +18,7 @@ setup_dex() {
 	# If there are no Dex app installed
 	if [ $(jq -r '[ .[] | select(.manifest.id == "dex").id ] | length' <<< $dex_apps) -eq 0 ]
 	then
-	    ynh_die "The apps needs at least one Dex instance to be installed. Install or restore one first."
+		ynh_die "The apps needs at least one Dex instance to be installed. Install or restore one first."
 	# Else if the configured Dex app is not in the list, default to the first one and display a warning
 	elif [ $(jq --arg dex $dex -r '[ .[] | select(.id == $dex) ] | length' <<< $dex_apps) -ne 1 ]
 	then
@@ -30,7 +29,7 @@ setup_dex() {
 
 	# Make sure that the Dex version is compatible
 	dex_version=$(yunohost app info $dex --output-as json | jq -r '.version')
-	if [ $(dpkg --compare-versions "${dex_version#v}" lt "2.42.1~ynh4") ]; then
+	if dpkg --compare-versions "${dex_version#v}" lt "2.42.1~ynh4"; then
 		ynh_die "You need to upgrade $dex to v2.42.1~ynh4 and above first."
 	fi
 
@@ -38,9 +37,9 @@ setup_dex() {
 	dex_install_dir="$(ynh_app_setting_get --app $dex --key install_dir)"
 	dex_domain="$(ynh_app_setting_get --app $dex --key domain)"
 	dex_path="$(ynh_app_setting_get --app $dex --key path)"
-	dex_auth_uri="https://$domain${path%/}/auth"
-	dex_token_uri="https://$domain${path%/}/token"
-	dex_user_uri="https://$domain${path%/}/userinfo"
+	dex_auth_uri="https://$dex_domain${dex_path%/}/auth"
+	dex_token_uri="https://$dex_domain${dex_path%/}/token"
+	dex_user_uri="https://$dex_domain${dex_path%/}/userinfo"
 
 	# If the API key needs updating (exclude Headscale requirement in CI context)
 	if [[ -z "${api_key:-}" || "$(date +%s)" -gt "${api_key_expires:-0}" ]]; then

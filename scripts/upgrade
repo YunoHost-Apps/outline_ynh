@@ -1,28 +1,31 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# CHECK VERSION
+# ENSURE DOWNWARD COMPATIBILITY
 #=================================================
+ynh_script_progression "Ensuring downward compatibility..."
 
-upgrade_type=$(ynh_check_app_version_changed)
+if [ ${#utils_secret} -lt 64 ]; then
+	utils_secret=$(ynh_string_random --length=64 --filter='a-f0-9')
+	ynh_app_setting_set --key=utils_secret --value="$utils_secret"
+fi
+
+if [ ${#secret_key} -lt 64 ]; then
+	secret_key=$(ynh_string_random --length=64 --filter='a-f0-9')
+	ynh_app_setting_set --key=secret_key --value="$secret_key"
+fi
 
 #=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Stopping a systemd service..." --weight=1
+ynh_script_progression "Stopping $app's systemd service..."
 
-ynh_systemd_action --service_name=$app --action="stop" --log_path="systemd"
+ynh_systemctl --service=$app --action="stop" --log_path="systemd"
 
 #=================================================
 # SETUP DEX FOR OIDC
@@ -33,49 +36,43 @@ setup_dex
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
+ynh_script_progression "Upgrading source files..."
 
-if [ "$upgrade_type" == "UPGRADE_APP" ]
-then	
-	ynh_script_progression --message="Upgrading source files..." --weight=1
-
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir" --full_replace=1
-fi
-
-chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$install_dir" --full_replace
 
 #=======================================================
 # MIGRATE MINIO BUCKET IF UPGRADING FROM AN OLD VERSION
 #=======================================================
+ynh_script_progression "Checking if a migration is needed"
 
-ynh_script_progression --message="Checking if a migration is needed"
-if ynh_compare_current_package_version --comparison le --version 0.69.2.2~ynh1
+if ynh_app_upgrading_from_version_before_or_equal_to 0.69.2.2~ynh1
 then
-	ynh_script_progression --message="Migrating MinIO data to local directory"
-	
+	ynh_script_progression "Migrating MinIO data to local directory"
+
 	mkdir -p "/var/lib/$app/data"
 	chown -R minio:www-data "/var/lib/$app"
-	ynh_exec_warn_less sudo -u minio $mc_path/mc mirror --preserve "minio/outlinestorage" "/var/lib/$app/data"
+	ynh_hide_warnings sudo -u minio $mc_path/mc mirror --preserve "minio/outlinestorage" "/var/lib/$app/data"
 
-	chown -R $app:www-data "/var/lib/$app"
-	ynh_script_progression --message="Data migration finished"
-	ynh_script_progression --message="Data bucket was kept for safety, just in case !"
-	ynh_script_progression --message="Don't forget to remove MinIO app if you don't use it !"
+	chown -R $app:$app "/var/lib/$app"
+	ynh_script_progression "Data migration finished"
+	ynh_script_progression "Data bucket was kept for safety, just in case !"
+	ynh_script_progression "Don't forget to remove MinIO app if you don't use it !"
 
 	db_name=$(ynh_sanitize_dbid --db_name=$app)
-	ynh_psql_execute_as_root --sql="CREATE EXTENSION IF NOT EXISTS "uuid-ossp";" --database=$db_name
+	ynh_psql_db_shell <<< "CREATE EXTENSION IF NOT EXISTS "uuid-ossp";"
+
 else
-	ynh_script_progression --message="No migration to be done"
+	ynh_script_progression "No migration to be done"
 fi
 
 #=======================================================
 # MIGRATE DEFAULT LANGUAGE ENV PARAMETER
 #=======================================================
 
-if ynh_compare_current_package_version --comparison le --version 0.75.0~ynh1
+if ynh_app_upgrading_from_version_before_or_equal_to 0.75.0~ynh1
 then
-	ynh_script_progression --message="Migrating default language variable"
+	ynh_script_progression "Migrating default language variable"
 	if [ "$language" == "fr" ]
 	then
 		ynh_app_setting_set --key=language --value="fr_FR"
@@ -83,79 +80,63 @@ then
 		ynh_app_setting_set --key=language --value="en_US"
 	fi
 else
-	ynh_script_progression --message="No default language migration to be done"
+	ynh_script_progression "No default language migration to be done"
 fi
 
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
+ynh_script_progression "Upgrading NGINX web server configuration..."
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
-
-# Install Nodejs
-ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
-
-#=================================================
-# UPGRADE YARN DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Building $app. This can be very long, be patient !" --weight=10
-
-pushd "$install_dir"
-	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=3900" yarn build 2>&1
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn cache clean 2>&1
-popd
+ynh_config_add_nginx
 
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
+ynh_script_progression "Adding $app's configuration..."
 
-ynh_add_config --template="../conf/.env" --destination="$install_dir/.env"
-
-chmod 400 "$install_dir/.env"
-chown $app:$app "$install_dir/.env"
+ynh_config_add --template=".env" --destination="$install_dir/.env"
 
 #=================================================
-# RUN DB MIGRATION
+# UPGRADE YARN DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Running DB initial migration..."
+ynh_script_progression "Building $app. This can be very long, be patient !"
 
 pushd "$install_dir"
-	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production yarn db:migrate
+	ynh_hide_warnings corepack enable
+	ynh_hide_warnings corepack prepare yarn@latest --activate
+	ynh_hide_warnings ynh_exec_as_app $nodejs_dir/yarn install --frozen-lockfile --network-timeout 1000000000 2>&1
+	ynh_hide_warnings ynh_exec_as_app NODE_OPTIONS="--max-old-space-size=3200" $nodejs_dir/yarn build 2>&1
+	ynh_hide_warnings ynh_exec_as_app $nodejs_dir/yarn cache clean
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production $nodejs_dir/yarn db:migrate
 popd
 
 #=================================================
 # SETUP SYSTEMD
 #=================================================
-ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
+ynh_script_progression "Upgrading systemd configuration..."
 
 # Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 
 # Use logrotate to manage app-specific logfile(s)
-ynh_use_logrotate --non-append
+ynh_config_add_logrotate
 
 cron_path="/etc/cron.d/$app"
-ynh_add_config --template="../conf/outline.cron" --destination="$cron_path"
-chown root: "$cron_path"
-chmod 644 "$cron_path"
+ynh_config_add --template="outline.cron" --destination="$cron_path"
 
 yunohost service add $app --description="Outline server" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
+ynh_systemctl --service=$app --action="start" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"
