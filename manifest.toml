@@ -7,7 +7,7 @@ name = "Outline"
 description.en = "Wiki and knowledge base for teams"
 description.fr = "Wiki et base de connaissances pour les équipes"
 
-version = "1.0.1~ynh1"
+version = "1.1.0~ynh1"
 
 maintainers = ["Raoul de Limezy"]
 
@@ -54,8 +54,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/outline/outline/archive/refs/tags/v1.0.1.tar.gz"
-    sha256 = "805b58877d00a52960aee46614a650d8799d25cf2b41326d822196d791f903f4"
+    url = "https://github.com/outline/outline/archive/refs/tags/v1.1.0.tar.gz"
+    sha256 = "cdd9fb4f7dc87afe0debb9403924187909ae04ef1e5b0160abb65a4e0ba22a5c"
 
     autoupdate.strategy = "latest_github_release"
 
