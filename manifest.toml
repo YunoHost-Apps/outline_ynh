@@ -24,7 +24,7 @@ not-totally-free-upstream.en = "Must not be used as a commercial service to thir
 not-totally-free-upstream.fr = "Ne doit pas être utilisé comme un service commercial pour des tiers"
 
 [integration]
-yunohost = ">= 12.1.24"
+yunohost = ">= 12.1.38"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
