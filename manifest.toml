@@ -71,7 +71,7 @@ ram.runtime = "50M"
     main.default = 2410
 
     [resources.nodejs]
-    version = "20"
+    version = "24"
 
     [resources.apt]
     packages = "postgresql, redis-server"
