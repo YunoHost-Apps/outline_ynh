@@ -7,7 +7,7 @@ name = "Outline"
 description.en = "Wiki and knowledge base for teams"
 description.fr = "Wiki et base de connaissances pour les équipes"
 
-version = "1.9.2~ynh1"
+version = "1.10.0~ynh1"
 
 maintainers = ["Raoul de Limezy"]
 
@@ -24,7 +24,7 @@ not-totally-free-upstream.en = "Must not be used as a commercial service to thir
 not-totally-free-upstream.fr = "Ne doit pas être utilisé comme un service commercial pour des tiers"
 
 [integration]
-yunohost = ">= 12.1.38"
+yunohost = ">= 12.1.40"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
@@ -53,8 +53,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/outline/outline/archive/refs/tags/v1.9.2.tar.gz"
-    sha256 = "695fcf398080d2cb1cfc590c20a2751501b5b0c5040ec2404575e5bc7f0c2015"
+    url = "https://github.com/outline/outline/archive/refs/tags/v1.10.0.tar.gz"
+    sha256 = "cfce98b263fda5534ad13872bae321925e97dc6de5e21d26648d10f5c0e9c3cc"
 
     autoupdate.strategy = "latest_github_release"
 
@@ -71,7 +71,7 @@ ram.runtime = "50M"
     main.default = 2410
 
     [resources.nodejs]
-    version = "20"
+    version = "24"
 
     [resources.apt]
     packages = "postgresql, redis-server"
